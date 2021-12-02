@@ -1,0 +1,1 @@
+from classify.cleanser_classify import predict

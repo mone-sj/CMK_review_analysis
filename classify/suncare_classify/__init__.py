@@ -1,0 +1,1 @@
+from classify.suncare_classify import predict

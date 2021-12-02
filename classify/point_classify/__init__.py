@@ -1,0 +1,1 @@
+from classify.point_classify import predict

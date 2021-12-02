@@ -1,0 +1,1 @@
+from classify.base_classify import predict

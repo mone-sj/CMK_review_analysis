@@ -1,0 +1,1 @@
+from classify.skincare_classify import predict

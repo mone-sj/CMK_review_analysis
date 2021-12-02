@@ -1,0 +1,1 @@
+from classify.hairbody_classify import predict
