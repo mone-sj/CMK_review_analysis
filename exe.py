@@ -13,7 +13,7 @@ args = p.parse_args()
 part_id_list=args.part_id
 
 # 1. load data
-#df=db.TB_REVIEW_qa(from_date,to_date)
+#df=db.TB_REVIEW_qa(from_date,to_date) # insert date 별 review select
 #df=pd.read_csv('./data/1123_test_copy.csv')
 part_id_list_ex=['7469286149','27790718522']
 #part_id_list_ex=['9879239685','27790718522']
@@ -23,10 +23,10 @@ print('총 {}개 상품/총 리뷰 {}건 분석'.format(len(part_id_list_ex),len
 
 
 # 2. anal00(property+empathy result) insert
-# '''gpu 사용'''
+'''gpu 사용'''
 # anal00=emp_class.cos_model_pt(df)
-# '''api_url 사용'''
-# #anal00=emp_class.cos_model_api(df)
+'''api_url 사용'''
+# anal00=emp_class.cos_model_api(df)
 # print(anal00)
 # anal00.to_csv('./etc/result/anal00_result.csv')
 # db.TB_anal00_insert(anal00)
@@ -37,8 +37,9 @@ print('총 {}개 상품/총 리뷰 {}건 분석'.format(len(part_id_list_ex),len
 df_id=df[['PART_SUB_ID','PART_ID']]
 df_id=df_id.drop_duplicates(ignore_index=True)
 
+
 id_list=[]
-for index, row in df_id.iterrows():
+for index, row in df_id.iterrows(): # dataframe -> list로 전환
     id_list.append(row.tolist())
 
 # 3-2. anal03(total_keyword/sentence) insert
