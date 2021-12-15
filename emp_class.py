@@ -5,8 +5,8 @@ import urllib3
 import db
 
 # 감정분석 flightbase url
-acryl_empathy_url = "https://flightbase.acryl.ai/deployment/hd96927473d6603c5fcf8c328e7761b21/"
-
+# acryl_empathy_url = "https://flightbase.acryl.ai/deployment/hd96927473d6603c5fcf8c328e7761b21/"
+cmk_empathy_url = "https://192.168.1.28:30001/deployment/h713a8261480609773e335448cf89d226/"
 
 # 감정에 따른 감정스코어
 score_5=['황홀함','행복','기쁨','즐거움','홀가분함','자신감']
@@ -47,7 +47,7 @@ def cos_model_pt(df):
 
         # empathy_classification
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-        response_empathy=requests.post(acryl_empathy_url,json={'text':review},verify=False,timeout=180)
+        response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
         result_empathy=response_empathy.json()
 
         output_empathy=result_empathy.get('columnchart')[0].get('output')[0]

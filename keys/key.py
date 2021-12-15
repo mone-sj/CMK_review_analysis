@@ -182,247 +182,241 @@ def emo(id_list):
         sentences ='1'
         neg='N'
         pos='P'
-
-        # 긍정 키워드
         df['REVIEW'] = df['REVIEW'].str.replace(pat=r'[^\w\s]', repl=r' ', regex=True)
+        # 긍정 키워드
         pos_df=df[df['RLT_VALUE_03']>3]
-        # 긍정 리뷰 리스트
-        pos_review_list=pos_df['REVIEW'].tolist()
-        
-        #리뷰개수가 50개 이하일경우 시도조차 하지마시오 에러뜸
-        try:
-            
-            pos_keyword=keyword(pos_review_list, stopword) #딕셔너리 {단어-점수}
-            pos_keywordList=list(pos_keyword.keys())
-            
-            pos_keywordGradeList=list(pos_keyword.values())
-            print(len(pos_keywordList))
-            pos_keywordGradeList = np.round(pos_keywordGradeList,2)
+        if len(pos_df) >49:
+            # 긍정 리뷰 리스트
+            pos_review_list=pos_df['REVIEW'].tolist()
+            try:
+                pos_keyword=keyword(pos_review_list, stopword) #딕셔너리 {단어-점수}
+                pos_keywordList=list(pos_keyword.keys())
+                
+                pos_keywordGradeList=list(pos_keyword.values())
+                print(len(pos_keywordList))
+                pos_keywordGradeList = np.round(pos_keywordGradeList,2)
 
-            df_x = pd.DataFrame({'0': pos_keywordList})
-            df_y = pd.DataFrame(columns={'0'})
-            print(df_x)
-            x = len(pos_keywordList)
-            if len(pos_keywordList)< 6 :
-                for x in range(5-x):
-                    df_y.loc[x] = ''
-                df_key = df_x.append(df_y,ignore_index=True)
-                print(df_key)
-            else :
-                df_key = df_x.head(5)
-                print(df_key)
+                df_x = pd.DataFrame({'0': pos_keywordList})
+                df_y = pd.DataFrame(columns={'0'})
+                print(df_x)
+                x = len(pos_keywordList)
+                if len(pos_keywordList)< 6 :
+                    for x in range(5-x):
+                        df_y.loc[x] = ''
+                    df_key = df_x.append(df_y,ignore_index=True)
+                    print(df_key)
+                else :
+                    df_key = df_x.head(5)
+                    print(df_key)
 
-            df_a = pd.DataFrame({'0': pos_keywordGradeList})
-            df_b = pd.DataFrame(columns={'0'})
-            a = len(pos_keywordGradeList)
-            if len(pos_keywordGradeList)< 6 :
-                for a in range(5-a):
-                    df_b.loc[a] = ''
-                df_sentence = df_a.append(df_b,ignore_index=True)
-                print(df_sentence)
-            else:
-                df_sentence = df_a.head(5)
-                print(df_sentence)
+                df_a = pd.DataFrame({'0': pos_keywordGradeList})
+                df_b = pd.DataFrame(columns={'0'})
+                a = len(pos_keywordGradeList)
+                if len(pos_keywordGradeList)< 6 :
+                    for a in range(5-a):
+                        df_b.loc[a] = ''
+                    df_sentence = df_a.append(df_b,ignore_index=True)
+                    print(df_sentence)
+                else:
+                    df_sentence = df_a.head(5)
+                    print(df_sentence)
 
-            result = df_key.append(df_sentence,ignore_index=True)
-            result = result.transpose() 
+                result = df_key.append(df_sentence,ignore_index=True)
+                result = result.transpose() 
 
-            result_list = result.values.tolist()
-            list1 = sum(result_list, [])
-            
-            pos_keyword_result_df=pd.DataFrame({
-                'SITE_GUBUN':site,
-                'PART_GROUP_ID':part_group_id,
-                'PART_SUB_ID':part_sub_id,
-                'PART_ID':part_id,
-                'KEYWORD_GUBUN':keywords,
-                'KEYWORD_POSITIVE':pos,
-                'RLT_VALUE_01' : list1[0],
-                'RLT_VALUE_02' : list1[1],
-                'RLT_VALUE_03' : list1[2],
-                'RLT_VALUE_04' : list1[3],
-                'RLT_VALUE_05' : list1[4],
-                'RLT_VALUE_06' : list1[5],
-                'RLT_VALUE_07' : list1[6],
-                'RLT_VALUE_08' : list1[7],
-                'RLT_VALUE_09' : list1[8],
-                'RLT_VALUE_10' : list1[9]
-            },index=[0])
-            print(pos_keyword_result_df)
-            data_anal02 = pd.concat([data_anal02,pos_keyword_result_df],ignore_index=True)
-        except Exception as e:
-            print(e)
-            print("{}_{}_긍정키워드 오류".format(sub_id, part_id))
-            pass
-        
-        print(data_anal02)
+                result_list = result.values.tolist()
+                list1 = sum(result_list, [])
+                
+                pos_keyword_result_df=pd.DataFrame({
+                    'SITE_GUBUN':site,
+                    'PART_GROUP_ID':part_group_id,
+                    'PART_SUB_ID':part_sub_id,
+                    'PART_ID':part_id,
+                    'KEYWORD_GUBUN':keywords,
+                    'KEYWORD_POSITIVE':pos,
+                    'RLT_VALUE_01' : list1[0],
+                    'RLT_VALUE_02' : list1[1],
+                    'RLT_VALUE_03' : list1[2],
+                    'RLT_VALUE_04' : list1[3],
+                    'RLT_VALUE_05' : list1[4],
+                    'RLT_VALUE_06' : list1[5],
+                    'RLT_VALUE_07' : list1[6],
+                    'RLT_VALUE_08' : list1[7],
+                    'RLT_VALUE_09' : list1[8],
+                    'RLT_VALUE_10' : list1[9]
+                },index=[0])
+                print(pos_keyword_result_df)
+                data_anal02 = pd.concat([data_anal02,pos_keyword_result_df],ignore_index=True)
+            except Exception as e:
+                print(e)
+                print("{}_{}_긍정키워드 오류".format(sub_id, part_id))
+                pass
+            #긍정리뷰 키센텐스
+            try:
+                pos_keyword=keyword(pos_review_list,stopword)
+                vocab_score = make_vocab_score(pos_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
+                #print('vocab_score 완료')
+                tokenizer = MaxScoreTokenizer(vocab_score)
+                #print('tokenizer 완료')
+                keysentence_list_pos=keysentence_list(pos_review_list,vocab_score,tokenizer) 
+                list2 = sum(keysentence_list_pos, [])
+                #print(len(keysentence_list_pos))
+                #print('keysentence_list_pos 완료')
+
+                df_x = pd.DataFrame({'0': list2})
+                df_y = pd.DataFrame(columns={'0'})
+                print(df_x)
+                x = len(list2)
+                if len(list2)< 6 :
+                    for x in range(5-x):
+                        df_y.loc[x] = NaN
+                    df_keysentence = df_x.append(df_y,ignore_index=True)
+                else:
+                    df_keysentence  = df_x.head(5)
+                    print(df_keysentence)
+                
+                
+                result = df_keysentence.transpose()
+                result_list = result.values.tolist()
+                list1 = sum(result_list, [])
+
+                pos_keys_result_df=pd.DataFrame({
+                    'SITE_GUBUN':site,
+                    'PART_GROUP_ID':part_group_id,
+                    'PART_SUB_ID':part_sub_id,
+                    'PART_ID':part_id,
+                    'KEYWORD_GUBUN':sentences,
+                    'KEYWORD_POSITIVE': pos,
+                    'RLT_VALUE_01' : list1[0],
+                    'RLT_VALUE_02' : list1[1],
+                    'RLT_VALUE_03' : list1[2],
+                    'RLT_VALUE_04' : list1[3],
+                    'RLT_VALUE_05' : list1[4]   
+                },index=[0])
+                data_anal02=pd.concat([data_anal02,pos_keys_result_df],ignore_index=True)
+            except Exception as e:
+                print(e)
+                print("{}_{} 긍정리뷰 키센텐스 오류".format(sub_id,part_id))
+                pass 
+        else:
+            print("{}_긍정리뷰가 부족합니다".format(part_id))
 
         # 부정 키워드        
         neg_df=df[df['RLT_VALUE_03']<3]
-        # 부정 리뷰 리스트
-        neg_review_list=neg_df['REVIEW'].tolist()
+        if len(neg_df)>49:
+            # 부정 리뷰 리스트
+            neg_review_list=neg_df['REVIEW'].tolist()
+            try:
+                neg_keyword=keyword(neg_review_list, stopword) #딕셔너리 {단어-점수}
+                neg_keywordList=list(neg_keyword.keys())
+                neg_keywordGradeList=list(neg_keyword.values())
+                print(len(neg_keywordList))
+                neg_keywordGradeList = np.round(neg_keywordGradeList,2)
 
-        try:
-            neg_keyword=keyword(neg_review_list, stopword) #딕셔너리 {단어-점수}
-            neg_keywordList=list(neg_keyword.keys())
-            neg_keywordGradeList=list(neg_keyword.values())
-            print(len(neg_keywordList))
-            neg_keywordGradeList = np.round(neg_keywordGradeList,2)
+                df_x = pd.DataFrame({'0': neg_keywordList})
+                df_y = pd.DataFrame(columns={'0'})
+                print(df_x)
+                x = len(neg_keywordList)
+                if len(neg_keywordList)< 6 :
+                    for x in range(5-x):
+                        df_y.loc[x] = ''
+                    df_key = df_x.append(df_y,ignore_index=True)
+                    print(df_key)
+                else:
+                    df_key = df_x.head(5)
+                    print(df_key)
 
-            df_x = pd.DataFrame({'0': neg_keywordList})
-            df_y = pd.DataFrame(columns={'0'})
-            print(df_x)
-            x = len(neg_keywordList)
-            if len(neg_keywordList)< 6 :
-                for x in range(5-x):
-                    df_y.loc[x] = ''
-                df_key = df_x.append(df_y,ignore_index=True)
-                print(df_key)
-            else:
-                df_key = df_x.head(5)
-                print(df_key)
+                df_a = pd.DataFrame({'0': neg_keywordGradeList})
+                df_b = pd.DataFrame(columns={'0'})
+                a = len(neg_keywordGradeList)
+                if len(neg_keywordGradeList)< 6 :
+                    for a in range(5-a):
+                        df_b.loc[a] = ''
+                    df_sentence = df_a.append(df_b,ignore_index=True)
+                    print(df_sentence)
+                else:
+                    df_sentence = df_a.head(5)
+                    print(df_sentence)
 
-            df_a = pd.DataFrame({'0': neg_keywordGradeList})
-            df_b = pd.DataFrame(columns={'0'})
-            a = len(neg_keywordGradeList)
-            if len(neg_keywordGradeList)< 6 :
-                for a in range(5-a):
-                    df_b.loc[a] = ''
-                df_sentence = df_a.append(df_b,ignore_index=True)
-                print(df_sentence)
-            else:
-                df_sentence = df_a.head(5)
-                print(df_sentence)
+                result = df_key.append(df_sentence,ignore_index=True)
+                result = result.transpose()
+                
+                result_list = result.values.tolist()
+                list1 = sum(result_list, [])
 
-            result = df_key.append(df_sentence,ignore_index=True)
-            result = result.transpose()
-            
-            result_list = result.values.tolist()
-            list1 = sum(result_list, [])
+                neg_keyword_result_df=pd.DataFrame({
+                    'SITE_GUBUN':site,
+                    'PART_GROUP_ID':part_group_id,
+                    'PART_SUB_ID':part_sub_id,
+                    'PART_ID':part_id,
+                    'KEYWORD_GUBUN':keywords,
+                    'KEYWORD_POSITIVE':neg,
+                    'RLT_VALUE_01' : list1[0],
+                    'RLT_VALUE_02' : list1[1],
+                    'RLT_VALUE_03' : list1[2],
+                    'RLT_VALUE_04' : list1[3],
+                    'RLT_VALUE_05' : list1[4],
+                    'RLT_VALUE_06' : list1[5],
+                    'RLT_VALUE_07' : list1[6],
+                    'RLT_VALUE_08' : list1[7],
+                    'RLT_VALUE_09' : list1[8],
+                    'RLT_VALUE_10' : list1[9]
+                },index=[0])
+                print(neg_keyword_result_df)
 
-            neg_keyword_result_df=pd.DataFrame({
-                'SITE_GUBUN':site,
-                'PART_GROUP_ID':part_group_id,
-                'PART_SUB_ID':part_sub_id,
-                'PART_ID':part_id,
-                'KEYWORD_GUBUN':keywords,
-                'KEYWORD_POSITIVE':neg,
-                'RLT_VALUE_01' : list1[0],
-                'RLT_VALUE_02' : list1[1],
-                'RLT_VALUE_03' : list1[2],
-                'RLT_VALUE_04' : list1[3],
-                'RLT_VALUE_05' : list1[4],
-                'RLT_VALUE_06' : list1[5],
-                'RLT_VALUE_07' : list1[6],
-                'RLT_VALUE_08' : list1[7],
-                'RLT_VALUE_09' : list1[8],
-                'RLT_VALUE_10' : list1[9]
-            },index=[0])
-            print(neg_keyword_result_df)
+                
+                data_anal02 = pd.concat([data_anal02,neg_keyword_result_df],ignore_index=True)
+            except Exception as e:
+                print(e)
+                print("{}_{}_부정키워드 오류".format(sub_id, part_id))
+                pass      
 
-            
-            data_anal02 = pd.concat([data_anal02,neg_keyword_result_df],ignore_index=True)
-        except Exception as e:
-            print(e)
-            print("{}_{}_부정키워드 오류".format(sub_id, part_id))
-            pass
-        
+        #부정리뷰 키센텐스
+            try:
+                neg_keyword=keyword(neg_review_list,stopword)
+                vocab_score = make_vocab_score(neg_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
+                #print('vocab_score 완료')
+                tokenizer = MaxScoreTokenizer(vocab_score)
+                #print('tokenizer 완료')
+                keysentence_list_neg=keysentence_list(neg_review_list,vocab_score,tokenizer)
+                list2 = sum(keysentence_list_neg, [])
+                #print(len(keysentence_list_neg))
+                #print('keysentence_list_neg 완료')
 
-    #긍정리뷰 키센텐스
-        try:
-            pos_keyword=keyword(pos_review_list,stopword)
-            vocab_score = make_vocab_score(pos_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
-            #print('vocab_score 완료')
-            tokenizer = MaxScoreTokenizer(vocab_score)
-            #print('tokenizer 완료')
-            keysentence_list_pos=keysentence_list(pos_review_list,vocab_score,tokenizer) 
-            list2 = sum(keysentence_list_pos, [])
-            #print(len(keysentence_list_pos))
-            #print('keysentence_list_pos 완료')
+                df_x = pd.DataFrame({'0': list2})
+                df_y = pd.DataFrame(columns={'0'})
+                print(df_x)
+                x = len(list2)
+                if len(list2)< 6 :
+                    for x in range(5-x):
+                        df_y.loc[x] = ''
+                    df_keysentence = df_x.append(df_y,ignore_index=True)
+                else:
+                    df_keysentence  = df_x.head(5)
+                    print(df_keysentence)
+                
+                result = df_keysentence.transpose()
+                result_list = result.values.tolist()
+                list1 = sum(result_list, [])
 
-            df_x = pd.DataFrame({'0': list2})
-            df_y = pd.DataFrame(columns={'0'})
-            print(df_x)
-            x = len(list2)
-            if len(list2)< 6 :
-                for x in range(5-x):
-                    df_y.loc[x] = NaN
-                df_keysentence = df_x.append(df_y,ignore_index=True)
-            else:
-                df_keysentence  = df_x.head(5)
-                print(df_keysentence)
-            
-            
-            result = df_keysentence.transpose()
-            result_list = result.values.tolist()
-            list1 = sum(result_list, [])
-
-            pos_keys_result_df=pd.DataFrame({
-                'SITE_GUBUN':site,
-                'PART_GROUP_ID':part_group_id,
-                'PART_SUB_ID':part_sub_id,
-                'PART_ID':part_id,
-                'KEYWORD_GUBUN':sentences,
-                'KEYWORD_POSITIVE': pos,
-                'RLT_VALUE_01' : list1[0],
-                'RLT_VALUE_02' : list1[1],
-                'RLT_VALUE_03' : list1[2],
-                'RLT_VALUE_04' : list1[3],
-                'RLT_VALUE_05' : list1[4]   
-            },index=[0])
-            data_anal02=pd.concat([data_anal02,pos_keys_result_df],ignore_index=True)
-        except Exception as e:
-            print(e)
-            print("{}_{} 긍정리뷰 키센텐스 오류".format(sub_id,part_id))
-            pass 
-
-        
-
-    #부정리뷰 키센텐스
-        try:
-            neg_keyword=keyword(neg_review_list,stopword)
-            vocab_score = make_vocab_score(neg_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
-            #print('vocab_score 완료')
-            tokenizer = MaxScoreTokenizer(vocab_score)
-            #print('tokenizer 완료')
-            keysentence_list_neg=keysentence_list(neg_review_list,vocab_score,tokenizer)
-            list2 = sum(keysentence_list_neg, [])
-            #print(len(keysentence_list_neg))
-            #print('keysentence_list_neg 완료')
-
-            df_x = pd.DataFrame({'0': list2})
-            df_y = pd.DataFrame(columns={'0'})
-            print(df_x)
-            x = len(list2)
-            if len(list2)< 6 :
-                for x in range(5-x):
-                    df_y.loc[x] = ''
-                df_keysentence = df_x.append(df_y,ignore_index=True)
-            else:
-                df_keysentence  = df_x.head(5)
-                print(df_keysentence)
-            
-            result = df_keysentence.transpose()
-            result_list = result.values.tolist()
-            list1 = sum(result_list, [])
-
-            neg_keys_result_df=pd.DataFrame({
-                'SITE_GUBUN':site,
-                'PART_GROUP_ID':part_group_id,
-                'PART_SUB_ID':part_sub_id,
-                'PART_ID':part_id,
-                'KEYWORD_GUBUN':sentences,
-                'KEYWORD_POSITIVE': neg,
-                'RLT_VALUE_01' : list1[0],
-                'RLT_VALUE_02' : list1[1],
-                'RLT_VALUE_03' : list1[2],
-                'RLT_VALUE_04' : list1[3],
-                'RLT_VALUE_05' : list1[4]   
-            },index=[0])
-            data_anal02=pd.concat([data_anal02,neg_keys_result_df],ignore_index=True)
-        except Exception as e:
-            print(e)
-            print("{}_{} 긍정리뷰 키센텐스 오류".format(sub_id, part_id))
-            pass 
-
+                neg_keys_result_df=pd.DataFrame({
+                    'SITE_GUBUN':site,
+                    'PART_GROUP_ID':part_group_id,
+                    'PART_SUB_ID':part_sub_id,
+                    'PART_ID':part_id,
+                    'KEYWORD_GUBUN':sentences,
+                    'KEYWORD_POSITIVE': neg,
+                    'RLT_VALUE_01' : list1[0],
+                    'RLT_VALUE_02' : list1[1],
+                    'RLT_VALUE_03' : list1[2],
+                    'RLT_VALUE_04' : list1[3],
+                    'RLT_VALUE_05' : list1[4]   
+                },index=[0])
+                data_anal02=pd.concat([data_anal02,neg_keys_result_df],ignore_index=True)
+            except Exception as e:
+                print(e)
+                print("{}_{} 부정리뷰 키센텐스 오류".format(sub_id, part_id))
+                pass 
+        else:
+            print("{}_부정리뷰가 부족합니다".format(part_id))
     return data_anal02
