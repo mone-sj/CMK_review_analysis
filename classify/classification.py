@@ -2,6 +2,7 @@
 from classify import *
 import requests
 import urllib3
+import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 '''model_id : model_name dic으로 모델 체크해야하나...'''
@@ -52,8 +53,13 @@ def predict_url(review, model_id):
         url=base_url
     if model_id=='M006':
         url=point_url
+    
+    try:     
+        response_classify=requests.post(url,json={'text':review},verify=False,timeout=180)
+    except:
+        time.sleep(2)
+        response_classify=requests.post(url,json={'text':review},verify=False,timeout=180)
 
-    response_classify=requests.post(url,json={'text':review},verify=False,timeout=180)
     result_classify=response_classify.json()
     output_classify=result_classify.get('text')[0]
     classify_value=list(output_classify.values())[0]

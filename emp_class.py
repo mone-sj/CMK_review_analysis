@@ -3,6 +3,7 @@ from classify import classification
 import requests, json
 import urllib3
 import db
+import time
 
 # 감정분석 flightbase url
 # acryl_empathy_url = "https://flightbase.acryl.ai/deployment/hd96927473d6603c5fcf8c328e7761b21/"
@@ -47,7 +48,12 @@ def cos_model_pt(df):
 
         # empathy_classification
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-        response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+        try:
+            response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+        except:
+            time.sleep(2)
+            response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+       
         result_empathy=response_empathy.json()
 
         output_empathy=result_empathy.get('columnchart')[0].get('output')[0]
@@ -99,7 +105,11 @@ def cos_model_api(df):
         data.iloc[cnt,7]=property_id
 
         # empathy_classification
-        response_empathy=requests.post(acryl_empathy_url,json={'text':review},verify=False,timeout=180)
+        try:
+            response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+        except:
+            time.sleep(2)
+            response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
         result_empathy=response_empathy.json()
 
         output_empathy=result_empathy.get('columnchart')[0].get('output')[0]
