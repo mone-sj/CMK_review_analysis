@@ -1,34 +1,104 @@
 import pandas as pd
 import db
-import emp_class
+#import emp_class
 from keys.key import *
 
-# 1. load data
-#df=db.TB_REVIEW_qa(from_date,to_date)
-df=pd.read_csv('1123_test_copy.csv')
+# 에러 테스트
 
-# 2. sub_id:model_id
-model_id_dic=db.TB_model_id()
-# 3. property_id : property_name
-property_id_dic=db.TB_property_id()
+import time
+import os
+import traceback
+from datetime import datetime
+from etc.log import error_time
+#err=''
 
-# 4. anal00(property+empathy result) insert
-'''gpu 사용'''
-anal00=emp_class.cos_model_pt(df,model_id_dic,property_id_dic)
+# class TestError(Exception):
+#     def __init__(self, e:str):
+#         now = datetime.now()
+#         current_time = time.strftime("%Y.%m.%d/%H:%M:%S", time.localtime(time.time()))
+#         now = now.strftime("%Y%m%d-%H-%M")
+#         self.value=e
+#         with open(f"./etc/log/{now} Log.txt", "a") as f: # 경로설정
+#             f.write(f"[{current_time}] - {self.value}\n")
+#         print("실행됨")
+    
+#     def __str__(self):
+#         return self.value
 
-'''api_url 사용'''
-#anal00=emp_class.cos_model_url(df,model_id_dic,property_id_dic)
-print(anal00)
-db.TB_anal00_insert(anal00)
 
-# 5. keyword/sentence
-# 5-1. ['part_sub_id','part_id'] list
-df_id=df[['part_sub_id','part_id']]
-df_id=df_id.drop_duplicates(ignore_index=True)
+def ErrorLog(error: str):
+    now = datetime.now()
+    current_time = time.strftime("%Y.%m.%d/%H:%M:%S", time.localtime(time.time()))
+    now = now.strftime("%Y%m%d-%H-%M")
 
-id_list=[]
-for index, row in df_id.iterrows():
-    id_list.append(row.tolist())
+    with open(f"./etc/log/{now} Log.txt", "a") as f: # 경로설정
+        f.write(f"[{current_time}] - {error}\n")
+
+def test2():
+    #global err
+    #e = ''
+    # error=TestError()
+    try:
+        df=pd.read_csv('1123_test_copy.csv')
+        return df
+    except Exception as e:
+        error_content='error내용'
+        error.TestError(error_content)
+        print(e)
+    #err = err+e
+
+df=test2()
+
+# def test():
+#     global err
+#     e = ''
+#     try:
+#         df=pd.read_csv('1123_test_copy.csv')
+#     except Exception as e:
+#         print(e)
+#     err = err+e
+#     return df
+
+
+# try:
+#     df=test2()
+    
+#     if err!='':
+#         raise TestError(err)
+#     print(df)
+# except Exception:
+#         err = traceback.format_exc()
+#         ErrorLog(str(err))
+#         print("log 저장")
+
+
+
+# # 1. load data
+# #df=db.TB_REVIEW_qa(from_date,to_date)
+# df=pd.read_csv('1123_test_copy.csv')
+
+# # 2. sub_id:model_id
+# model_id_dic=db.TB_model_id()
+# # 3. property_id : property_name
+# property_id_dic=db.TB_property_id()
+
+# # 4. anal00(property+empathy result) insert
+# '''gpu 사용'''
+# anal00=emp_class.cos_model_pt(df,model_id_dic,property_id_dic)
+
+# '''api_url 사용'''
+# #anal00=emp_class.cos_model_url(df,model_id_dic,property_id_dic)
+# print(anal00)
+# db.TB_anal00_insert(anal00)
+
+# # 5. keyword/sentence
+# # 5-1. ['part_sub_id','part_id'] list
+# df_id=df[['part_sub_id','part_id']]
+# df_id=df_id.drop_duplicates(ignore_index=True)
+
+# id_list=[]
+# for index, row in df_id.iterrows():
+#     id_list.append(row.tolist())
 
 # 5-2. 
 
@@ -77,15 +147,15 @@ print(data)
 #data['model']=''
 properties_list=[]
 '''
-try:
-    select_conn=db.select_conn_cmk()
-    properties=db.TB_REVIEW_properties(select_conn,'C','P02','S10')
-    properties_bb=properties.iloc[0,0]
+# try:
+#     select_conn=db.select_conn_cmk()
+#     properties=db.TB_REVIEW_properties(select_conn,'C','P02','S10')
+#     properties_bb=properties.iloc[0,0]
     
-except Exception as e:
-    print(e)
-finally :
-    select_conn.close()
+# except Exception as e:
+#     print(e)
+# finally :
+#     select_conn.close()
 '''
 
 

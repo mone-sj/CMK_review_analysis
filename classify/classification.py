@@ -5,10 +5,11 @@ import urllib3
 import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-'''model_id : model_name dic으로 모델 체크해야하나...'''
-
 # 01:스킨케어, 02:클렌저, 03:선케어, 04:헤어바디, 05:베이스, 06:포인트
 def predict_pt(review, model_id):
+    '''
+    모델파일을 이용하여 주제 분류 반환
+    '''
     if model_id=='M001':
         result=skin_predict(review)
     if model_id=='M002':
@@ -40,7 +41,9 @@ cleanser_url = "https://192.168.1.28:30001/deployment/h3e20d11da519bfbd59dbbe1dd
 base_url = "https://192.168.1.28:30001/deployment/h254e1c45a3ee030f495982ec8e88eeb7/"
 
 def predict_url(review, model_id):
-    # 01:스킨케어, 02:클렌저, 03:선케어, 04:헤어바디, 05:베이스, 06:포인트
+    '''
+    Flask API 서버를 통해 주제 분류 반환
+    '''
     if model_id=='M001':
         url=skin_url
     if model_id=='M002':

@@ -79,21 +79,6 @@ def TB_model_id():
         conn.close()
     return df_dict
 
-'''
-# model_id : model_name dictionary 반환 (utf8)
-def TB_model_name():
-    try:
-        conn=conn_utf8()
-
-        #######################################################체크 필요!!
-        df=pd.DataFrame()
-        df_dict=dict(df.values.tolist())
-    except Exception as e:
-        print("Error : ",e)
-    finally:
-        conn.close()
-    return df_dict
-'''
 
 # stopwords list 반환(utf8)
 def TB_stopwords():
@@ -218,5 +203,35 @@ def TB_anal03_insert(df):
         print("anal03_insert_완료")
     except Exception as e:
         print("Error: ",e)
+    finally:
+        conn.close()
+
+### 프로시저 실행
+def TB_anal01_count():
+    '''ANAL01 테이블 insert&update (count 실행)'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA001 @section='SB'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal01_count 완료")
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+
+
+def TB_anal04_count():
+    '''ANAL01 테이블 insert&update (count 실행)'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA004 @section='SB'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal04_count 완료")
+    except Exception as e:
+        print("Error: ", e)
     finally:
         conn.close()

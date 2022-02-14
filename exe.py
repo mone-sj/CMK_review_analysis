@@ -42,8 +42,8 @@ id_list=[]
 for index, row in df_id.iterrows(): # dataframe -> list로 전환
     id_list.append(row.tolist())
 
-# 3-2. anal03(total_keyword/sentence) insert
-#df=part_sub_id / part_id / review
+# 3-2. anal03(total_keyword/sentence) insert 
+# df columns : part_sub_id / part_id / review
 # anal03=total(df)
 # print(anal03)
 # db.TB_anal03_insert(anal03)
@@ -52,3 +52,7 @@ for index, row in df_id.iterrows(): # dataframe -> list로 전환
 anal02=emo(id_list)
 print(anal02)
 db.TB_anal02_insert(anal02)
+
+# 4. anal01, anal04 insert & update count
+db.TB_anal01_count()
+db.TB_anal04_count()

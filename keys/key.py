@@ -10,6 +10,9 @@ from keys.keysentence_lib import *
 import db
 
 def total(df):
+    '''
+    전체 키워드/핵심문장 추출 
+    '''
     anal03_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","KEYWORD_GUBUN","RLT_VALUE_01","RLT_VALUE_02","RLT_VALUE_03","RLT_VALUE_04","RLT_VALUE_05",
     "RLT_VALUE_06","RLT_VALUE_07","RLT_VALUE_08","RLT_VALUE_09","RLT_VALUE_10"]
     data_anal03=pd.DataFrame(columns=anal03_col_name)
@@ -158,7 +161,9 @@ def total(df):
 
 
 def emo(id_list):
-
+    '''
+    긍정/부정리뷰의 키워드/핵심문장 추출
+    '''
     col_name2=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","KEYWORD_GUBUN","KEYWORD_POSITIVE","RLT_VALUE_01","RLT_VALUE_02","RLT_VALUE_03","RLT_VALUE_04","RLT_VALUE_05",
     "RLT_VALUE_06","RLT_VALUE_07","RLT_VALUE_08","RLT_VALUE_09","RLT_VALUE_10"]
     data_anal02=pd.DataFrame(columns=col_name2)
@@ -255,14 +260,10 @@ def emo(id_list):
             try:
                 pos_keyword=keyword(pos_review_list,stopword)
                 vocab_score = make_vocab_score(pos_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
-                #print('vocab_score 완료')
                 tokenizer = MaxScoreTokenizer(vocab_score)
-                #print('tokenizer 완료')
                 keysentence_list_pos=keysentence_list(pos_review_list,vocab_score,tokenizer) 
                 list2 = sum(keysentence_list_pos, [])
-                #print(len(keysentence_list_pos))
-                #print('keysentence_list_pos 완료')
-
+                
                 df_x = pd.DataFrame({'0': list2})
                 df_y = pd.DataFrame(columns={'0'})
                 print(df_x)
@@ -375,14 +376,10 @@ def emo(id_list):
             try:
                 neg_keyword=keyword(neg_review_list,stopword)
                 vocab_score = make_vocab_score(neg_keyword, stopword, scaling=lambda x: 1)  # scailing 1 로 함으로써 유사 비중
-                #print('vocab_score 완료')
                 tokenizer = MaxScoreTokenizer(vocab_score)
-                #print('tokenizer 완료')
                 keysentence_list_neg=keysentence_list(neg_review_list,vocab_score,tokenizer)
                 list2 = sum(keysentence_list_neg, [])
-                #print(len(keysentence_list_neg))
-                #print('keysentence_list_neg 완료')
-
+                
                 df_x = pd.DataFrame({'0': list2})
                 df_y = pd.DataFrame(columns={'0'})
                 print(df_x)
