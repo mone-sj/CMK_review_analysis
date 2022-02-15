@@ -1,58 +1,79 @@
 #-*- coding: utf-8 -*-
 from numpy.lib.function_base import select
-import pandas as pd
-#import emp_class
+import emp_class
 import db
 from keys.key import *
-import argparse
+import argparse, os, time, traceback
+from datetime import datetime
 
-# recieve part_id_list to analyze
-p = argparse.ArgumentParser()
-p.add_argument('--part_id', type=list)
-args = p.parse_args()
-part_id_list=args.part_id
+today=datetime.now().strftime('%Y%m%d')
 
-# 1. load data
-#df=db.TB_REVIEW_qa(from_date,to_date) # insert date 별 review select
-#df=pd.read_csv('./data/1123_test_copy.csv')
-part_id_list_ex=['7469286149','27790718522']
-#part_id_list_ex=['9879239685','27790718522']
-df=db.TB_review_part_id(part_id_list_ex)
-print(df)
-print('총 {}개 상품/총 리뷰 {}건 분석'.format(len(part_id_list_ex),len(df)))
+# def time_txt(content_list):
+#     file_name='./data/time.txt'
+#     if not os.path.exists(file_name):
+#         with open(file_name,'a',encoding='utf8') as f:
+#             f.write('part_id\t리뷰수\t분석시간(초)\n')
+            
+#     with open(file_name,'a',encoding='utf8') as f:
+#         for line in content_list:
+#             f.write(f'{line}\t')
+#         f.write("\n")
 
+def analysis():
+    # 1. load data
+    part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
+    df=db.TB_review_part_id(part_id_list)
 
-# 2. anal00(property+empathy result) insert
-'''gpu 사용'''
-# anal00=emp_class.cos_model_pt(df)
-'''api_url 사용'''
-# anal00=emp_class.cos_model_api(df)
-# print(anal00)
-# anal00.to_csv('./etc/result/anal00_result.csv')
-# db.TB_anal00_insert(anal00)
+    if len(df)!=0:
+        # 2. anal00(property+empathy result) insert
+        '''gpu 사용'''
+        anal00=emp_class.cos_model_pt(df)
+        '''api_url 사용'''
+        # anal00=emp_class.cos_model_api(df)
 
+        # anal00 insert
+        db.TB_anal00_insert(anal00)
 
-# 3. anal03/anal02 -> keyword/sentence
-# 3-1. create ['part_sub_id','part_id'] list
-df_id=df[['PART_SUB_ID','PART_ID']]
-df_id=df_id.drop_duplicates(ignore_index=True)
+    # 3. anal02/anal03(keyword/keysentence analysis) insert
+    # anal00의 part_id 리스트
 
+    part_id_df=db.anal00_part_id()
+    key_df=db.TB_join(part_id_df)
+    anal03=total(key_df)
+    anal02=emo(key_df)
 
-id_list=[]
-for index, row in df_id.iterrows(): # dataframe -> list로 전환
-    id_list.append(row.tolist())
+    db.TB_anal03_insert(anal03)
+    db.TB_anal02_insert(anal02)
 
-# 3-2. anal03(total_keyword/sentence) insert 
-# df columns : part_sub_id / part_id / review
-# anal03=total(df)
-# print(anal03)
-# db.TB_anal03_insert(anal03)
+    # 4. anal01/04 review count insert
+    db.TB_anal01_count()
+    db.TB_anal04_count()
 
-#3-3. anal02(emo_keyword/sentence) insert
-anal02=emo(id_list)
-print(anal02)
-db.TB_anal02_insert(anal02)
+    finish_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"{finish_time} 분석 완료")
 
-# 4. anal01, anal04 insert & update count
-db.TB_anal01_count()
-db.TB_anal04_count()
+if __name__=='__main__':
+    error_list=[]
+    time_list=[]
+    today_path=db.today_path()      # 백업을 위한 폴더 생성 
+
+    try:
+        start_time=time.time()
+        analysis()
+        end_time=time.time()
+        all_time=end_time-start_time
+        
+        # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
+        time_list=[datetime.now().strftime('%y%m%d'),"all_analy","-","-",all_time]
+        db.time_txt(time_list,f'{today_path}/time_check')
+        db.success_sendEmail()
+
+    except Exception:
+        err=traceback.format_exc()
+        print(f'1번째 error\n{err}')
+        now=datetime.now().strftime('%Y%m%d %H:%M')
+        e=f'{now}\n{err}'
+        error_list.append(e)
+        db.save_txt(error_list,f'{today_path}/errorList')
+        db.fail_sendEmail(e)
+        #analysis()
