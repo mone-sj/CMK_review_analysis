@@ -7,10 +7,9 @@ import numpy as np
 from keys.keyword_lib import *
 from krwordrank.word import *
 from keys.keysentence_lib import *
-from DB import db
+import db
 from datetime import datetime
 import time
-from DB import db
 
 today_path=db.today_path()
 
