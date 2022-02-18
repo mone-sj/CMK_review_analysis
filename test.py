@@ -1,16 +1,16 @@
 import pandas as pd
-import db
+from db import *
 #import emp_class
 from keys.key import *
 
 # 에러 테스트
 
-import time
-import os
-import traceback
-from datetime import datetime
-from etc.log import error_time
-#err=''
+# import time
+# import os
+# import traceback
+# from datetime import datetime
+# from etc.log import error_time
+# err=''
 
 # class TestError(Exception):
 #     def __init__(self, e:str):
@@ -26,28 +26,28 @@ from etc.log import error_time
 #         return self.value
 
 
-def ErrorLog(error: str):
-    now = datetime.now()
-    current_time = time.strftime("%Y.%m.%d/%H:%M:%S", time.localtime(time.time()))
-    now = now.strftime("%Y%m%d-%H-%M")
+# def ErrorLog(error: str):
+#     now = datetime.now()
+#     current_time = time.strftime("%Y.%m.%d/%H:%M:%S", time.localtime(time.time()))
+#     now = now.strftime("%Y%m%d-%H-%M")
 
-    with open(f"./etc/log/{now} Log.txt", "a") as f: # 경로설정
-        f.write(f"[{current_time}] - {error}\n")
+#     with open(f"./etc/log/{now} Log.txt", "a") as f: # 경로설정
+#         f.write(f"[{current_time}] - {error}\n")
 
-def test2():
-    #global err
-    #e = ''
-    # error=TestError()
-    try:
-        df=pd.read_csv('1123_test_copy.csv')
-        return df
-    except Exception as e:
-        error_content='error내용'
-        error.TestError(error_content)
-        print(e)
-    #err = err+e
+# def test2():
+#     #global err
+#     #e = ''
+#     # error=TestError()
+#     try:
+#         df=pd.read_csv('1123_test_copy.csv')
+#         return df
+#     except Exception as e:
+#         error_content='error내용'
+#         error.TestError(error_content)
+#         print(e)
+#     #err = err+e
 
-df=test2()
+# df=test2()
 
 # def test():
 #     global err
@@ -115,8 +115,12 @@ for index, row in df2_id.iterrows():
 
 print(id_list)
 '''
-#anal03=total(id_list)
-#anal02=emo(id_list)
+anal00_df = anal00()
+not_anal_df =TB_join(anal00_df)
+print(not_anal_df)
+
+#anal03=total(not_anal_df)
+anal02=emo(not_anal_df)
 
 
 ######################################################################
