@@ -5,6 +5,7 @@ import db
 from keys.key import *
 import argparse, os, time, traceback
 from datetime import datetime
+import review_split
 
 today=datetime.now().strftime('%Y%m%d')
 
@@ -23,6 +24,8 @@ def analysis():
     # 1. load data
     part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
     df=db.TB_review_part_id(part_id_list)
+    
+
 
     if len(df)!=0:
         # 2. anal00(property+empathy result) insert
@@ -52,6 +55,29 @@ def analysis():
     finish_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f"{finish_time} 분석 완료")
 
+def glowpick_analysis():
+    # 글로우픽에 관련된 리뷰 가져오기
+    try : 
+        # 폴더생성
+        if not os.path.isdir("C:/glowpic_sentences"):
+            os.makedirs("C:/glowpic_sentences")
+
+        start_time = time.time()
+        
+        # 데이터 3000개씩 나눔
+        review_split.split_before()
+
+        review_split.split_after()
+
+        end_time = (time.time() - start_time)/60
+        print('split 완료시간 --- {0:0.2f} 분 소요'.format(end_time))
+        
+    except Exception as e:
+        print(e)
+
+    return 0
+
+
 if __name__=='__main__':
     error_list=[]
     time_list=[]
@@ -59,9 +85,11 @@ if __name__=='__main__':
 
     try:
         start_time=time.time()
-        analysis()
+        analysis() #네이버 리뷰분석
         end_time=time.time()
         all_time=end_time-start_time
+
+        glowpick_analysis() #글로우픽 리뷰분석
         
         # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
         time_list=[datetime.now().strftime('%y%m%d'),"all_analy","-","-",all_time]
