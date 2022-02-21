@@ -494,7 +494,7 @@ def fail_sendEmail(err):
 
 def today_path():
     '''backup folder create'''
-    folder_path=os.getcwd()+'/etc/result_data'
+    folder_path=os.getcwd()+'/etc/result'
     #folder_path=os.getcwd()+'\\etc\\result_data'
     today_path=os.path.join(folder_path,today)
     if not os.path.exists(today_path):

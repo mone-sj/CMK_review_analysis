@@ -24,10 +24,12 @@ def total(df):
     anal03_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","KEYWORD_GUBUN","RLT_VALUE_01","RLT_VALUE_02","RLT_VALUE_03","RLT_VALUE_04","RLT_VALUE_05",
     "RLT_VALUE_06","RLT_VALUE_07","RLT_VALUE_08","RLT_VALUE_09","RLT_VALUE_10"]
     data_anal03=pd.DataFrame(columns=anal03_col_name)
-
+    print(len(df))
     dataframe_id = df[['PART_SUB_ID','PART_ID']]
     df_id_list1 = dataframe_id.drop_duplicates(ignore_index=True)
+    df_id_list1 = df_id_list1.dropna(axis=0)
     df_id_list=df_id_list1.copy()
+    print(df_id_list)
 
     id_cnt = len(df_id_list1)
     

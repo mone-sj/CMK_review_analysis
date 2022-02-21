@@ -117,11 +117,11 @@ print(id_list)
 '''
 anal00_df = anal00()
 not_anal_df =TB_join(anal00_df)
-print(not_anal_df)
 
-#anal03=total(not_anal_df)
-anal02=emo(not_anal_df)
 
+anal03=total(not_anal_df)
+#anal02=emo(not_anal_df)
+anal03.to_csv('anal03.csv',encoding='utf-8-sig')
 
 ######################################################################
 '''
