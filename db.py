@@ -281,6 +281,7 @@ def TB_join(df):
     finally:
         conn.close()
     result=pd.merge(df_review_concat,df,how='outer',on=['PART_ID','REVIEW_DOC_NO'])
+    result = result.dropna(axis=0)
     # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
     return result 
 
