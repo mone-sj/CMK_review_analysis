@@ -2,6 +2,40 @@ import pandas as pd
 from db import *
 #import emp_class
 from keys.key import *
+from gp import *
+
+
+
+#today_path=db.today_path()
+#now=datetime.now().strftime('%y%m%d_%H%M')
+
+#to_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#from_date = db.last_isrt_dttm()
+
+# 분석완료된 날짜 이후 리뷰 수집
+#data, isrt_dttm = db.TB_GLOWPICK_DATA(from_date,to_date)
+#data=ori_df[['SITE_GUBUN',"PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
+
+#print(data,isrt_dttm)
+
+#split_review = kss_split(data)
+#split_review =["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW_DOC_NO_CNT","REVIEW","LABELING"]
+
+
+
+
+# # 4. anal00(property+empathy result) insert
+# '''gpu 사용'''
+#anal00=emp_class.cos_model_pt(split_review)
+
+# '''api_url 사용'''
+#anal00=emp_class.cos_model_url(df,model_id_dic,property_id_dic)
+#print(anal00)
+#db.TB_anal00_insert(anal00)
+
+
+
+
 
 # 에러 테스트
 
@@ -115,13 +149,14 @@ for index, row in df2_id.iterrows():
 
 print(id_list)
 '''
-anal00_df = anal00()
-not_anal_df =TB_join(anal00_df)
-
-
-anal03=total(not_anal_df)
+anal00_df = db.anal00_G()
+print(anal00_df)
+key_df =db.TB_join_G(anal00_df)
+print(key_df)
+key_df.to_csv('220302_anal00_df.csv',encoding='utf-8-sig')
+anal03=total(key_df)
 #anal02=emo(not_anal_df)
-anal03.to_csv('anal03.csv',encoding='utf-8-sig')
+anal03.to_csv('220302_GLOWPICK_anal03.csv',encoding='utf-8-sig')
 
 ######################################################################
 '''

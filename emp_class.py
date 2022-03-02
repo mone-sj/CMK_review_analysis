@@ -26,25 +26,31 @@ def cos_model_pt(df):
     property_id_dic=db.TB_property_id() # property_name:property_id
 
     data = df.copy()
-    data['model']=''            #columns:6
+    # naver : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']
+    # glowpick : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO']
+    check = data.iloc[0,0]
+    if check =='G':
+        data['DOC_PART_NO']= '0'
+    
+    data['model']=''            #columns:7
     for i in range(len(data)):
         sub_id = data.iloc[i,2]
         model_id=model_id_dic[sub_id]        
-        data.iloc[i,6]=model_id
+        data.iloc[i,7]=model_id
 
-    data['CLASSIFY']=''         #columns:7
-    data['EMPATHY']=''          #columns:8
-    data['EMPATHY_SCORE']=''    #columns:9
+    data['CLASSIFY']=''         #columns:8
+    data['EMPATHY']=''          #columns:9
+    data['EMPATHY_SCORE']=''    #columns:10
     for cnt in range(len(data)):
         print('{}번째 property+empathy 분석'.format(cnt+1))
         # model_id
-        model=data.iloc[cnt,6]
+        model=data.iloc[cnt,7]
         review=data.iloc[cnt,5]
         
         # property_classification_pt
         property_result=classification.predict_pt(review,model)
         property_id=property_id_dic[property_result]
-        data.iloc[cnt,7]=property_id
+        data.iloc[cnt,8]=property_id
 
         # empathy_classification
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -70,9 +76,9 @@ def cos_model_pt(df):
             score = 2
         elif output_first_empathy in score_1:
             score = 1
-        data.iloc[cnt,8]=output_first_empathy
-        data.iloc[cnt,9]=score
-    data=data[['REVIEW_DOC_NO','PART_ID','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
+        data.iloc[cnt,9]=output_first_empathy
+        data.iloc[cnt,10]=score
+    data=data[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID','DOC_PART_NO','REVIEW','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
     return data
 
 # df=TB_REVIEW_qa()
@@ -84,25 +90,32 @@ def cos_model_api(df):
     property_id_dic=db.TB_property_id() # property_name:property_id
 
     data = df.copy()
-    data['model']=''            #columns:6
+    # naver : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']
+    # glowpick : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO']
+    
+    if data['SITE_GUBUN'] =='N':
+        data['DOC_PART_NO']= '0'
+    
+    data['model']=''            #columns:7
     for i in range(len(data)):
         sub_id = data.iloc[i,2]
-        model_id=model_id_dic[sub_id]
-        data.iloc[i,6]=model_id
+        model_id=model_id_dic[sub_id]        
+        data.iloc[i,7]=model_id
 
-    data['CLASSIFY']=''         #columns:7
-    data['EMPATHY']=''          #columns:8
-    data['EMPATHY_SCORE']=''    #columns:9
+    data['CLASSIFY']=''         #columns:8
+    data['EMPATHY']=''          #columns:9
+    data['EMPATHY_SCORE']=''    #columns:10
+
     for cnt in range(len(data)):
         print('{}번째 property+empathy 분석'.format(cnt+1))
         # model_id
-        model=data.iloc[cnt,6]
+        model=data.iloc[cnt,7]
         review=data.iloc[cnt,5]
         
         # property_classification_url
         property_result=classification.predict_url(review,model)
         property_id=property_id_dic[property_result]
-        data.iloc[cnt,7]=property_id
+        data.iloc[cnt,8]=property_id
 
         # empathy_classification
         try:
@@ -126,7 +139,7 @@ def cos_model_api(df):
             score = 2
         elif output_first_empathy in score_1:
             score = 1
-        data.iloc[cnt,8]=output_first_empathy
-        data.iloc[cnt,9]=score
-    data=data[['REVIEW_DOC_NO','PART_ID','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
+        data.iloc[cnt,9]=output_first_empathy
+        data.iloc[cnt,10]=score
+    data=data[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID','DOC_PART_NO','REVIEW','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
     return data

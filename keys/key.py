@@ -115,7 +115,7 @@ def total(df):
                         except:
                             list_review.append('')
                     
-                    total_sentence=total_sent(site, part_group_id,part_sub_id,part_id,list_review)
+                    all_keysentece_result_df=total_sent(site, part_group_id,part_sub_id,part_id,list_review)
 
                 else:
                     keysentence_list_all, error=keys_list(all_keyword,stopword,review_content)
@@ -147,6 +147,7 @@ def total(df):
                 pass
         
             data_anal03 = pd.concat([data_anal03,all_keyword_result_df,all_keysentece_result_df],ignore_index=True)
+            
             del all_keyword_result_df
             del all_keysentece_result_df
 
@@ -154,13 +155,13 @@ def total(df):
     now=datetime.now().strftime('%y%m%d_%H%M')
     total_time_end=time.time()
     total_time=total_time_end-total_time_start
-    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
-    time_list=[now,"total_key",id_cnt,review_count,total_time]
+    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 사이트
+    time_list=[now,"total_key",id_cnt,review_count,total_time,site]
     
     # save
     db.time_txt(time_list,f'{today_path}/time_check')
     db.save_txt(error_list,f'{today_path}/errorList')
-    data_anal03.to_csv(f'{today_path}/{now}_anal03_result.csv', index=None)
+    data_anal03.to_csv(f'{today_path}/{now}_{site}_anal03_result.csv', index=None)
         
     return data_anal03
 
@@ -407,13 +408,13 @@ def emo(df):
     emo_total_end=time.time()
     emo_total_time=emo_total_end-emo_time_start
 
-    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 리뷰합치는 시간
-    time_list=[now, "emo",id_cnt,review_count,emo_total_time]
+    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 리뷰합치는 시간, 사이트
+    time_list=[now, "emo",id_cnt,review_count,emo_total_time,site]
 
     # save
     db.time_txt(time_list,f'{today_path}/time_check')
     db.save_txt(error_list,f'{today_path}/errorList')
-    data_anal02.to_csv(f'{today_path}/{now}_anal02_result.csv', index=None)
+    data_anal02.to_csv(f'{today_path}/{now}_{site}_anal02_result.csv', index=None)
         
     return data_anal02
 

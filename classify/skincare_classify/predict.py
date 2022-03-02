@@ -72,7 +72,7 @@ def skin_predict(predict_sentence):
             elif np.argmax(logits) == 4:
                 test_eval.append("향")
             elif np.argmax(logits) == 5:
-                test_eval.append("톤업")
+                test_eval.append("효과")
             elif np.argmax(logits) == 6:
                 test_eval.append("효과")
 
