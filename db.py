@@ -8,6 +8,7 @@ from email.mime.text import MIMEText
 from email import encoders
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
+import numpy as np
 
 server = 'ASC-AI.iptime.org'
 database = 'cosmeca'
@@ -393,6 +394,10 @@ def TB_anal02_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
+            
+            # for col in range(len(df.columns)):
+            #     if type(row[col]) is np.float:
+            #         row[col]=''
 
             if row[4]=='0': #키워드
                 sql="exec dbo.P_MNG_ANA002 @section='SA', @site_gubun=%s, @part_group_id=%s,@part_sub_id=%s, @part_id=%s, @keyword_gubun=%s, @keyword_positive=%s,@rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
@@ -416,6 +421,10 @@ def TB_anal03_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
+            # for col in range(len(df.columns)):
+            #     if type(row[col]) is np.float:
+            #         row[col]=''
+
             if row[4]=='0': # 키워드
                 sql="exec dbo.P_MNG_ANA003 @section='SA',@site_gubun=%s,@part_group_id=%s,@part_sub_id=%s,@part_id=%s,@keyword_gubun=%s, @rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
                 cursor.execute(sql,tuple(row))
@@ -461,6 +470,35 @@ def TB_anal03_insert(df):
 #         print("Error: ", e)
 #     finally:
 #         conn.close()
+
+def TB_anal00_N_delete():
+    '''review테이블에 삭제된 리뷰 ANAL00_N 테이블에서도 삭제'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA000 @section='DN'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal01_count 완료")
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+
+def TB_anal00_G_delete():
+    '''review테이블에 삭제된 리뷰 ANAL00_G 테이블에서도 삭제'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA000 @section='DG'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal01_count 완료")
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+
 def TB_anal01_count_G():
     '''ANAL01 테이블 insert&update (GLOWPICK count 실행)'''
     try:
@@ -476,7 +514,7 @@ def TB_anal01_count_G():
         conn.close()
 
 def TB_anal04_count_G():
-    '''ANAL01 테이블 insert&update (GLOWPICK count 실행)'''
+    '''ANAL04 테이블 insert&update (GLOWPICK count 실행)'''
     try:
         conn=conn_utf8()
         cursor=conn.cursor()
@@ -504,7 +542,7 @@ def TB_anal01_count_N():
         conn.close()
 
 def TB_anal04_count_N():
-    '''ANAL01 테이블 insert&update (NAVER count 실행)'''
+    '''ANAL04 테이블 insert&update (NAVER count 실행)'''
     try:
         conn=conn_utf8()
         cursor=conn.cursor()
