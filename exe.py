@@ -53,30 +53,50 @@ def naver_analysis():
     db.TB_anal02_insert(anal02)
 
     # 4. anal01/04 review count insert
-    db.TB_anal01_count()
-    db.TB_anal04_count()
+    db.TB_anal01_count_N()
+    db.TB_anal04_count_N()
 
     finish_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f"{finish_time} 분석 완료")
 
 def glowpick_review_analysis():
-    # 분석완료된 날짜 이후 리뷰 수집
+    #1. 분석완료된 날짜 이후 리뷰 수집
     data, isrt_dttm = db.TB_GLOWPICK_DATA(from_date,to_date)
     #data=ori_df[['SITE_GUBUN',"PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
     print(data,isrt_dttm)
     
-    # 리뷰 split후 labeling
+    #2. 리뷰 split후 labeling
     split_review = kss_split(data)
     #split_review =["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","DOC_PART_NO"]
     
 
-    # anal00(property+empathy result) insert
+    #3. anal00(property+empathy result) insert
     # '''gpu 사용'''
     anal00=emp_class.cos_model_pt(split_review)
     # '''api_url 사용'''
     #anal00=emp_class.cos_model_url(df,model_id_dic,property_id_dic)
     print(anal00)
-    db.TB_anal00_G_insert(anal00) # INSERT 함수 및 프로시저 수정필요
+    db.TB_anal00_G_insert(anal00)
+
+    #4. keyword/keysentence 분석 및 insert
+    anal00_g = db.anal00_G()
+    #anl00_g=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']
+    key_df=db.TB_join_G(anal00_g)
+    #key_df=['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']
+
+    anal03=total(key_df)
+    anal02=emo(key_df)
+    
+    db.TB_anal03_insert(anal03)
+    db.TB_anal02_insert(anal02)
+
+    db.TB_anal01_count_G()
+    db.TB_anal04_count_G()
+    
+    finish_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"{finish_time} 분석 완료")
+
+
  
 def test():
     df = pd.read_csv('gp_test.csv',header=None)
@@ -90,19 +110,7 @@ def test():
     print(anal00)
 
 def keyword_sentence():
-    anal00_g = db.anal00_G()
-    #anal00_n = db.anal00_N()
-    #anl00_g=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']
     
-    key_df=db.TB_join(anal00_g)
-    anal03=total(key_df)
-    anal02=emo(key_df)
-    
-    db.TB_anal03_insert(anal03)
-    db.TB_anal02_insert(anal02)
-
-    db.TB_anal01_count()
-    db.TB_anal04_count()
     return('keyword_sentence_완료')
 
 
