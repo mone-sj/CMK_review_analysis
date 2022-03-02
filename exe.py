@@ -13,16 +13,6 @@ today_path=db.today_path()
 now=datetime.now().strftime('%y%m%d_%H%M')
 to_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 from_date = db.last_isrt_dttm()
-# def time_txt(content_list):
-#     file_name='./data/time.txt'
-#     if not os.path.exists(file_name):
-#         with open(file_name,'a',encoding='utf8') as f:
-#             f.write('part_id\t리뷰수\t분석시간(초)\n')
-            
-#     with open(file_name,'a',encoding='utf8') as f:
-#         for line in content_list:
-#             f.write(f'{line}\t')
-#         f.write("\n")
 
 def naver_analysis():
     # 1. load data
@@ -110,6 +100,9 @@ def test():
     print(anal00)
 
 def keyword_sentence():
+    anal00_g = db.anal00_G()
+    anal00_n = db.anal00_N()
+    #anl00_g 컬럼 : ['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']
     
     return('keyword_sentence_완료')
 
