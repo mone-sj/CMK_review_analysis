@@ -379,7 +379,7 @@ def TB_anal00_G_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
-            sql="exec dbo.P_MNG_ANA000 @section='SA', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
+            sql="exec dbo.P_MNG_ANA000 @section='SG', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
             cursor.execute(sql, tuple(row))
             conn.commit()
         print("anal00_insert완료")
@@ -434,12 +434,39 @@ def TB_anal03_insert(df):
         conn.close()
 
 ### 프로시저 실행
-def TB_anal01_count():
-    '''ANAL01 테이블 insert&update (count 실행)'''
+# def TB_anal01_count():
+#     '''ANAL01 테이블 insert&update (count 실행)'''
+#     try:
+#         conn=conn_utf8()
+#         cursor=conn.cursor()
+#         sql="exec dbo.P_MNG_ANA001 @section='SB'"
+#         cursor.execute(sql)
+#         conn.commit()
+#         print("anal01_count 완료")
+#     except Exception as e:
+#         print("Error: ", e)
+#     finally:
+#         conn.close()
+
+# def TB_anal04_count():
+#     '''ANAL01 테이블 insert&update (count 실행)'''
+#     try:
+#         conn=conn_utf8()
+#         cursor=conn.cursor()
+#         sql="exec dbo.P_MNG_ANA004 @section='SB'"
+#         cursor.execute(sql)
+#         conn.commit()
+#         print("anal04_count 완료")
+#     except Exception as e:
+#         print("Error: ", e)
+#     finally:
+#         conn.close()
+def TB_anal01_count_G():
+    '''ANAL01 테이블 insert&update (GLOWPICK count 실행)'''
     try:
         conn=conn_utf8()
         cursor=conn.cursor()
-        sql="exec dbo.P_MNG_ANA001 @section='SB'"
+        sql="exec dbo.P_MNG_ANA001 @section='SG'"
         cursor.execute(sql)
         conn.commit()
         print("anal01_count 완료")
@@ -448,12 +475,40 @@ def TB_anal01_count():
     finally:
         conn.close()
 
-def TB_anal04_count():
-    '''ANAL01 테이블 insert&update (count 실행)'''
+def TB_anal04_count_G():
+    '''ANAL01 테이블 insert&update (GLOWPICK count 실행)'''
     try:
         conn=conn_utf8()
         cursor=conn.cursor()
-        sql="exec dbo.P_MNG_ANA004 @section='SB'"
+        sql="exec dbo.P_MNG_ANA004 @section='SG'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal04_count 완료")
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+        
+def TB_anal01_count_N():
+    '''ANAL01 테이블 insert&update (NAVER count 실행)'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA001 @section='SN'"
+        cursor.execute(sql)
+        conn.commit()
+        print("anal01_count 완료")
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+
+def TB_anal04_count_N():
+    '''ANAL01 테이블 insert&update (NAVER count 실행)'''
+    try:
+        conn=conn_utf8()
+        cursor=conn.cursor()
+        sql="exec dbo.P_MNG_ANA004 @section='SN'"
         cursor.execute(sql)
         conn.commit()
         print("anal04_count 완료")
