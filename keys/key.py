@@ -115,7 +115,7 @@ def total(df):
                         except:
                             list_review.append('')
                     
-                    total_sentence=total_sent(site, part_group_id,part_sub_id,part_id,list_review)
+                    all_keysentece_result_df=total_sent(site, part_group_id,part_sub_id,part_id,list_review)
 
                 else:
                     keysentence_list_all, error=keys_list(all_keyword,stopword,review_content)

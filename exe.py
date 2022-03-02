@@ -37,7 +37,8 @@ def analysis():
     # 3. anal02/anal03(keyword/keysentence analysis) insert
     # anal00의 part_id 리스트
 
-    part_id_df=db.anal00_part_id()
+    #part_id_df=db.anal00_part_id()
+    part_id_df=db.anal00()
     key_df=db.TB_join(part_id_df)
     anal03=total(key_df)
     anal02=emo(key_df)
