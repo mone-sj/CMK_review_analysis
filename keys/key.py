@@ -51,8 +51,10 @@ def total(df):
         part_sub_id=df_per_part_id.iloc[0,2]
         part_id=df_per_part_id.iloc[0,3]
 
-        review_count+=len(df_per_part_id)
+        df_per_part_id = df_per_part_id.drop_duplicates(['REVIEW'],keep='first')
         review_content=df_per_part_id['REVIEW'].tolist()
+        review_count+=len(df_per_part_id)
+
  
         # 전체 키워드
         # 리뷰 5개 이하면 키워드 분석은 하지 않고, 리뷰를 최신순으로 핵심문장으로 출력
@@ -203,6 +205,7 @@ def emo(df):
 
         # 긍정 키워드
         pos_df=df_per_part_id[df_per_part_id['RLT_VALUE_03']>3]
+        pos_df=pos_df.drop_duplicates(['REVIEW'],keep='first')
         review_count+=len(pos_df)
 
 
@@ -306,6 +309,7 @@ def emo(df):
         
 
         neg_df=df_per_part_id[df_per_part_id['RLT_VALUE_03']<3]
+        neg_df = neg_df.drop_duplicates(['REVIEW'],keep='first')
         review_count+=len(neg_df)
 
         
