@@ -437,7 +437,7 @@ def success_sendEmail():
         
         message['From']=sendEmail
         message['To']=recvEmail
-        message['Subject']=f"[리뷰분석완료]{today} Lipaco 분석완료"
+        message['Subject']=f"[리뷰분석완료]{today} CMK 분석완료"
         message.attach(MIMEText(text))
         
         # 메일 첨부파일
@@ -480,7 +480,7 @@ def success_sendEmail():
 
 def fail_sendEmail(err):
     msg=MIMEText(err)
-    msg['Subject']=f"[리뷰분석오류]{today} 리파코 분석 오류"
+    msg['Subject']=f"[리뷰분석오류]{today} CMK 분석 오류"
     msg['From']=sendEmail
     msg['To']=recvEmail
     print(msg.as_string())

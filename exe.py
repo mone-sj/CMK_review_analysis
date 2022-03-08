@@ -8,16 +8,6 @@ from datetime import datetime
 
 today=datetime.now().strftime('%Y%m%d')
 
-# def time_txt(content_list):
-#     file_name='./data/time.txt'
-#     if not os.path.exists(file_name):
-#         with open(file_name,'a',encoding='utf8') as f:
-#             f.write('part_id\t리뷰수\t분석시간(초)\n')
-            
-#     with open(file_name,'a',encoding='utf8') as f:
-#         for line in content_list:
-#             f.write(f'{line}\t')
-#         f.write("\n")
 
 def analysis():
     # 1. load data
