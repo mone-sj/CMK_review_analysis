@@ -1,0 +1,59 @@
+ARG CUDA_DOCKER_VERSION=10.0-devel-ubuntu18.04
+FROM nvidia/cuda:${CUDA_DOCKER_VERSION}
+
+#FROM ubuntu:18.04
+
+# language setting
+RUN apt-get update \
+    && apt-get install -y build-essential \
+    && apt-get install -y locales
+RUN locale-gen ko_KR.UTF-8
+ENV LC_ALL ko_KR.UTF-8
+
+# install crontab
+#RUN apt-get install -y cron
+#ADD ./etc/cronjob.txt /data/cron.d
+
+#RUN touch /usr/sbin/entrypoint.sh
+#RUN chmod 777 /usr/sbin/entrypoint.sh
+
+# create the log file
+#RUN touch /data/analysis.log
+
+#ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
+
+
+#### LP 서버내에서 작성한 crontab관련 코드
+#ADD ./cron/root /etc/cron.d/keys-cron
+#ADD ./cron/entrypoint.sh /home/entrypoint.sh
+#RUN touch /var/log/cron.log
+#RUN chmod +x /home/entrypoint.sh
+#RUN chmod 0644 /etc/cron.d/keys-cron && crontab /etc/cron.d/keys-cron
+
+# python3.6
+RUN apt-get install curl -y \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN apt-get install -y python3.6-venv
+RUN apt-get install python3-pip -y \
+    && python3.6 -m pip install pip --upgrade \
+    && python3.6 -m pip install wheel
+RUN apt-get install git -y \
+    && apt install git \
+    && apt-get install vim -y
+
+### time setting UTC -> KST
+ARG DEBIAN_FRONTEND=noninterative
+ENV TZ=Asia/Seoul
+RUN apt-get install -y tzdata
+
+# torch v1.7.1 / gpu
+RUN pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+
+
+# install requirements.txt / krwordrank / kobert
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r requirements.txt \
+    && pip install git+https://github.com/lovit/KR-WordRank.git \
+    && pip install git+https://git@github.com/SKTBrain/KoBERT.git@master
+
+SHELL ["/bin/bash"]

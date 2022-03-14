@@ -13,6 +13,8 @@ classify/suncare_classify/best_model_suncare_ver1.pt
 classify/suncare_classify/best_model_suncare.pt
 
 
+# log 폴더
+etc/log/
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,python,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,python,visualstudiocode
