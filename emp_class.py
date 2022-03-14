@@ -8,7 +8,7 @@ import time
 # 감정분석 flightbase url
 # acryl_empathy_url = "https://flightbase.acryl.ai/deployment/hd96927473d6603c5fcf8c328e7761b21/"
 cmk_empathy_url = "https://192.168.1.28:30001/deployment/h713a8261480609773e335448cf89d226/"
-
+# localhost 
 # 감정에 따른 감정스코어
 score_5=['황홀함','행복','기쁨','즐거움','홀가분함','자신감']
 score_4=['사랑','그리움','감동','고마움','만족','설렘','바람','놀람']
@@ -28,8 +28,8 @@ def cos_model_pt(df):
     data = df.copy()
     # naver : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']
     # glowpick : ['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO']
-    check = data.iloc[0,0]
-    if check =='G':
+    check_site = data.iloc[0,0]
+    if check_site =='N':
         data['DOC_PART_NO']= '0'
     
     data['model']=''            #columns:7

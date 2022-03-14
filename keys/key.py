@@ -33,11 +33,12 @@ def total(df):
 
     id_cnt = len(df_id_list1)
     
-
+    site_gubun = df.iloc[0,0]
     total_time_start=time.time()
     review_count=0
     # stopwords
     stopword=db.TB_stopwords()
+    
 
     for idx,row in df_id_list.iterrows():
 
@@ -121,7 +122,7 @@ def total(df):
 
                 else:
                     keysentence_list_all, error=keys_list(all_keyword,stopword,review_content)
-                    error_list.append(f"code: {part_sub_id}_{part_id} / site: {site} 전체 핵심문장 오류3\t{error}")
+                    error_list.append(f"code: {part_sub_id}_{part_id} / site: {site} 전체리뷰 핵심문장 오류3\t{error}")
 
                     if len(keysentence_list_all)==0:                        # 핵심문장이 출력되지 않으면 리뷰 최신순으로 출력
                         list5 = df_per_part_id.sort_values(by=['REVIEW_DOC_NO'],axis=0, ascending=False)
@@ -158,7 +159,7 @@ def total(df):
     total_time_end=time.time()
     total_time=total_time_end-total_time_start
     # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 사이트
-    time_list=[now,"total_key",id_cnt,review_count,total_time,site]
+    time_list=[now,"total_key",id_cnt,review_count,total_time,site_gubun]
     
     # save
     db.time_txt(time_list,f'{today_path}/time_check')
@@ -180,9 +181,9 @@ def emo(df):
     df_id_list1 = dataframe_id.drop_duplicates(ignore_index=True)
     df_id_list=df_id_list1.copy()
 
-
+    site_gubun = df.iloc[0,0]
     id_cnt = len(df_id_list1)
-
+    
     emo_time_start=time.time()
     review_count=0
     # stopwords
@@ -273,7 +274,7 @@ def emo(df):
                     keysentence_list_pos, error=keys_list(pos_keyword,stopword,pos_review_list)
 
                     if '오류없음' not in error:
-                        error_list.append(f"{part_sub_id}_{part_id} / site: {site} 긍정핵심문장 에러3\t{error}")
+                        error_list.append(f"{part_sub_id}_{part_id} / site: {site} 긍정핵심문장 오류3\t{error}")
 
                     if len(keysentence_list_pos)==0:    # 최신순으로 출력
                         list5 = pos_df.sort_values(by=['REVIEW_DOC_NO'],axis=0, ascending=False)
@@ -292,7 +293,7 @@ def emo(df):
                         pos_keys_result_df=emo_pos_sent(site,part_group_id,part_sub_id,part_id,pos_keys_fin)
 
             except Exception as e:
-                error_list.append(f"{part_sub_id}_{part_id} / site: {site} 긍정 핵심문장 오류4\t{e}")
+                error_list.append(f"{part_sub_id}_{part_id} / site: {site} 긍정핵심문장 오류4\t{e}")
                 print(f"{part_sub_id}_{part_id} 긍정핵심문장 오류4\t{e}")
                 pos_keys_result_df=pos_sent_error(site,part_group_id,part_sub_id,part_id)
                 pass 
@@ -413,7 +414,7 @@ def emo(df):
     emo_total_time=emo_total_end-emo_time_start
 
     # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 리뷰합치는 시간, 사이트
-    time_list=[now, "emo",id_cnt,review_count,emo_total_time,site]
+    time_list=[now, "emo_key",id_cnt,review_count,emo_total_time,site_gubun]
 
     # save
     db.time_txt(time_list,f'{today_path}/time_check')

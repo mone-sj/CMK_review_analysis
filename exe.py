@@ -6,21 +6,19 @@ from keys.key import *
 import argparse, os, time, traceback
 from datetime import datetime
 import review_split
-from gp import *
+import glowpick_split
 
 
 today_path=db.today_path()
 now=datetime.now().strftime('%y%m%d_%H%M')
 to_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-from_date = db.last_isrt_dttm()
+#from_date = db.last_isrt_dttm()
 
 def naver_analysis():
     # 1. load data
     part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
     df=db.TB_review_part_id(part_id_list)
     
-
-
     if len(df)!=0:
         # 2. anal00(property+empathy result) insert
         '''gpu 사용'''
@@ -29,8 +27,8 @@ def naver_analysis():
         # anal00=emp_class.cos_model_api(df)
 
         # anal00 insert
-        db.TB_anal00_insert(anal00)
-
+        db.TB_anal00_N_insert(anal00)
+        db.TB_anal00_N_delete()
     # 3. anal02/anal03(keyword/keysentence analysis) insert
     # anal00의 part_id 리스트
 
@@ -51,12 +49,13 @@ def naver_analysis():
 
 def glowpick_review_analysis():
     #1. 분석완료된 날짜 이후 리뷰 수집
+    from_date = '20220310'
     data, isrt_dttm = db.TB_GLOWPICK_DATA(from_date,to_date)
     #data=ori_df[['SITE_GUBUN',"PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
     print(data,isrt_dttm)
     
     #2. 리뷰 split후 labeling
-    split_review = kss_split(data)
+    split_review = glowpick_split.kss_split(data)
     #split_review =["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","DOC_PART_NO"]
     
 
@@ -83,21 +82,53 @@ def glowpick_review_analysis():
     db.TB_anal01_count_G()
     db.TB_anal04_count_G()
     
-    finish_time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(f"{finish_time} 분석 완료")
+    glowpick_finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f'{glowpick_finish_time} 글로우픽 완료')
+    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
+    time_list = [datetime.now().strftime('%y%m%d'), "glowpick_analy", '-', '-', all_time]
+    db.time_txt(time_list, f'{today_path}/time_check')
 
 
  
 def test():
+    start_time=time.time()
+    
     df = pd.read_csv('gp_test.csv',header=None)
     df.columns =["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","ISRT_DTTM"]
     data = df[["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
-    df_G = data[0:10]
-    split_review = kss_split(df_G)
+    df_G = data[0:100]
+    split_review = glowpick_split.kss_split(df_G)
     print(split_review)
 
     anal00 = emp_class.cos_model_pt(split_review)
-    print(anal00)
+    anal00 = anal00.rename(columns={'EMPATHY_SCORE': 'RLT_VALUE_03'})
+    anal00['PART_ID'] = anal00['PART_ID'].astype(str)
+    anal00_df = anal00[['SITE_GUBUN', 'PART_ID', 'REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']]
+    print(anal00_df)
+
+    key_df = db.TB_join_G(anal00_df)
+    print(key_df)
+    anal03 = total(key_df)
+    anal02 = emo(key_df)
+    
+    glowpick_finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f'{glowpick_finish_time} 글로우픽 완료')
+    end_time = time.time()
+    all_time = end_time-start_time
+    # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
+    time_list=[datetime.now().strftime('%y%m%d'),"glowpick_analy",'-','-',all_time]
+    db.time_txt(time_list,f'{today_path}/time_check')       
+    
+    part_id_df=db.anal00_N()
+    print(part_id_df)
+    key_df_N=db.TB_join_N(part_id_df)
+    print(key_df_N)
+    anal03_N=total(key_df_N)
+    anal02_N=emo(key_df_N)
+
+    naver_finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f'{naver_finish_time} 네이버 완료')
+    
 
 def keyword_sentence():
     anal00_g = db.anal00_G()
@@ -119,14 +150,30 @@ if __name__=='__main__':
         #naver_end_time=time.time()
         #all_time=naver_end_time-start_time
 
-        #glowpick_review_analysis() #글로우픽 리뷰분석
+        glowpick_review_analysis() #글로우픽 리뷰분석
         #keyword_sentence()#키워드키센텐스
-        test()
-        glow_end_time=time.time()
-        all_time=glow_end_time-start_time
+        #g_time = test()
+        
+        # part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
+        # print(part_id_list)
+        # df=db.TB_review_part_id(part_id_list)
+        # print(len(df))
+        # df=df.dropna(axis=0)
+        # print(len(df))
+        # if len(df)!=0:
+        #     anal00=emp_class.cos_model_pt(df)
+        # anal00.to_csv('220311_naver_cat5_df_anal00.csv',encoding='utf-8-sig',index=False)
+
+        # # anal00 insert
+        # db.TB_anal00_N_insert(anal00)
+        # db.TB_anal00_N_delete()
+        
+        
+        end_time = time.time()
+        all_time = end_time - start_time
         
         # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
-        time_list=[datetime.now().strftime('%y%m%d'),"all_analy","-","-",all_time]
+        time_list=[datetime.now().strftime('%y%m%d'),"naver_emp_class","-","-",all_time]
         db.time_txt(time_list,f'{today_path}/time_check')
         db.success_sendEmail()
 

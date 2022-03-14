@@ -100,18 +100,20 @@ def TB_CRAW_top5_pid():
     finally:
         conn.close()
     
-    matching_cate=df[['PART_SUB_ID']]
     cate_list=df['CATEGORY_IDS'].tolist()
 
     cate_count=[]
     for cate in cate_list:
-        print(cate)
         count=cate.count(',')+1
         cate_count.append(count)
-    matching_cate['cate_num']=cate_count
-    matching_cate['num']=''
-    num=0
+    df['cate_num'] = cate_count
+    df['num'] = ''
+
+
+    cate = df[['PART_SUB_ID', 'cate_num', 'num']]
+    matching_cate = cate.copy()
     
+    num=0                                                                                                                                                                                                                                                                                                                                                                                              
     for index in range(len(matching_cate)):
         count=matching_cate.iloc[index,1]
         if count==0:
@@ -131,17 +133,18 @@ def TB_CRAW_top5_pid():
 
     part_col=['PART_SUB_ID', 'PART_ID']
     top5_concat=pd.DataFrame(columns=part_col)
+    
     try:
         conn=pymssql.connect(server, username, password, database, charset="cp949")
         cursor=conn.cursor()
-        
-        for i, df_row  in match_cate.iterrows:
-            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date=%s)"
+        for i, df_row  in match_cate.iterrows():
+            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date='20220310')"
             cursor.execute(sql,(tuple(df_row)))
             row=cursor.fetchall()
             top5=pd.DataFrame(row, columns=part_col)
             top5_concat=pd.concat([top5_concat,top5])
         part_id_list=top5_concat['PART_ID'].values.tolist()
+        print(part_id_list)
     except Exception as e:
         print("error: ",e)
     finally:
@@ -152,6 +155,7 @@ def TB_CRAW_top5_pid():
 # TB_REVIEW add review select per top5 part_sub_id, part_id(cp949)
 def TB_review_part_id(part_id_list):
     print('db_data_loading')
+    print(part_id_list)
     try:
         conn=conn_cp949()
         df_concat=pd.DataFrame()
@@ -165,6 +169,7 @@ def TB_review_part_id(part_id_list):
             ori_df=pd.DataFrame(row,columns=col_name)
             df_concat=pd.concat([df_concat,ori_df],ignore_index=True)
         df=df_concat[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
+        df= df.dropna(axis=0)
     except Exception as e:
         print("Error: ",e)
     finally:
@@ -288,8 +293,11 @@ def TB_join_N(df):
     '''
     print('db_data_loading for keyword/sentence')
     try:
-        anal00_part_id = df[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID']]
-        part_id = anal00_part_id.drop_duplicates(ignore_index=True)
+       #anal00_part_id = df[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID']]
+       #part_id = anal00_part_id.drop_duplicates(ignore_index=True)
+        anal00_par_id=df[['PART_ID']]
+        part_id = anal00_par_id.drop_duplicates(ignore_index=True)
+        print(len(part_id))
         review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]
         df_review_concat=pd.DataFrame(columns=review_col_name)
    
@@ -297,10 +305,10 @@ def TB_join_N(df):
         cursor = conn.cursor()
 
         for idx,row in part_id.iterrows():
-            site_list = part_id.iloc[idx,0]
-            part_id_list = part_id.iloc[idx,1]
-            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where SITE_GUBUN=%s and PART_ID=%s"
-            cursor.execute(sql1, (site_list,part_id_list))
+            #site_list = part_id.iloc[idx,0]
+            part_id_list = part_id.iloc[idx,0]
+            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where PART_ID=%s"
+            cursor.execute(sql1, part_id_list)
             tb_review=cursor.fetchall()
             df_review=pd.DataFrame(tb_review, columns=review_col_name)
             df_review_concat=pd.concat([df_review_concat,df_review])
@@ -331,13 +339,14 @@ def TB_join_G(df):
         print(part_id)
         review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO"]
         df_review_concat=pd.DataFrame(columns=review_col_name)
-   
+        
         conn=conn_cp949()
         cursor = conn.cursor()
 
         for idx,row in part_id.iterrows():
             #review_doc_no = part_id.iloc[idx,0]
             part_id_list = part_id.iloc[idx,0]
+            print(type(part_id_list))
             sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO from TB_REVIEW (nolock) where PART_ID=%s"
             cursor.execute(sql1, part_id_list)
             tb_review=cursor.fetchall()

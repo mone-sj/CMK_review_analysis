@@ -22,6 +22,7 @@ def kss_split(data):
 
     id_cnt = data[['PART_ID']]
     id_cnt = id_cnt.drop_duplicates()
+    error_list=[]
 
     try:
         for idx, row in data.iterrows():
@@ -54,20 +55,21 @@ def kss_split(data):
         char_data = pd.concat([char_data,kth_data])
         end_time = (time.time() - start_time)/60         
         print('split 완료시간 --- {0:0.2f} 분 소요'.format(end_time))
+        err=f'{len(char_data)}리뷰_glowpick_split 오류없음'
+        error_list.append(err)
     except Exception as e:
         error=e
-        error_list =[{error}]
+        error_list.append(error)
 
     # Time check
     now=datetime.now().strftime('%y%m%d_%H%M')
     # 분석날짜, split_review, 제품 총 리뷰수, 스플릿된 리뷰수, 분석 리뷰수, 분석시간
     time_list=[now,"glowpick_split_review",len(id_cnt), len(data),end_time,site,len(char_data_origin),len(char_data)]
-    
     # save
     char_data_origin.to_csv(f'{today_path}/{now}_GLOWPICK_split_original_result.csv', index=None)
     char_data.to_csv(f'{today_path}/{now}_GLOWPICK_split_result.csv', index=None)
     db.time_txt(time_list,f'{today_path}/time_check')
-    db.save_txt(error_list,f'{today_path}/GLOWPICK_errorList')
+    db.save_txt(error_list,f'{today_path}/errorList')
 
     return char_data
 
