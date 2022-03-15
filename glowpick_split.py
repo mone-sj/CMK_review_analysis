@@ -12,9 +12,11 @@ def kss_split(data):
     '''
     GLOWPICK리뷰 SPLIT 및 LABELING 동시진행 
     '''
+    char_data_col=['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO']
+    char_data_orgin_col=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","LABELING","SPLIT_NO"]
     start_time = time.time()
-    char_data = pd.DataFrame(columns=['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO'])  
-    char_data_orgin = pd.DataFrame(columns=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","LABELING","DOC_PART_NO"])
+    char_data = pd.DataFrame(columns=char_data_col)  
+    char_data_orgin = pd.DataFrame(columns=char_data_orgin_col)
     split_list = []
     split_list_origin=[]
 
@@ -38,17 +40,17 @@ def kss_split(data):
             for k in range(len(split_review)):
                 kth_review = split_review[k]
                 label =total_labeling_review(kth_review)
-                #label=group_labeling_review(group_id,kth_review)
-                k +=1
-                kth_list_origin= (site, group_id, sub_id, part_id, review_doc_no,kth_review,label,k)        
+                kth_list_origin= (site, group_id, sub_id, part_id, review_doc_no,kth_review,label,k+1)
                 split_list_origin.append(kth_list_origin)
                 if len(label) !=0:
                     cnt +=1 
                     kth_list= (site, group_id, sub_id, part_id, review_doc_no,kth_review,cnt)
-                    split_list.append(kth_list)
+                elif len(label)==0:
+                    kth_list= (site, group_id, sub_id, part_id, review_doc_no,kth_review,0)
+                split_list.append(kth_list)
         
-            kth_data_origin = pd.DataFrame(split_list_origin,columns=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","LABELING","DOC_PART_NO"])
-            kth_data = pd.DataFrame(split_list,columns=['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO'])   
+            kth_data_origin = pd.DataFrame(split_list_origin,columns=char_data_orgin_col)
+            kth_data = pd.DataFrame(split_list,columns=char_data_col)
         char_data_origin = pd.concat([char_data_orgin,kth_data_origin])
         char_data = pd.concat([char_data,kth_data])
         end_time = (time.time() - start_time)/60         
@@ -60,15 +62,14 @@ def kss_split(data):
         error_list.append(error)
 
     # Time check
-    now=datetime.now().strftime('%y%m%d_%H%M')
+    now=datetime.now().strftime('%y%m%d_%H%M%S')
     # 분석날짜, split_review, 제품 총 리뷰수, 스플릿된 리뷰수, 분석 리뷰수, 분석시간
     time_list=[now,"glowpick_split_review",len(id_cnt), len(data),end_time,site,len(char_data_origin),len(char_data)]
     # save
-    char_data_origin.to_csv(f'{today_path}/{now}_GLOWPICK_split_original_result.csv', index=None)
-    char_data.to_csv(f'{today_path}/{now}_GLOWPICK_split_result.csv', index=None)
+    char_data_origin.to_csv(f'{today_path}/{now}_G_split_original_result.csv', index=None)
+    char_data.to_csv(f'{today_path}/{now}_G_split_result.csv', index=None)
     db.time_txt(time_list,f'{today_path}/time_check')
     db.save_txt(error_list,f'{today_path}/errorList')
-
     return char_data
 
 def total_labeling_review(split_review):
