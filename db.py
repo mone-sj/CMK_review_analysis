@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from typing_extensions import final
+#from typing_extensions import final
 import pymssql
 import pandas as pd
 import os, smtplib
@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 from email import encoders
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
-import numpy as np
+#import numpy as np
 
 server = 'ASC-AI.iptime.org'
 database = 'cosmeca'
@@ -33,7 +33,7 @@ def conn_cp949():
 
 # select per date
 def last_isrt_dttm():
-    with open('./etc/last_isrt_dttm.txt','r',encoding='utf8') as f:
+    with open('./etc/last_isrt_dttm_G.txt','r',encoding='utf8') as f:
         lines=f.readlines()
         last_line=len(lines)-1
         isrt_date=lines[last_line].split('\t')[1]
@@ -51,37 +51,13 @@ def TB_GLOWPICK_DATA(from_date,to_date):
         col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
         ori_df=pd.DataFrame(row, columns=col_name)
         isrt_dttm=ori_df.iloc[0,16]
-        print(isrt_dttm)
+        isrt_dttm=isrt_dttm.strftime('%Y-%m-%d %H:%M:%S')
         df=ori_df[['SITE_GUBUN',"PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
-        print(df)
     except Exception as e:
         print(e)
     finally:
         conn.close()
     return df,isrt_dttm
-
-
-# TB_REVIEW select per date (cp949)
-# def TB_REIVEW_qa(from_date, to_date, site):
-#     if site == "N":
-#         print('NAVER_db_data_loading')
-#     elif site == "G":
-#         print('GLOWPICK_db_data_loading')
-#     try:
-#         conn=conn_cp949()
-#         cursor = conn.cursor()
-#         sql="exec dbo.P_MNG_CRW004 @section = 'QA', @from_date=%s, @to_date=%s,@site_gubun=%s"
-#         cursor.execute(sql,(from_date, to_date, site))
-#         row=cursor.fetchall()
-#         col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
-#         ori_df=pd.DataFrame(row, columns=col_name)
-#         df=ori_df[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
-#     except Exception as e:
-#         print("Error: ",e)
-#     finally:
-#         conn.close()
-#     return df
-
 
 # 매일 카테고리별 1~5위까지의 part_sub_id/part_id 리스트
 def TB_CRAW_top5_pid():
@@ -113,7 +89,7 @@ def TB_CRAW_top5_pid():
     cate = df[['PART_SUB_ID', 'cate_num', 'num']]
     matching_cate = cate.copy()
     
-    num=0                                                                                                                                                                                                                                                                                                                                                                                              
+    num=0       
     for index in range(len(matching_cate)):
         count=matching_cate.iloc[index,1]
         if count==0:
@@ -144,7 +120,7 @@ def TB_CRAW_top5_pid():
             top5=pd.DataFrame(row, columns=part_col)
             top5_concat=pd.concat([top5_concat,top5])
         part_id_list=top5_concat['PART_ID'].values.tolist()
-        print(part_id_list)
+        print(f'part_id 개수: {len(part_id_list)}')
     except Exception as e:
         print("error: ",e)
     finally:
@@ -153,15 +129,14 @@ def TB_CRAW_top5_pid():
 
 
 # TB_REVIEW add review select per top5 part_sub_id, part_id(cp949)
-def TB_review_part_id(part_id_list):
-    print('db_data_loading')
-    print(part_id_list)
+def TB_review_addTop5Review(part_id_list):
+    print('db_data_loading : TB_REVIEW add review select per top5_NAVER')
     try:
         conn=conn_cp949()
         df_concat=pd.DataFrame()
         for part_id in part_id_list:
             cursor=conn.cursor()
-            sql="select * from TB_REVIEW C where C.REVIEW_DOC_NO NOT IN (select A.REVIEW_DOC_NO from TB_REVIEW A join TB_REVIEW_ANAL_00 B on A.PART_ID=B.PART_ID and A.REVIEW_DOC_NO=B.REVIEW_DOC_NO) and part_id=%s"
+            sql="select * from TB_REVIEW C (nolock) where C.REVIEW_DOC_NO NOT IN (select A.REVIEW_DOC_NO from TB_REVIEW A join TB_REVIEW_ANAL_00 B on A.PART_ID=B.PART_ID and A.REVIEW_DOC_NO=B.REVIEW_DOC_NO) and part_id=%s order by ISRT_DTTM desc"
             #sql="exec dbo.P_MNG_CRW004 @section = 'QC', @part_id=%s, @site_gubun='N'"
             cursor.execute(sql,(part_id))
             row=cursor.fetchall()
@@ -170,6 +145,7 @@ def TB_review_part_id(part_id_list):
             df_concat=pd.concat([df_concat,ori_df],ignore_index=True)
         df=df_concat[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
         df= df.dropna(axis=0)
+        print(f'분석리뷰수: {len(df)}')
     except Exception as e:
         print("Error: ",e)
     finally:
@@ -181,7 +157,7 @@ def TB_model_id():
     try:
         conn=conn_cp949()
         cursor=conn.cursor()
-        sql='select PART_SUB_ID, MODEL_ID from TB_PART_GROUP'
+        sql='select PART_SUB_ID, MODEL_ID from TB_PART_GROUP (nolock)'
         cursor.execute(sql)
         row=cursor.fetchall()
         col_name=['part_sub_id','model_id']
@@ -199,7 +175,7 @@ def TB_stopwords():
     try:
         conn=conn_utf8()
         cursor=conn.cursor()
-        sql='select * from dbo.TB_UNUSE_KEYWORD'
+        sql='select * from dbo.TB_UNUSE_KEYWORD (nolock)'
         cursor.execute(sql)
         row=[item[0] for item in cursor.fetchall()]
     except Exception as e:
@@ -225,6 +201,36 @@ def TB_property_id():
         conn.close()
     return df_dict
 
+
+######### 키워드/센텐스
+
+def anal00_part_id_list(site):
+    '''
+    키워드/센텐스 프로세스 실행을 위한 ANAL00의 part_sub_id/part_id 리스트 반환
+    '''
+    if site=='N': # 네이버
+        conn=conn_cp949()
+        cursor=conn.cursor()
+        sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_N B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='N'"
+        cursor.execute(sql)
+        row=cursor.fetchall()
+        col_name=["PART_SUB_ID", "PART_ID"]
+        df=pd.DataFrame(row, columns=col_name)
+        df['SITE']='N'
+        part_list=df.values.tolist()
+    elif site=='G': # 글로우픽
+        conn=conn_cp949()
+        cursor=conn.cursor()
+        sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_G B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='G'"
+        cursor.execute(sql)
+        row=cursor.fetchall()
+        col_name=["PART_SUB_ID", "PART_ID"]
+        df=pd.DataFrame(row, columns=col_name)
+        df['SITE']='G'
+        part_list=df.values.tolist()
+    return part_list
+
+## 키워드/센텐스 결과를 위한 리뷰 select
 # 글로우픽 ANAL00
 def anal00_G() :
     try:
@@ -240,93 +246,6 @@ def anal00_G() :
     finally:
         conn.close()
     return anal00
-
-# 네이버 ANAL00
-def anal00_N() :
-    try:
-        conn = conn_cp949()
-        cursor=conn.cursor()
-        sql = "select distinct SITE_GUBUN,PART_ID,REVIEW_DOC_NO, RLT_VALUE_03 from TB_REVIEW_ANAL_00_N (nolock) "
-        cursor.execute(sql)
-        row=cursor.fetchall()
-        col_name=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','RLT_VALUE_03']
-        anal00 = pd.DataFrame(row,columns=col_name)
-    except Exception as e:
-        print("Error: ",e)
-    finally:
-        conn.close()
-    return anal00
-
-# anal00의 part_id 리스트
-# def anal00_part_id():
-#     col=['PART_SUB_ID', 'PART_ID']
-#     matching_id=pd.DataFrame(columns=col)a
-#     try:
-#         conn=conn_cp949()
-#         cursor=conn.cursor()
-#         sql="select distinct PART_ID from TB_REVIEW_ANAL_00 (nolock)"
-#         cursor.execute(sql)
-#         row=cursor.fetchall()
-#         col_name=['part_id']
-#         df=pd.DataFrame(row,columns=col_name)
-
-#         part_list = df['part_id'].values.tolist()
-#         for part_id in part_list:
-#             cursor=conn.cursor()
-#             sql = "select distinct PART_SUB_ID from TB_REVIEW WHERE SITE_GUBUN='N' AND PART_ID = %s"    
-#             cursor.execute(sql,(part_id))
-#             row=cursor.fetchall()
-#             col=['PART_SUB_ID']
-#             sub_id_df = pd.DataFrame(row, columns=col)
-#             sub_id_df['PART_ID']=part_id
-#             matching_id=pd.concat([matching_id,sub_id_df],ignore_index=True)    
-#     except Exception as e:
-#         print("Error: ",e)
-#     finally:
-#         conn.close()
-#     return matching_id
-
-#### 키워드/센텐스 결과를 위한 리뷰 select
-def TB_join_N(df):
-    '''
-    ANAL_00_N, REVIEW 테이블통합 리뷰  
-    '''
-    print('db_data_loading for keyword/sentence')
-    try:
-       #anal00_part_id = df[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID']]
-       #part_id = anal00_part_id.drop_duplicates(ignore_index=True)
-        anal00_par_id=df[['PART_ID']]
-        part_id = anal00_par_id.drop_duplicates(ignore_index=True)
-        print(len(part_id))
-        review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]
-        df_review_concat=pd.DataFrame(columns=review_col_name)
-   
-        conn=conn_cp949()
-        cursor = conn.cursor()
-
-        for idx,row in part_id.iterrows():
-            #site_list = part_id.iloc[idx,0]
-            part_id_list = part_id.iloc[idx,0]
-            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where PART_ID=%s"
-            cursor.execute(sql1, part_id_list)
-            tb_review=cursor.fetchall()
-            df_review=pd.DataFrame(tb_review, columns=review_col_name)
-            df_review_concat=pd.concat([df_review_concat,df_review])
-            print(df_review_concat)
-            # part_id=df.iloc[i,1]
-            # sql2="select REVIEW_DOC_NO, PART_ID, RLT_VALUE_03 from TB_REVIEW_ANAL_00 (nolock) where PART_ID=%s"
-            # cursor.execute(sql2, (part_id))
-            # row=cursor.fetchall()
-            # df_anal00=pd.DataFrame(row, columns=anal00_col_name)
-            # anal00_concat=pd.concat([anal00_concat,df_anal00])
-    except Exception as e:
-        print("Error: ",e)
-    finally:
-        conn.close()
-    result=pd.merge(df_review_concat,df,how='outer',on=['PART_ID','REVIEW_DOC_NO'])
-    result=result.dropna(axis=0)
-    # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
-    return result 
 
 def TB_join_G(df):
     '''
@@ -344,7 +263,6 @@ def TB_join_G(df):
         cursor = conn.cursor()
 
         for idx,row in part_id.iterrows():
-            #review_doc_no = part_id.iloc[idx,0]
             part_id_list = part_id.iloc[idx,0]
             print(type(part_id_list))
             sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO from TB_REVIEW (nolock) where PART_ID=%s"
@@ -352,12 +270,6 @@ def TB_join_G(df):
             tb_review=cursor.fetchall()
             df_review=pd.DataFrame(tb_review, columns=review_col_name)
             df_review_concat=pd.concat([df_review_concat,df_review])
-            # part_id=df.iloc[i,1]
-            # sql2="select REVIEW_DOC_NO, PART_ID, RLT_VALUE_03 from TB_REVIEW_ANAL_00 (nolock) where PART_ID=%s"
-            # cursor.execute(sql2, (part_id))
-            # row=cursor.fetchall()
-            # df_anal00=pd.DataFrame(row, columns=anal00_col_name)
-            # anal00_concat=pd.concat([anal00_concat,df_anal00])
     except Exception as e:
         print("Error: ",e)
     finally:
@@ -368,6 +280,53 @@ def TB_join_G(df):
     # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
     return result_df 
 
+# 네이버 ANAL00
+def anal00_N() :
+    try:
+        conn = conn_cp949()
+        cursor=conn.cursor()
+        sql = "select distinct SITE_GUBUN,PART_ID,REVIEW_DOC_NO, RLT_VALUE_03 from TB_REVIEW_ANAL_00_N (nolock) "
+        cursor.execute(sql)
+        row=cursor.fetchall()
+        col_name=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','RLT_VALUE_03']
+        anal00 = pd.DataFrame(row,columns=col_name)
+    except Exception as e:
+        print("Error: ",e)
+    finally:
+        conn.close()
+    return anal00
+
+def TB_join_N(df):
+    '''
+    ANAL_00_N, REVIEW 테이블통합 리뷰
+    '''
+    print('db_data_loading(join_N) for keyword/sentence')
+    try:
+        anal00_par_id=df[['PART_ID']]
+        part_id = anal00_par_id.drop_duplicates(ignore_index=True)
+        print(len(part_id))
+        review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]
+        df_review_concat=pd.DataFrame(columns=review_col_name)
+   
+        conn=conn_cp949()
+        cursor = conn.cursor()
+
+        for idx,row in part_id.iterrows():
+            part_id_list = part_id.iloc[idx,0]
+            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where PART_ID=%s"
+            cursor.execute(sql1, part_id_list)
+            tb_review=cursor.fetchall()
+            df_review=pd.DataFrame(tb_review, columns=review_col_name)
+            df_review_concat=pd.concat([df_review_concat,df_review])
+            print(f'{len(part_id)} 중 {idx+1}번째 concat 완료')
+    except Exception as e:
+        print("Error: ",e)
+    finally:
+        conn.close()
+    result=pd.merge(df_review_concat,df,how='outer',on=['PART_ID','REVIEW_DOC_NO'])
+    result=result.dropna(axis=0)
+    # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
+    return result
 
 '''DB insert'''
 def TB_anal00_N_insert(df):
@@ -404,10 +363,6 @@ def TB_anal02_insert(df):
         for i, row in df.iterrows():
             cursor=conn.cursor()
             
-            # for col in range(len(df.columns)):
-            #     if type(row[col]) is np.float:
-            #         row[col]=''
-
             if row[4]=='0': #키워드
                 sql="exec dbo.P_MNG_ANA002 @section='SA', @site_gubun=%s, @part_group_id=%s,@part_sub_id=%s, @part_id=%s, @keyword_gubun=%s, @keyword_positive=%s,@rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
                 cursor.execute(sql,tuple(row))
@@ -430,10 +385,7 @@ def TB_anal03_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
-            # for col in range(len(df.columns)):
-            #     if type(row[col]) is np.float:
-            #         row[col]=''
-
+            
             if row[4]=='0': # 키워드
                 sql="exec dbo.P_MNG_ANA003 @section='SA',@site_gubun=%s,@part_group_id=%s,@part_sub_id=%s,@part_id=%s,@keyword_gubun=%s, @rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
                 cursor.execute(sql,tuple(row))
@@ -451,34 +403,6 @@ def TB_anal03_insert(df):
     finally:
         conn.close()
 
-### 프로시저 실행
-# def TB_anal01_count():
-#     '''ANAL01 테이블 insert&update (count 실행)'''
-#     try:
-#         conn=conn_utf8()
-#         cursor=conn.cursor()
-#         sql="exec dbo.P_MNG_ANA001 @section='SB'"
-#         cursor.execute(sql)
-#         conn.commit()
-#         print("anal01_count 완료")
-#     except Exception as e:
-#         print("Error: ", e)
-#     finally:
-#         conn.close()
-
-# def TB_anal04_count():
-#     '''ANAL01 테이블 insert&update (count 실행)'''
-#     try:
-#         conn=conn_utf8()
-#         cursor=conn.cursor()
-#         sql="exec dbo.P_MNG_ANA004 @section='SB'"
-#         cursor.execute(sql)
-#         conn.commit()
-#         print("anal04_count 완료")
-#     except Exception as e:
-#         print("Error: ", e)
-#     finally:
-#         conn.close()
 
 def TB_anal00_N_delete():
     '''review테이블에 삭제된 리뷰 ANAL00_N 테이블에서도 삭제'''
@@ -565,7 +489,7 @@ def TB_anal04_count_N():
         conn.close()
 
 def last_isrt_dttm():
-    with open('./etc/last_isrt_dttm.txt','r',encoding='utf8') as f:
+    with open('./etc/last_isrt_dttm_G.txt','r',encoding='utf8') as f:
         lines=f.readlines()
         last_line=len(lines)-1
         isrt_date=lines[last_line].split('\t')[1]

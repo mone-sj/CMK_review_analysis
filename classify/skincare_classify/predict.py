@@ -18,7 +18,6 @@ p.add_argument('--prefix', type=str, default='/')
 args = p.parse_args()
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-print(device)
 bertmodel, vocab = get_pytorch_kobert_model()
 
 

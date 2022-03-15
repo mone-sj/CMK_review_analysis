@@ -32,13 +32,21 @@ def predict_pt(review, model_id):
 # cleanser_url = "https://192.168.200.83:30001/deployment/h3133b2c7de58d295eed7dbcb132065b8/"
 # base_url = "https://192.168.200.83:30001/deployment/hf42f835622a15511232672cb4b7352a3/"
 
-# 코스메카 분류 url
-skin_url = "https://192.168.1.28:30001/deployment/h4b1a4e67341a14d6c9cef6deb3e8a5ec/"
-sun_url = "https://192.168.1.28:30001/deployment/h419d070ccf2f505f019e388d290f75b6/"
-point_url = "https://192.168.1.28:30001/deployment/h2a85986c200dc8db67579b91040ebf43/"
-hair_url = "https://192.168.1.28:30001/deployment/h1b133c638c3c8a0eb31fd3647b5a54a9/"
-cleanser_url = "https://192.168.1.28:30001/deployment/h3e20d11da519bfbd59dbbe1dd48e0ceb/"
-base_url = "https://192.168.1.28:30001/deployment/h254e1c45a3ee030f495982ec8e88eeb7/"
+# 코스메카서버 분류 url- 외부에서 요청할때 사용
+# skin_url = "https://192.168.1.28:30001/deployment/h4b1a4e67341a14d6c9cef6deb3e8a5ec/"
+# sun_url = "https://192.168.1.28:30001/deployment/h419d070ccf2f505f019e388d290f75b6/"
+# point_url = "https://192.168.1.28:30001/deployment/h2a85986c200dc8db67579b91040ebf43/"
+# hair_url = "https://192.168.1.28:30001/deployment/h1b133c638c3c8a0eb31fd3647b5a54a9/"
+# cleanser_url = "https://192.168.1.28:30001/deployment/h3e20d11da519bfbd59dbbe1dd48e0ceb/"
+# base_url = "https://192.168.1.28:30001/deployment/h254e1c45a3ee030f495982ec8e88eeb7/"
+
+# 코스메카서버 분류 url- 서버 내부에서 요청할때 사용
+skin_url = "https://localhost/deployment/h4b1a4e67341a14d6c9cef6deb3e8a5ec/"
+sun_url = "https://localhost/deployment/h419d070ccf2f505f019e388d290f75b6/"
+point_url = "https://localhost/deployment/h2a85986c200dc8db67579b91040ebf43/"
+hair_url = "https://localhost/deployment/h1b133c638c3c8a0eb31fd3647b5a54a9/"
+cleanser_url = "https://localhost/deployment/h3e20d11da519bfbd59dbbe1dd48e0ceb/"
+base_url = "https://localhost/deployment/h254e1c45a3ee030f495982ec8e88eeb7/"
 
 def predict_url(review, model_id):
     '''
