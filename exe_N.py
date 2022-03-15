@@ -6,6 +6,7 @@ from datetime import datetime
 from multi_process.multi import *
 
 def naver_analysis():
+    site='N'
     # 1. load data
     part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
     df=db.TB_review_addTop5Review(part_id_list)
@@ -17,17 +18,19 @@ def naver_analysis():
         #anal00=cos_model_pt_multi(df, classy_num_cores) # multi_process - PT파일 사용
         # anal00=cos_model_api_multi(df, classy_num_cores) # API 사용
         anal00=emp_class.cos_model_pt(df) # single _process - PT 파일 사용
+        now=datetime.now().strftime('%y%m%d_%H%M%S')
+        anal00.to_csv(f'{today_path}/{now}_{site}_anal00_result.csv', index=None)
 
         # anal00 insert
         db.TB_anal00_N_insert(anal00)
-        
+
     # 3. anal02/anal03(keyword/keysentence analysis) insert
     # anal00의 part_id 리스트
-    key_part_id_list=db.anal00_part_id_list('N')
+    key_part_id_list=db.anal00_part_id_list(site)
 
     key_num_cores=3
-    anal03=total_multi(key_part_id_list,key_num_cores)
-    anal02=emo_multi(key_part_id_list,key_num_cores)
+    anal03=total_multi(key_part_id_list,key_num_cores, site)
+    anal02=emo_multi(key_part_id_list,key_num_cores,site)
 
     db.TB_anal03_insert(anal03)
     db.TB_anal02_insert(anal02)

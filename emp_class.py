@@ -21,11 +21,9 @@ score_1=['외로움','후회','실망','두려움','싫음','미워함','짜증�
 
 today_path=db.today_path()
 
-# df=TB_REVIEW_qa()
 # pt파일 사용하여 분류 > anal00 table return
 def cos_model_pt(df):
     print('property+empathy_analysis')
-
     model_id_dic=db.TB_model_id() # sub_id:model_id
     property_id_dic=db.TB_property_id() # property_name:property_id
 
@@ -83,8 +81,6 @@ def cos_model_pt(df):
         data.iloc[cnt,9]=output_first_empathy
         data.iloc[cnt,10]=score
     data=data[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID','DOC_PART_NO','REVIEW','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
-    # now=datetime.now().strftime('%y%m%d_%H%M%S')
-    # data.to_csv(f'{today_path}/{now}_{check_site}_anal00_result.csv', index=None)
     return data
 
 # url 사용하여 분류 > anal00 table return

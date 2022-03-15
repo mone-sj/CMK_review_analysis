@@ -45,16 +45,16 @@ def multi_processing(code_list, func, num_cores):
     pool.join()
     return df
 
-def total_multi(code_list, num_cores):
+def total_multi(code_list, num_cores, site):
     ''' 전체리뷰의 키워드/핵심문장 알고리즘을 multiprocessing으로 실행'''
     anal03=multi_processing(code_list,total,num_cores)
     now=datetime.now().strftime('%y%m%d_%H%M%S')
-    anal03.to_csv(f'{today_path}/{now}_anal03_result.csv', index=None)
+    anal03.to_csv(f'{today_path}/{now}_{site}_anal03_result.csv', index=None)
     return anal03
 
-def emo_multi(code_list, num_cores):
+def emo_multi(code_list, num_cores, site):
     ''' 긍/부정 리뷰의 키워드/핵심문장 알고리즘을 multiprocessing으로 실행'''
     anal02=multi_processing(code_list,emo,num_cores)
     now=datetime.now().strftime('%y%m%d_%H%M%S')
-    anal02.to_csv(f'{today_path}/{now}_anal02_result.csv', index=None)
+    anal02.to_csv(f'{today_path}/{now}_{site}_anal02_result.csv', index=None)
     return anal02
