@@ -332,7 +332,7 @@ def TB_anal00_N_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
-            sql="exec dbo.P_MNG_ANA000 @section='SA', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
+            sql="exec dbo.P_MNG_ANA000 @section='SA', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @review=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
             cursor.execute(sql, tuple(row))
             conn.commit()
         print("anal00_insert완료")
