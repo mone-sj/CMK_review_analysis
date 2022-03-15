@@ -1,5 +1,4 @@
 #-*- coding: utf-8 -*-
-#from typing_extensions import final
 import pymssql
 import pandas as pd
 import os, smtplib
@@ -8,7 +7,6 @@ from email.mime.text import MIMEText
 from email import encoders
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
-#import numpy as np
 
 server = 'ASC-AI.iptime.org'
 database = 'cosmeca'
@@ -348,7 +346,7 @@ def TB_anal00_G_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
-            sql="exec dbo.P_MNG_ANA000 @section='SG', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
+            sql="exec dbo.P_MNG_ANA000 @section='SG', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @review=%s,@rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
             cursor.execute(sql, tuple(row))
             conn.commit()
         print("anal00_insert완료")

@@ -3,7 +3,6 @@
 import db, time, kss
 import pandas as pd
 from datetime import datetime
-#import pymssql
 
 today_path=db.today_path()
 now=datetime.now().strftime('%y%m%d_%H%M')
