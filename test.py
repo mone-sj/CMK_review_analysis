@@ -1,5 +1,24 @@
+# import db, time
+# start=time.time()
+# anal00_g = db.anal00_G()
+# df_glowpick=db.TB_join_G(anal00_g)
+# print(len(df_glowpick))
+# print(f'걸린시간: {time.time()-start}')
+
+#from keys.key import *
+from multiProc.multi_keys import *
+
+
+site='N'
+key_num_cores=3
+test_multi=multi_key(site,key_num_cores)
+anal03=test_multi.total_multi()
+print(anal03)
+
+
+"""
 #import emp_class, 
-from multi_process.multi import *
+#from multi_process.multi_classify import *
 import db
 from keys.key import *
 import time, traceback
@@ -16,7 +35,7 @@ def naver():
     # df=db.TB_review_addTop5Review(part_id_list)
     # end_join=time.time()
     # print(f'조인하는데 걸리는 시간: {end_join-start_join}') # 약 200초~300초 사이 / 20220315기준 오만건
-    """
+    
     df=pd.read_csv('./etc/data/1123_test.csv')
     classy_num_cores=2 # multiprocess의 process 개수
 
@@ -41,7 +60,6 @@ def naver():
         # anal00 insert
         #db.TB_anal00_N_insert(anal00)
         #db.TB_anal00_N_delete()
-    """
     
     # 3. anal02/anal03(keyword/keysentence analysis) insert
     # anal00의 part_id 리스트
@@ -103,3 +121,4 @@ if __name__=='__main__':
         # e=f'{now}\n{err}'
         # error_list.append(e)
         # db.save_txt(error_list,f'{today_path}/errorList')
+"""

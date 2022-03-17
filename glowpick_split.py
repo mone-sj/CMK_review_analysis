@@ -1,16 +1,17 @@
 #-*- coding: utf-8 -*-
 #from posixpath import split
+print('glowpick_split.1')
 import db, time, kss
 import pandas as pd
 from datetime import datetime
 
 today_path=db.today_path()
-now=datetime.now().strftime('%y%m%d_%H%M')
 
 def kss_split(data):
     '''
     GLOWPICK리뷰 SPLIT 및 LABELING 동시진행 
     '''
+    print('split 시작')
     char_data_col=['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW','DOC_PART_NO']
     char_data_orgin_col=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","LABELING","SPLIT_NO"]
     start_time = time.time()
@@ -23,9 +24,9 @@ def kss_split(data):
     id_cnt = id_cnt.drop_duplicates()
     error_list=[]
 
+    analyReviewCount=0
     try:
         for idx, row in data.iterrows():
-
             site = data.iloc[idx,0]
             group_id = data.iloc[idx,1]
             sub_id = data.iloc[idx,2]
@@ -42,6 +43,7 @@ def kss_split(data):
                 kth_list_origin= (site, group_id, sub_id, part_id, review_doc_no,kth_review,label,k+1)
                 split_list_origin.append(kth_list_origin)
                 if len(label) !=0:
+                    analyReviewCount+=1
                     cnt +=1 
                     kth_list= (site, group_id, sub_id, part_id, review_doc_no,kth_review,cnt)
                 elif len(label)==0:
@@ -62,8 +64,8 @@ def kss_split(data):
 
     # Time check
     now=datetime.now().strftime('%y%m%d_%H%M%S')
-    # 분석날짜, split_review, 제품 총 리뷰수, 스플릿된 리뷰수, 분석 리뷰수, 분석시간
-    time_list=[now,"glowpick_split_review",len(id_cnt), len(data),end_time,site,len(char_data_origin),len(char_data)]
+    # 분석날짜	분석모델	분석제품수	총 리뷰수	분석시간	site_gubun	스플릿된 리뷰수	분석 리뷰수
+    time_list=[now,"glowpick_split_review",len(id_cnt), len(data),end_time,site,len(char_data_origin),analyReviewCount]
     # save
     char_data_origin.to_csv(f'{today_path}/{now}_G_split_original_result.csv', index=None)
     char_data.to_csv(f'{today_path}/{now}_G_split_result.csv', index=None)

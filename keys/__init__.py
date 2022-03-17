@@ -1,3 +1,3 @@
-from keys import keysentence_lib
-from keys import keyword_lib
-from keys import key
+from .keysentence_lib import *
+from .keyword_lib import *
+from .key import *

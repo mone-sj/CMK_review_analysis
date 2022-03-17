@@ -1,36 +1,39 @@
 #-*- coding: utf-8 -*-
-#from numpy.lib.function_base import select
-from keys.key import *
-import time, traceback, db, emp_class
-from datetime import datetime
-from multi_process.multi import *
 
 def naver_analysis():
     site='N'
     # 1. load data
     part_id_list=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
-    df=db.TB_review_addTop5Review(part_id_list)
+    df, crawHist_isrtDate=db.TB_review_addTop5Review(part_id_list)
     
     classy_num_cores=2                         # multiprocessing의 process 개수
 
     if len(df)!=0:
-        # 2. anal00(property+empathy result) insert
-        #anal00=cos_model_pt_multi(df, classy_num_cores) # multi_process - PT파일 사용
-        # anal00=cos_model_api_multi(df, classy_num_cores) # API 사용
-        anal00=emp_class.cos_model_pt(df) # single _process - PT 파일 사용
+        csf_analy=emp_class.classify_analy(site)
+        # 2. anal00(property+empathy result) analysis
+        how='pt'
+        #how='api'
+        start_classify=time.time()
+        anal00=csf_analy.empPropertyClassify(df,how)
         now=datetime.now().strftime('%y%m%d_%H%M%S')
-        anal00.to_csv(f'{today_path}/{now}_{site}_anal00_result.csv', index=None)
+        anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
+
+        #분석날짜\t분석모델\t분석제품수\t총 리뷰수\t분석시간\tsite_gubun\t스플릿된 리뷰수\t분석 리뷰수
+        time_list = [{now}, "classify_{crawHist_isrtDate}기준_top5_{how}", {len(part_id_list)}, {len(df)},{time.time()-start_classify}, {site},'',{len(df)}]
+        db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
 
         # anal00 insert
         db.TB_anal00_N_insert(anal00)
 
     # 3. anal02/anal03(keyword/keysentence analysis) insert
-    # anal00의 part_id 리스트
-    key_part_id_list=db.anal00_part_id_list(site)
-
     key_num_cores=3
-    anal03=total_multi(key_part_id_list,key_num_cores, site)
-    anal02=emo_multi(key_part_id_list,key_num_cores,site)
+    naver_multi=multi_key(site, key_num_cores)
+    
+    anal03=naver_multi.total_multi()
+    anal03.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal03_result.csv", index=None) #save
+    
+    anal02=naver_multi.emo_multi()
+    anal02.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal02_result.csv", index=None) #save
 
     db.TB_anal03_insert(anal03)
     db.TB_anal02_insert(anal02)
@@ -44,9 +47,15 @@ def naver_analysis():
     print(f"{finish_time} 분석 완료")
 
 if __name__=='__main__':
+    from keys.key import *
+    import time, traceback, db, emp_class
+    from datetime import datetime
+    from multiProc.multi_keys import *
+    from cmn import cmn
+    
+    cmnVariables=cmn()
     error_list=[]
     time_list=[]
-    today_path=db.today_path()      # 백업을 위한 폴더 생성 
 
     try:
         start_time=time.time()
@@ -55,15 +64,14 @@ if __name__=='__main__':
         
         # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
         time_list=[datetime.now().strftime('%y%m%d'),"naver_total_analy","-","-",all_time]
-        db.time_txt(time_list,f'{today_path}/time_check')
+        db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
         #db.success_sendEmail()
 
     except Exception:
         err=traceback.format_exc()
         print(f'1번째 error\n{err}')
-        now=datetime.now().strftime('%Y%m%d %H:%M:%S')
-        e=f'{now}\n{err}'
+        e=f"{datetime.now().strftime('%Y%m%d %H:%M:%S')}\n{err}"
         error_list.append(e)
-        db.save_txt(error_list,f'{today_path}/errorList')
+        db.save_txt(error_list,f'{cmnVariables.today_path}/errorList')
         #db.fail_sendEmail(e)
         #analysis()

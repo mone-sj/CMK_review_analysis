@@ -1,0 +1,2897 @@
+1105리뷰_glowpick_split 오류없음
+20220317 12:2858
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\connection.py", line 83, in create_connection
+    raise err
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 850, in _validate_conn
+    conn.connect()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACCBF288>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\adapters.py", line 440, in send
+    timeout=timeout
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='192.168.1.28', port=30001): Max retries exceeded with url: /deployment/h713a8261480609773e335448cf89d226/ (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACCBF288>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\workspace\cb_nlp\CMK_review_analysis\emp_class.py", line 71, in empPropertyClassify
+    response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\api.py", line 112, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\api.py", line 58, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\sessions.py", line 508, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\sessions.py", line 618, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\adapters.py", line 508, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='192.168.1.28', port=30001): Max retries exceeded with url: /deployment/h713a8261480609773e335448cf89d226/ (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACCBF288>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\connection.py", line 83, in create_connection
+    raise err
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 850, in _validate_conn
+    conn.connect()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACC9A788>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\adapters.py", line 440, in send
+    timeout=timeout
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\urllib3\util\retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='192.168.1.28', port=30001): Max retries exceeded with url: /deployment/h713a8261480609773e335448cf89d226/ (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACC9A788>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "exe_G.py", line 116, in <module>
+    glowpick_review_analysis() #글로우픽 리뷰분석
+  File "exe_G.py", line 26, in glowpick_review_analysis
+    anal00=csf_analy.empPropertyClassify(split_review,how)
+  File "D:\workspace\cb_nlp\CMK_review_analysis\emp_class.py", line 74, in empPropertyClassify
+    response_empathy=requests.post(cmk_empathy_url,json={'text':review},verify=False,timeout=180)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\api.py", line 112, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\api.py", line 58, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\sessions.py", line 508, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\sessions.py", line 618, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\adapters.py", line 508, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='192.168.1.28', port=30001): Max retries exceeded with url: /deployment/h713a8261480609773e335448cf89d226/ (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x00000279ACC9A788>: Failed to establish a new connection: [WinError 10060] 연결된 구성원으로부터 응답이 없어 연결하지 못했거나, 호스트로부터 응답이 없어 연결이 끊어졌습니다'))
+
+1105리뷰_glowpick_split 오류없음
+2리뷰_glowpick_split 오류없음
+2리뷰_glowpick_split 오류없음
+2리뷰_glowpick_split 오류없음
+code: S13_2859 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_85962 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_93632 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_94029 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_98222 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_99920 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_144980 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_148342 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_151565 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_17945 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_20576 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_55157 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_89583 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_89781 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_105134 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_108196 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_148296 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_135168 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_147818 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_148225 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_153546 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_132326 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_148742 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_149147 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_149309 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_4774 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_89696 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_95222 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_32185 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_3497 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_3691 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_146650 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_149313 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150343 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154879 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154938 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_115754 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_98342 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_132674 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_143063 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_149302 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_149310 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_150109 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_153608 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_153675 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_109158 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_124228 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_154630 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_4758 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_76879 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_89635 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_121657 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_128298 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_1378 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_1420 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_142243 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_14334 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_147915 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_83085 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_92082 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_93795 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_117246 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_131496 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147917 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_154681 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_80841 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_99545 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_123875 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_124507 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_124735 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_141423 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_43302 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_59783 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_86224 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_96883 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_123228 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_131534 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_14660 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_152914 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_2260 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_8781 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_104161 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_119956 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_129652 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_136512 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_141181 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_151671 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_26208 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_41439 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_120533 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_59377 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_98945 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_17848 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_41358 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_100605 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_102706 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_116516 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_136246 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_144863 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_150032 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_1844 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_81415 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_85963 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_147329 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_152955 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_99022 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_116995 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_128903 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_143631 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_41328 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_77376 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_92154 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_116442 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_123734 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_1271 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_19675 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_10173 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_115357 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_119587 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_140286 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_1461 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_151664 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_3138 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_49581 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_49861 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_5258 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_81851 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_93870 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_20577 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_104062 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_153315 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_145436 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_122508 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_12736 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_149152 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_149632 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_154407 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_25535 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_25538 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_33797 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_91668 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_131050 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_145708 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_148882 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_149189 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_150427 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_152954 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_95080 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_129457 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_4126 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_64845 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_141944 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_149497 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150153 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152643 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_153243 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_153583 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154694 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_144480 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_25509 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_146651 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_152456 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154712 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_105349 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_122777 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_126068 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_131181 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_1314 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_29650 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_3596 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_81446 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_89602 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_91326 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_109230 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_148954 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_153803 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_4838 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_90370 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_119102 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_153012 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_154953 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_16780 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_81292 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_146895 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_72293 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_888 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_92160 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_99012 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_11846 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_129428 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_144881 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_152911 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_153975 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_154952 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_3136 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_72992 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_95018 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_103708 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_79774 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_89743 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_2631 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_41274 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_91894 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_125600 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_4311 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_45193 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_95300 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_97891 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_22451 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_5180 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_85481 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_86400 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_102478 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_109559 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_111771 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_122860 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_128559 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_132371 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_21586 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_9783 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_113165 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_115308 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_126021 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_148368 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_153646 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_115554 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_126890 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_139771 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_151199 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_42237 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_75645 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_110602 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_128639 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_110728 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_114872 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_12033 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_127445 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_140908 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_80331 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_88868 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_93397 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_95008 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_97427 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_126572 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_139305 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_145386 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_149203 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S18_110748 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_121495 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_138543 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_144154 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_104346 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_132374 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_134503 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_136142 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_19662 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_26396 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_36894 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_93237 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_134094 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_139774 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_140356 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_147863 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_17876 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_5716 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_8528 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_147852 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150150 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_151091 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152883 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152986 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_153441 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_146619 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_16981 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_133772 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_146614 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_147139 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_148679 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_149039 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_112271 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_20003 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_21385 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_66001 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_150010 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_18637 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_18640 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_38508 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_10382 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_114433 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_121729 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_134651 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_135584 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_139878 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147199 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147436 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_150024 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_151408 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_22787 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_89964 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_95572 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_108758 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_112336 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_136456 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_152801 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_3112 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_62049 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_86767 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_89222 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_90914 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_90947 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_97513 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_52385 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_82452 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_104160 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_53037 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_33695 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_45085 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_62001 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_95451 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_4313 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_56977 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_81732 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_111170 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_130486 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_130640 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_152973 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_153565 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_49097 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_152951 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_16899 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_19043 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_21274 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_102123 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_111282 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_153609 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_38055 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_83952 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_12194 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_131598 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_10025 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_110557 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_111281 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_1450 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_153645 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_1901 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_145065 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_145387 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_152908 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_22448 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_35847 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_104924 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_108985 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_120910 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S18_77234 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_107217 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_111661 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_119305 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_132254 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_134662 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_17481 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_106870 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_108293 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_117614 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_123903 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_132373 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_146957 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_150877 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_51477 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_76045 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_142883 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_150318 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_51533 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_83701 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_33632 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_3457 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_4108 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_141693 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_145810 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150313 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_153324 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154092 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154149 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_144473 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_147819 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_149785 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_55109 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_147861 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_152522 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154888 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_83793 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_112669 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_150135 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_73674 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_1415 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_21887 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_79602 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_119171 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_140679 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_140691 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_145914 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147120 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_151304 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_152459 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_154692 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_76330 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_81039 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_89789 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_110664 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_115552 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_123291 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_123893 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_135769 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_145709 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_24563 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_85308 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_97503 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_121300 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_122711 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_1493 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_18922 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_36384 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_42771 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_87143 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_8778 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_111311 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_145723 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_26210 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_4608 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_92156 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_78312 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_152257 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_3959 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_40833 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_61889 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_82441 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_82543 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_14295 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_20632 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_22 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_2941 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_40815 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_7516 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_90 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_91694 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_95456 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_129308 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_144782 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_152006 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_152974 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_157 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_113193 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_117857 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_125153 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_139620 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_143724 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_146144 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_148004 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_152163 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_95039 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_11199 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_110317 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_11831 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_12036 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_1258 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_152919 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_19008 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_35337 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_45741 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_5259 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_100068 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_142235 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_20573 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_105129 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_109414 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_121808 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_14561 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_146766 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S18_102445 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S18_73888 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_107900 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_146107 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_107592 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_141732 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_145414 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_147122 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_148145 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_22784 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_26422 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_126914 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_134764 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_142861 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_146728 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_154164 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_128403 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_78519 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152477 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154153 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_154628 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_101727 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_114572 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_103222 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_146051 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_149187 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_151092 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154806 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_101281 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_132014 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_136932 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_143833 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_122114 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_139866 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_78363 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_99693 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_99779 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_1260 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_129370 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_130989 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_153496 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_26275 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_38145 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_74950 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_78683 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_109302 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_109356 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_120085 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_127409 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_140191 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_15279 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_5919 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_78228 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_88399 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_110065 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_120222 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_27569 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_107939 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_26213 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_2851 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_35994 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_66417 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_79770 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_89745 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_90266 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_122994 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_34096 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_5188 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_75105 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_102462 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_115761 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_148972 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_136111 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_27404 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_112417 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_121796 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_129241 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_130838 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_152092 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_56725 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_72978 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_88412 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_94040 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_97321 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_152054 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_153755 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_2785 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_70173 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_97907 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_117994 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_133267 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_134710 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_138824 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_154860 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_124664 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_125385 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_133443 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_145057 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_86097 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_102413 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_106787 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_2856 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_98022 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_98253 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_144540 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_16977 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_38175 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_131441 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_146779 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_91385 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_104620 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_118858 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_120271 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_120489 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_133186 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_146323 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_149794 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_152543 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_26431 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_117775 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_122746 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_141411 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_150873 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_150874 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_2361 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_74074 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_82032 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_139206 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_139562 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_121652 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_122187 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_127488 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_143759 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_74068 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_134638 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_145751 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_147865 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154211 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_144474 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_154606 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_23464 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_26968 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_72940 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_119285 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_34582 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_65073 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_98046 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_109394 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_140506 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_143628 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_153601 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_27555 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_33494 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_65289 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_73069 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_74121 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_86081 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_97732 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_110291 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_117446 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_118650 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_127441 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_88026 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_113997 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_120219 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_147866 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_149474 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_152381 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_152912 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_2843 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_41403 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_66989 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_85921 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_92381 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_97899 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_98881 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_100534 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_148738 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_20695 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_27327 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_46617 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_9128 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_128034 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_151938 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_76162 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_117386 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_117886 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_131287 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_1836 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_42948 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_6015 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_60784 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_71933 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_72117 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_96648 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_110506 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_144347 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_7122 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_73251 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_118817 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_124765 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_126207 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_149072 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_151798 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_10042 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_111454 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_151674 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_1831 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_18723 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_33645 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_9969 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_104490 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_104494 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_127456 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_138567 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_138727 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_152774 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_16978 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_97624 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_118115 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_134820 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_146395 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_151733 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_118652 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_12236 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_133413 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_146238 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_146739 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_154311 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_154327 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_17441 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_7582 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_7706 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_80325 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_86140 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_90730 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_114272 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_133668 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_137597 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_148179 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_152171 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_152599 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_154963 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_152457 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_76406 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_7994 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_136340 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_139508 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_139838 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_146431 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150316 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_139205 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_148879 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_151226 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154326 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_154531 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_104177 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_12609 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_144204 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_150108 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_152828 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_97694 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_122884 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_129807 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_136606 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_140355 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_145391 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_18242 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_25512 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_112216 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_129748 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_135152 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_139475 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147922 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_149149 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_21798 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_607 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_103772 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_125188 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_127854 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_139568 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_155139 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_82501 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_109920 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_117519 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_128809 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_12953 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_130544 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_2088 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_109956 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_111775 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_124144 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_132171 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_1473 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_150275 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_52629 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_56973 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_90318 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_97235 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_6590 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_75686 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_125434 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_67457 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_99955 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_132047 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_145069 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_66941 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_38232 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_60002 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_128740 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_128832 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_153767 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_55701 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_80313 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_106938 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_108442 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_152492 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_153386 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_80265 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_139460 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_111402 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_153367 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_50049 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_54125 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_82932 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_104492 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_131689 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_135772 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_144472 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S16_89581 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_104165 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_104446 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_108194 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_119303 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_123522 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_137871 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S17_91567 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_106213 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_118124 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S21_76701 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_106810 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_115789 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_134967 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_141356 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_154308 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_24947 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S22_98754 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_117609 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_137691 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_142143 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_145163 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_148120 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_151498 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_152644 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S23_153805 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_116491 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_13159 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_3237 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S25_82765 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_138715 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_140087 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_142698 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_150149 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152207 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152219 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_152656 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_153772 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S31_155149 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_105549 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_136434 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S32_55153 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_142504 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_142672 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_147802 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_152967 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S34_153452 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_130697 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_133521 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_1679 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_1721 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_55477 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_6291 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_80600 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_81675 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S37_88499 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_108772 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_120081 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_1403 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_149760 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_151069 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_152909 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S40_33473 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_105393 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_110800 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_117460 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_125971 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_133409 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_147763 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_149148 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_154247 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_154680 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_1950 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_3020 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S42_86777 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_127342 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_82084 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S45_94237 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_152970 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_34537 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S46_9113 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S47_111662 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_56281 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S49_71161 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_113951 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_128826 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_21811 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_72369 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_95083 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_99458 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S02_99638 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_17744 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S03_84112 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_107264 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_109564 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_110548 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_125820 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_130549 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_130981 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_140509 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_145795 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_154305 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_25037 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_3122 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_60795 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S05_95086 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_21043 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_53517 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S06_99221 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_118004 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_120739 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_129058 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_129966 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_139131 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_153396 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_41592 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_42267 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S09_91684 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_116857 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_125141 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S10_131893 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_10019 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_18721 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_27764 / site: G 전체리뷰 핵심문장 오류3	에러없음
+code: S13_28080 / site: G 전체리뷰 핵심문장 오류3	에러없음
+S13_2859 / site: G 긍정핵심문장 오류3	에러없음
+S13_2859 / site: G 부정핵심문장 오류3	에러없음
+S13_85962 / site: G 긍정핵심문장 오류3	에러없음
+S13_85962 / site: G 부정핵심문장 오류3	에러없음
+S13_94029 / site: G 긍정핵심문장 오류3	에러없음
+S13_98222 / site: G 긍정핵심문장 오류3	에러없음
+S13_98222 / site: G 부정핵심문장 오류3	에러없음
+S13_99920 / site: G 긍정핵심문장 오류3	에러없음
+S13_99920 / site: G 부정핵심문장 오류3	에러없음
+S16_144980 / site: G 긍정핵심문장 오류3	에러없음
+S16_144980 / site: G 부정핵심문장 오류3	에러없음
+S16_148342 / site: G 긍정핵심문장 오류3	에러없음
+S16_148342 / site: G 부정핵심문장 오류3	에러없음
+S16_151565 / site: G 긍정핵심문장 오류3	에러없음
+S16_151565 / site: G 부정핵심문장 오류3	에러없음
+S16_153335 site:G 긍정리뷰 없음
+S16_153335 site:G 부정리뷰 없음
+S16_17945 / site: G 긍정핵심문장 오류3	에러없음
+S16_17945 / site: G 부정핵심문장 오류3	에러없음
+S16_20576 / site: G 긍정핵심문장 오류3	에러없음
+S16_20576 / site: G 부정핵심문장 오류3	에러없음
+S16_55157 / site: G 긍정핵심문장 오류3	에러없음
+S16_55157 / site: G 부정핵심문장 오류3	에러없음
+S16_89583 / site: G 긍정핵심문장 오류3	에러없음
+S16_89583 / site: G 부정핵심문장 오류3	에러없음
+S16_89781 / site: G 긍정핵심문장 오류3	에러없음
+S16_89781 / site: G 부정핵심문장 오류3	에러없음
+S17_105134 / site: G 긍정핵심문장 오류3	에러없음
+S17_105134 / site: G 부정핵심문장 오류3	에러없음
+S17_108196 / site: G 긍정핵심문장 오류3	에러없음
+S17_108196 / site: G 부정핵심문장 오류3	에러없음
+S21_148296 / site: G 긍정핵심문장 오류3	에러없음
+S21_148296 / site: G 부정핵심문장 오류3	에러없음
+S22_135168 / site: G 긍정핵심문장 오류3	에러없음
+S22_135168 / site: G 부정핵심문장 오류3	에러없음
+S22_147818 / site: G 긍정핵심문장 오류3	에러없음
+S22_147818 / site: G 부정핵심문장 오류3	에러없음
+S22_148225 / site: G 긍정핵심문장 오류3	에러없음
+S22_148225 / site: G 부정핵심문장 오류3	에러없음
+S22_153546 / site: G 긍정핵심문장 오류3	에러없음
+S22_153546 / site: G 부정핵심문장 오류3	에러없음
+S23_132326 / site: G 긍정핵심문장 오류3	에러없음
+S23_132326 / site: G 부정핵심문장 오류3	에러없음
+S23_148742 / site: G 긍정핵심문장 오류3	에러없음
+S23_148742 / site: G 부정핵심문장 오류3	에러없음
+S23_149147 / site: G 긍정핵심문장 오류3	에러없음
+S23_149147 / site: G 부정핵심문장 오류3	에러없음
+S23_149309 / site: G 긍정핵심문장 오류3	에러없음
+S23_149309 / site: G 부정핵심문장 오류3	에러없음
+S23_152218 site:G 부정리뷰 없음
+S23_4774 / site: G 긍정핵심문장 오류3	에러없음
+S23_4774 / site: G 부정핵심문장 오류3	에러없음
+S23_89696 / site: G 긍정핵심문장 오류3	에러없음
+S23_89696 / site: G 부정핵심문장 오류3	에러없음
+S23_95222 / site: G 긍정핵심문장 오류3	에러없음
+S25_32185 / site: G 긍정핵심문장 오류3	에러없음
+S25_32185 / site: G 부정핵심문장 오류3	에러없음
+S25_3497 / site: G 긍정핵심문장 오류3	에러없음
+S25_3691 / site: G 긍정핵심문장 오류3	에러없음
+S25_3691 / site: G 부정핵심문장 오류3	에러없음
+S31_146650 / site: G 긍정핵심문장 오류3	에러없음
+S31_146650 / site: G 부정핵심문장 오류3	에러없음
+S31_149313 / site: G 긍정핵심문장 오류3	에러없음
+S31_149313 / site: G 부정핵심문장 오류3	에러없음
+S31_150343 / site: G 긍정핵심문장 오류3	에러없음
+S31_150343 / site: G 부정핵심문장 오류3	에러없음
+S31_152840 site:G 부정리뷰 없음
+S31_152910 site:G 긍정리뷰 없음
+S31_152910 site:G 부정리뷰 없음
+S31_153247 site:G 부정리뷰 없음
+S31_154137 site:G 부정리뷰 없음
+S31_154938 / site: G 긍정핵심문장 오류3	에러없음
+S31_154938 / site: G 부정핵심문장 오류3	에러없음
+S32_115754 / site: G 긍정핵심문장 오류3	에러없음
+S32_115754 / site: G 부정핵심문장 오류3	에러없음
+S32_98342 / site: G 긍정핵심문장 오류3	에러없음
+S32_98342 / site: G 부정핵심문장 오류3	에러없음
+S34_132674 / site: G 긍정핵심문장 오류3	에러없음
+S34_132674 / site: G 부정핵심문장 오류3	에러없음
+S34_143063 / site: G 긍정핵심문장 오류3	에러없음
+S34_143063 / site: G 부정핵심문장 오류3	에러없음
+S34_149302 / site: G 긍정핵심문장 오류3	에러없음
+S34_149302 / site: G 부정핵심문장 오류3	에러없음
+S34_149310 / site: G 긍정핵심문장 오류3	에러없음
+S34_149310 / site: G 부정핵심문장 오류3	에러없음
+S34_150109 / site: G 긍정핵심문장 오류3	에러없음
+S34_150109 / site: G 부정핵심문장 오류3	에러없음
+S34_152217 site:G 부정리뷰 없음
+S34_153608 / site: G 긍정핵심문장 오류3	에러없음
+S34_153608 / site: G 부정핵심문장 오류3	에러없음
+S34_154454 site:G 긍정리뷰 없음
+S34_154454 site:G 부정리뷰 없음
+S37_109158 / site: G 긍정핵심문장 오류3	에러없음
+S37_109158 / site: G 부정핵심문장 오류3	에러없음
+S37_124228 / site: G 긍정핵심문장 오류3	에러없음
+S37_124228 / site: G 부정핵심문장 오류3	에러없음
+S37_154630 / site: G 긍정핵심문장 오류3	에러없음
+S37_154630 / site: G 부정핵심문장 오류3	에러없음
+S37_4758 / site: G 긍정핵심문장 오류3	에러없음
+S37_4758 / site: G 부정핵심문장 오류3	에러없음
+S37_76879 / site: G 긍정핵심문장 오류3	에러없음
+S37_76879 / site: G 부정핵심문장 오류3	에러없음
+S37_89635 / site: G 긍정핵심문장 오류3	에러없음
+S37_89635 / site: G 부정핵심문장 오류3	에러없음
+S40_121657 / site: G 긍정핵심문장 오류3	에러없음
+S40_121657 / site: G 부정핵심문장 오류3	에러없음
+S40_128298 / site: G 긍정핵심문장 오류3	에러없음
+S40_128298 / site: G 부정핵심문장 오류3	에러없음
+S40_1378 / site: G 긍정핵심문장 오류3	에러없음
+S40_1378 / site: G 부정핵심문장 오류3	에러없음
+S40_1420 / site: G 긍정핵심문장 오류3	에러없음
+S40_1420 / site: G 부정핵심문장 오류3	에러없음
+S40_142243 / site: G 긍정핵심문장 오류3	에러없음
+S40_142243 / site: G 부정핵심문장 오류3	에러없음
+S40_14334 / site: G 긍정핵심문장 오류3	에러없음
+S40_14334 / site: G 부정핵심문장 오류3	에러없음
+S40_147915 / site: G 긍정핵심문장 오류3	에러없음
+S40_147915 / site: G 부정핵심문장 오류3	에러없음
+S40_83085 / site: G 긍정핵심문장 오류3	에러없음
+S40_83085 / site: G 부정핵심문장 오류3	에러없음
+S40_92082 / site: G 긍정핵심문장 오류3	에러없음
+S40_92082 / site: G 부정핵심문장 오류3	에러없음
+S40_93795 / site: G 긍정핵심문장 오류3	에러없음
+S40_93795 / site: G 부정핵심문장 오류3	에러없음
+S42_117246 / site: G 긍정핵심문장 오류3	에러없음
+S42_117246 / site: G 부정핵심문장 오류3	에러없음
+S42_131496 / site: G 긍정핵심문장 오류3	에러없음
+S42_131496 / site: G 부정핵심문장 오류3	에러없음
+S42_147917 / site: G 긍정핵심문장 오류3	에러없음
+S42_147917 / site: G 부정핵심문장 오류3	에러없음
+S42_153500 site:G 부정리뷰 없음
+S42_154681 / site: G 긍정핵심문장 오류3	에러없음
+S42_154681 / site: G 부정핵심문장 오류3	에러없음
+S42_99545 / site: G 긍정핵심문장 오류3	에러없음
+S42_99545 / site: G 부정핵심문장 오류3	에러없음
+S45_123875 / site: G 긍정핵심문장 오류3	에러없음
+S45_123875 / site: G 부정핵심문장 오류3	에러없음
+S45_124507 / site: G 긍정핵심문장 오류3	에러없음
+S45_124507 / site: G 부정핵심문장 오류3	에러없음
+S45_124735 / site: G 긍정핵심문장 오류3	에러없음
+S45_124735 / site: G 부정핵심문장 오류3	에러없음
+S45_141423 / site: G 긍정핵심문장 오류3	에러없음
+S45_141423 / site: G 부정핵심문장 오류3	에러없음
+S45_152506 site:G 부정리뷰 없음
+S45_43302 / site: G 긍정핵심문장 오류3	에러없음
+S45_43302 / site: G 부정핵심문장 오류3	에러없음
+S45_59783 / site: G 긍정핵심문장 오류3	에러없음
+S45_86224 / site: G 긍정핵심문장 오류3	에러없음
+S45_86224 / site: G 부정핵심문장 오류3	에러없음
+S45_96883 / site: G 긍정핵심문장 오류3	에러없음
+S45_96883 / site: G 부정핵심문장 오류3	에러없음
+S46_123228 / site: G 긍정핵심문장 오류3	에러없음
+S46_131534 / site: G 긍정핵심문장 오류3	에러없음
+S46_131534 / site: G 부정핵심문장 오류3	에러없음
+S46_14660 / site: G 긍정핵심문장 오류3	에러없음
+S46_14660 / site: G 부정핵심문장 오류3	에러없음
+S46_2260 / site: G 긍정핵심문장 오류3	에러없음
+S46_2260 / site: G 부정핵심문장 오류3	에러없음
+S46_8781 / site: G 긍정핵심문장 오류3	에러없음
+S46_8781 / site: G 부정핵심문장 오류3	에러없음
+S47_104161 / site: G 긍정핵심문장 오류3	에러없음
+S47_104161 / site: G 부정핵심문장 오류3	에러없음
+S47_119956 / site: G 긍정핵심문장 오류3	에러없음
+S47_119956 / site: G 부정핵심문장 오류3	에러없음
+S47_129652 / site: G 긍정핵심문장 오류3	에러없음
+S47_129652 / site: G 부정핵심문장 오류3	에러없음
+S47_136512 / site: G 긍정핵심문장 오류3	에러없음
+S47_136512 / site: G 부정핵심문장 오류3	에러없음
+S47_141181 / site: G 긍정핵심문장 오류3	에러없음
+S47_141181 / site: G 부정핵심문장 오류3	에러없음
+S47_151671 / site: G 긍정핵심문장 오류3	에러없음
+S47_151671 / site: G 부정핵심문장 오류3	에러없음
+S47_26208 / site: G 긍정핵심문장 오류3	에러없음
+S47_26208 / site: G 부정핵심문장 오류3	에러없음
+S47_41439 / site: G 긍정핵심문장 오류3	에러없음
+S47_41439 / site: G 부정핵심문장 오류3	에러없음
+S49_120533 / site: G 긍정핵심문장 오류3	에러없음
+S49_120533 / site: G 부정핵심문장 오류3	에러없음
+S49_59377 / site: G 긍정핵심문장 오류3	에러없음
+S49_59377 / site: G 부정핵심문장 오류3	에러없음
+S02_98945 / site: G 긍정핵심문장 오류3	에러없음
+S02_98945 / site: G 부정핵심문장 오류3	에러없음
+S03_17848 / site: G 긍정핵심문장 오류3	에러없음
+S03_17848 / site: G 부정핵심문장 오류3	에러없음
+S03_41358 / site: G 긍정핵심문장 오류3	에러없음
+S05_100605 / site: G 긍정핵심문장 오류3	에러없음
+S05_100605 / site: G 부정핵심문장 오류3	에러없음
+S05_102706 / site: G 긍정핵심문장 오류3	에러없음
+S05_116516 / site: G 긍정핵심문장 오류3	에러없음
+S05_116516 / site: G 부정핵심문장 오류3	에러없음
+S05_136246 / site: G 긍정핵심문장 오류3	에러없음
+S05_136246 / site: G 부정핵심문장 오류3	에러없음
+S05_144863 / site: G 긍정핵심문장 오류3	에러없음
+S05_144863 / site: G 부정핵심문장 오류3	에러없음
+S05_150032 / site: G 긍정핵심문장 오류3	에러없음
+S05_150032 / site: G 부정핵심문장 오류3	에러없음
+S05_153580 site:G 부정리뷰 없음
+S05_1844 / site: G 긍정핵심문장 오류3	에러없음
+S05_1844 / site: G 부정핵심문장 오류3	에러없음
+S05_81415 / site: G 긍정핵심문장 오류3	에러없음
+S05_85963 / site: G 긍정핵심문장 오류3	에러없음
+S05_85963 / site: G 부정핵심문장 오류3	에러없음
+S06_132268 site:G 긍정리뷰 없음
+S06_132268 site:G 부정리뷰 없음
+S06_147329 / site: G 긍정핵심문장 오류3	에러없음
+S06_147329 / site: G 부정핵심문장 오류3	에러없음
+S06_152955 / site: G 긍정핵심문장 오류3	에러없음
+S06_153178 site:G 부정리뷰 없음
+S06_99022 / site: G 긍정핵심문장 오류3	에러없음
+S06_99022 / site: G 부정핵심문장 오류3	에러없음
+S09_116995 / site: G 긍정핵심문장 오류3	에러없음
+S09_116995 / site: G 부정핵심문장 오류3	에러없음
+S09_128903 / site: G 긍정핵심문장 오류3	에러없음
+S09_128903 / site: G 부정핵심문장 오류3	에러없음
+S09_143631 / site: G 긍정핵심문장 오류3	에러없음
+S09_143631 / site: G 부정핵심문장 오류3	에러없음
+S09_153393 site:G 부정리뷰 없음
+S09_154256 site:G 부정리뷰 없음
+S09_41328 / site: G 긍정핵심문장 오류3	에러없음
+S09_41328 / site: G 부정핵심문장 오류3	에러없음
+S09_77376 / site: G 긍정핵심문장 오류3	에러없음
+S09_77376 / site: G 부정핵심문장 오류3	에러없음
+S09_92154 / site: G 긍정핵심문장 오류3	에러없음
+S09_92154 / site: G 부정핵심문장 오류3	에러없음
+S10_123734 / site: G 긍정핵심문장 오류3	에러없음
+S10_1271 / site: G 긍정핵심문장 오류3	에러없음
+S10_19675 / site: G 긍정핵심문장 오류3	에러없음
+S10_19675 / site: G 부정핵심문장 오류3	에러없음
+S13_10173 / site: G 긍정핵심문장 오류3	에러없음
+S13_10173 / site: G 부정핵심문장 오류3	에러없음
+S13_119587 / site: G 긍정핵심문장 오류3	에러없음
+S13_119587 / site: G 부정핵심문장 오류3	에러없음
+S13_140286 / site: G 긍정핵심문장 오류3	에러없음
+S13_140286 / site: G 부정핵심문장 오류3	에러없음
+S13_1461 / site: G 긍정핵심문장 오류3	에러없음
+S13_1461 / site: G 부정핵심문장 오류3	에러없음
+S13_147361 site:G 부정리뷰 없음
+S13_3138 / site: G 긍정핵심문장 오류3	에러없음
+S13_3138 / site: G 부정핵심문장 오류3	에러없음
+S13_49581 / site: G 긍정핵심문장 오류3	에러없음
+S13_49581 / site: G 부정핵심문장 오류3	에러없음
+S13_49861 / site: G 긍정핵심문장 오류3	에러없음
+S13_49861 / site: G 부정핵심문장 오류3	에러없음
+S13_5258 / site: G 긍정핵심문장 오류3	에러없음
+S13_5258 / site: G 부정핵심문장 오류3	에러없음
+S13_81851 / site: G 긍정핵심문장 오류3	에러없음
+S13_81851 / site: G 부정핵심문장 오류3	에러없음
+S13_93870 / site: G 긍정핵심문장 오류3	에러없음
+S13_93870 / site: G 부정핵심문장 오류3	에러없음
+S16_20577 / site: G 긍정핵심문장 오류3	에러없음
+S16_20577 / site: G 부정핵심문장 오류3	에러없음
+S17_104062 / site: G 긍정핵심문장 오류3	에러없음
+S17_104062 / site: G 부정핵심문장 오류3	에러없음
+S17_153315 / site: G 긍정핵심문장 오류3	에러없음
+S21_145436 / site: G 긍정핵심문장 오류3	에러없음
+S22_122508 / site: G 긍정핵심문장 오류3	에러없음
+S22_122508 / site: G 부정핵심문장 오류3	에러없음
+S22_12736 / site: G 긍정핵심문장 오류3	에러없음
+S22_12736 / site: G 부정핵심문장 오류3	에러없음
+S22_149152 / site: G 긍정핵심문장 오류3	에러없음
+S22_149152 / site: G 부정핵심문장 오류3	에러없음
+S22_149632 / site: G 긍정핵심문장 오류3	에러없음
+S22_149632 / site: G 부정핵심문장 오류3	에러없음
+S22_154407 / site: G 긍정핵심문장 오류3	에러없음
+S22_25535 / site: G 긍정핵심문장 오류3	에러없음
+S22_25535 / site: G 부정핵심문장 오류3	에러없음
+S22_25538 / site: G 긍정핵심문장 오류3	에러없음
+S22_25538 / site: G 부정핵심문장 오류3	에러없음
+S22_33797 / site: G 긍정핵심문장 오류3	에러없음
+S22_33797 / site: G 부정핵심문장 오류3	에러없음
+S22_91668 / site: G 긍정핵심문장 오류3	에러없음
+S22_91668 / site: G 부정핵심문장 오류3	에러없음
+S23_131050 / site: G 긍정핵심문장 오류3	에러없음
+S23_131050 / site: G 부정핵심문장 오류3	에러없음
+S23_145708 / site: G 긍정핵심문장 오류3	에러없음
+S23_145708 / site: G 부정핵심문장 오류3	에러없음
+S23_148882 / site: G 긍정핵심문장 오류3	에러없음
+S23_148882 / site: G 부정핵심문장 오류3	에러없음
+S23_149189 / site: G 긍정핵심문장 오류3	에러없음
+S23_149189 / site: G 부정핵심문장 오류3	에러없음
+S23_150427 / site: G 긍정핵심문장 오류3	에러없음
+S23_150427 / site: G 부정핵심문장 오류3	에러없음
+S23_152390 site:G 부정리뷰 없음
+S23_152954 / site: G 긍정핵심문장 오류3	에러없음
+S23_152954 / site: G 부정핵심문장 오류3	에러없음
+S23_153409 site:G 긍정리뷰 없음
+S23_153956 site:G 부정리뷰 없음
+S23_154720 site:G 긍정리뷰 없음
+S23_154720 site:G 부정리뷰 없음
+S23_95080 / site: G 긍정핵심문장 오류3	에러없음
+S23_95080 / site: G 부정핵심문장 오류3	에러없음
+S25_129457 / site: G 긍정핵심문장 오류3	에러없음
+S25_129457 / site: G 부정핵심문장 오류3	에러없음
+S25_4126 / site: G 긍정핵심문장 오류3	에러없음
+S25_4126 / site: G 부정핵심문장 오류3	에러없음
+S25_64845 / site: G 긍정핵심문장 오류3	에러없음
+S25_64845 / site: G 부정핵심문장 오류3	에러없음
+S31_141944 / site: G 긍정핵심문장 오류3	에러없음
+S31_141944 / site: G 부정핵심문장 오류3	에러없음
+S31_149497 / site: G 긍정핵심문장 오류3	에러없음
+S31_149497 / site: G 부정핵심문장 오류3	에러없음
+S31_150153 / site: G 긍정핵심문장 오류3	에러없음
+S31_150153 / site: G 부정핵심문장 오류3	에러없음
+S31_153243 / site: G 긍정핵심문장 오류3	에러없음
+S31_153583 / site: G 긍정핵심문장 오류3	에러없음
+S31_153583 / site: G 부정핵심문장 오류3	에러없음
+S31_154694 / site: G 긍정핵심문장 오류3	에러없음
+S31_154694 / site: G 부정핵심문장 오류3	에러없음
+S31_155474 site:G 긍정리뷰 없음
+S32_144480 / site: G 긍정핵심문장 오류3	에러없음
+S32_144480 / site: G 부정핵심문장 오류3	에러없음
+S32_25509 / site: G 긍정핵심문장 오류3	에러없음
+S34_146651 / site: G 긍정핵심문장 오류3	에러없음
+S34_146651 / site: G 부정핵심문장 오류3	에러없음
+S34_152413 site:G 긍정리뷰 없음
+S34_152456 / site: G 긍정핵심문장 오류3	에러없음
+S34_154712 / site: G 긍정핵심문장 오류3	에러없음
+S34_154712 / site: G 부정핵심문장 오류3	에러없음
+S37_105349 / site: G 긍정핵심문장 오류3	에러없음
+S37_105349 / site: G 부정핵심문장 오류3	에러없음
+S37_122777 / site: G 긍정핵심문장 오류3	에러없음
+S37_122777 / site: G 부정핵심문장 오류3	에러없음
+S37_126068 / site: G 긍정핵심문장 오류3	에러없음
+S37_126068 / site: G 부정핵심문장 오류3	에러없음
+S37_131181 / site: G 긍정핵심문장 오류3	에러없음
+S37_131181 / site: G 부정핵심문장 오류3	에러없음
+S37_1314 / site: G 긍정핵심문장 오류3	에러없음
+S37_1314 / site: G 부정핵심문장 오류3	에러없음
+S37_153432 site:G 부정리뷰 없음
+S37_29650 / site: G 긍정핵심문장 오류3	에러없음
+S37_29650 / site: G 부정핵심문장 오류3	에러없음
+S37_3596 / site: G 긍정핵심문장 오류3	에러없음
+S37_3596 / site: G 부정핵심문장 오류3	에러없음
+S37_81446 / site: G 긍정핵심문장 오류3	에러없음
+S37_81446 / site: G 부정핵심문장 오류3	에러없음
+S37_89602 / site: G 긍정핵심문장 오류3	에러없음
+S37_89602 / site: G 부정핵심문장 오류3	에러없음
+S37_91326 / site: G 긍정핵심문장 오류3	에러없음
+S37_91326 / site: G 부정핵심문장 오류3	에러없음
+S40_109230 / site: G 긍정핵심문장 오류3	에러없음
+S40_109230 / site: G 부정핵심문장 오류3	에러없음
+S40_148954 / site: G 긍정핵심문장 오류3	에러없음
+S40_148954 / site: G 부정핵심문장 오류3	에러없음
+S40_4838 / site: G 긍정핵심문장 오류3	에러없음
+S40_4838 / site: G 부정핵심문장 오류3	에러없음
+S40_90370 / site: G 긍정핵심문장 오류3	에러없음
+S40_90370 / site: G 부정핵심문장 오류3	에러없음
+S42_119102 / site: G 긍정핵심문장 오류3	에러없음
+S42_119102 / site: G 부정핵심문장 오류3	에러없음
+S42_153012 / site: G 긍정핵심문장 오류3	에러없음
+S42_153514 site:G 부정리뷰 없음
+S42_16780 / site: G 긍정핵심문장 오류3	에러없음
+S42_16780 / site: G 부정핵심문장 오류3	에러없음
+S42_81292 / site: G 긍정핵심문장 오류3	에러없음
+S45_146895 / site: G 긍정핵심문장 오류3	에러없음
+S45_146895 / site: G 부정핵심문장 오류3	에러없음
+S45_72293 / site: G 긍정핵심문장 오류3	에러없음
+S45_72293 / site: G 부정핵심문장 오류3	에러없음
+S45_888 / site: G 긍정핵심문장 오류3	에러없음
+S45_888 / site: G 부정핵심문장 오류3	에러없음
+S45_92160 / site: G 긍정핵심문장 오류3	에러없음
+S45_99012 / site: G 긍정핵심문장 오류3	에러없음
+S45_99012 / site: G 부정핵심문장 오류3	에러없음
+S46_11846 / site: G 긍정핵심문장 오류3	에러없음
+S46_11846 / site: G 부정핵심문장 오류3	에러없음
+S46_129428 / site: G 긍정핵심문장 오류3	에러없음
+S46_129428 / site: G 부정핵심문장 오류3	에러없음
+S46_144881 / site: G 긍정핵심문장 오류3	에러없음
+S46_144881 / site: G 부정핵심문장 오류3	에러없음
+S46_152911 / site: G 긍정핵심문장 오류3	에러없음
+S46_153975 / site: G 긍정핵심문장 오류3	에러없음
+S46_153975 / site: G 부정핵심문장 오류3	에러없음
+S46_154952 / site: G 긍정핵심문장 오류3	에러없음
+S46_154952 / site: G 부정핵심문장 오류3	에러없음
+S46_3136 / site: G 긍정핵심문장 오류3	에러없음
+S46_3136 / site: G 부정핵심문장 오류3	에러없음
+S46_72992 / site: G 긍정핵심문장 오류3	에러없음
+S46_72992 / site: G 부정핵심문장 오류3	에러없음
+S46_95018 / site: G 긍정핵심문장 오류3	에러없음
+S46_95018 / site: G 부정핵심문장 오류3	에러없음
+S47_103708 / site: G 긍정핵심문장 오류3	에러없음
+S47_103708 / site: G 부정핵심문장 오류3	에러없음
+S47_153618 site:G 부정리뷰 없음
+S47_79774 / site: G 긍정핵심문장 오류3	에러없음
+S47_79774 / site: G 부정핵심문장 오류3	에러없음
+S47_89743 / site: G 긍정핵심문장 오류3	에러없음
+S47_89743 / site: G 부정핵심문장 오류3	에러없음
+S49_2631 / site: G 긍정핵심문장 오류3	에러없음
+S49_2631 / site: G 부정핵심문장 오류3	에러없음
+S49_41274 / site: G 긍정핵심문장 오류3	에러없음
+S49_41274 / site: G 부정핵심문장 오류3	에러없음
+S49_91894 / site: G 긍정핵심문장 오류3	에러없음
+S49_91894 / site: G 부정핵심문장 오류3	에러없음
+S02_125600 / site: G 긍정핵심문장 오류3	에러없음
+S02_125600 / site: G 부정핵심문장 오류3	에러없음
+S02_4311 / site: G 긍정핵심문장 오류3	에러없음
+S02_4311 / site: G 부정핵심문장 오류3	에러없음
+S02_45193 / site: G 긍정핵심문장 오류3	에러없음
+S02_45193 / site: G 부정핵심문장 오류3	에러없음
+S02_95300 / site: G 긍정핵심문장 오류3	에러없음
+S02_95300 / site: G 부정핵심문장 오류3	에러없음
+S02_97891 / site: G 긍정핵심문장 오류3	에러없음
+S02_97891 / site: G 부정핵심문장 오류3	에러없음
+S03_22451 / site: G 긍정핵심문장 오류3	에러없음
+S03_5180 / site: G 긍정핵심문장 오류3	에러없음
+S03_5180 / site: G 부정핵심문장 오류3	에러없음
+S03_85481 / site: G 긍정핵심문장 오류3	에러없음
+S03_85481 / site: G 부정핵심문장 오류3	에러없음
+S03_86400 / site: G 긍정핵심문장 오류3	에러없음
+S03_86400 / site: G 부정핵심문장 오류3	에러없음
+S05_102478 / site: G 긍정핵심문장 오류3	에러없음
+S05_102478 / site: G 부정핵심문장 오류3	에러없음
+S05_109559 / site: G 긍정핵심문장 오류3	에러없음
+S05_109559 / site: G 부정핵심문장 오류3	에러없음
+S05_111771 / site: G 긍정핵심문장 오류3	에러없음
+S05_111771 / site: G 부정핵심문장 오류3	에러없음
+S05_122860 / site: G 긍정핵심문장 오류3	에러없음
+S05_122860 / site: G 부정핵심문장 오류3	에러없음
+S05_128559 / site: G 긍정핵심문장 오류3	에러없음
+S05_128559 / site: G 부정핵심문장 오류3	에러없음
+S05_132371 / site: G 긍정핵심문장 오류3	에러없음
+S05_132371 / site: G 부정핵심문장 오류3	에러없음
+S05_21586 / site: G 긍정핵심문장 오류3	에러없음
+S05_21586 / site: G 부정핵심문장 오류3	에러없음
+S05_9783 / site: G 긍정핵심문장 오류3	에러없음
+S05_9783 / site: G 부정핵심문장 오류3	에러없음
+S06_113165 / site: G 긍정핵심문장 오류3	에러없음
+S06_113165 / site: G 부정핵심문장 오류3	에러없음
+S06_126021 / site: G 긍정핵심문장 오류3	에러없음
+S06_126021 / site: G 부정핵심문장 오류3	에러없음
+S06_148368 / site: G 긍정핵심문장 오류3	에러없음
+S06_148368 / site: G 부정핵심문장 오류3	에러없음
+S06_152786 site:G 긍정리뷰 없음
+S06_153646 / site: G 긍정핵심문장 오류3	에러없음
+S06_153646 / site: G 부정핵심문장 오류3	에러없음
+S09_115554 / site: G 긍정핵심문장 오류3	에러없음
+S09_115554 / site: G 부정핵심문장 오류3	에러없음
+S09_126890 / site: G 긍정핵심문장 오류3	에러없음
+S09_126890 / site: G 부정핵심문장 오류3	에러없음
+S09_139771 / site: G 긍정핵심문장 오류3	에러없음
+S09_139771 / site: G 부정핵심문장 오류3	에러없음
+S09_151199 / site: G 긍정핵심문장 오류3	에러없음
+S09_151199 / site: G 부정핵심문장 오류3	에러없음
+S09_152491 site:G 긍정리뷰 없음
+S09_152491 site:G 부정리뷰 없음
+S09_153235 site:G 부정리뷰 없음
+S09_42237 / site: G 긍정핵심문장 오류3	에러없음
+S09_42237 / site: G 부정핵심문장 오류3	에러없음
+S09_75645 / site: G 긍정핵심문장 오류3	에러없음
+S09_75645 / site: G 부정핵심문장 오류3	에러없음
+S10_110602 / site: G 긍정핵심문장 오류3	에러없음
+S10_128639 / site: G 긍정핵심문장 오류3	에러없음
+S13_110728 / site: G 긍정핵심문장 오류3	에러없음
+S13_110728 / site: G 부정핵심문장 오류3	에러없음
+S13_114872 / site: G 긍정핵심문장 오류3	에러없음
+S13_114872 / site: G 부정핵심문장 오류3	에러없음
+S13_12033 / site: G 긍정핵심문장 오류3	에러없음
+S13_125257 site:G 부정리뷰 없음
+S13_127445 / site: G 긍정핵심문장 오류3	에러없음
+S13_127445 / site: G 부정핵심문장 오류3	에러없음
+S13_140908 / site: G 긍정핵심문장 오류3	에러없음
+S13_140908 / site: G 부정핵심문장 오류3	에러없음
+S13_36987 site:G 긍정리뷰 없음
+S13_36987 site:G 부정리뷰 없음
+S13_80331 / site: G 긍정핵심문장 오류3	에러없음
+S13_88868 / site: G 긍정핵심문장 오류3	에러없음
+S13_88868 / site: G 부정핵심문장 오류3	에러없음
+S13_93397 / site: G 긍정핵심문장 오류3	에러없음
+S13_93397 / site: G 부정핵심문장 오류3	에러없음
+S13_95008 / site: G 긍정핵심문장 오류3	에러없음
+S13_95008 / site: G 부정핵심문장 오류3	에러없음
+S13_97427 / site: G 긍정핵심문장 오류3	에러없음
+S13_97427 / site: G 부정핵심문장 오류3	에러없음
+S16_126572 / site: G 긍정핵심문장 오류3	에러없음
+S16_126572 / site: G 부정핵심문장 오류3	에러없음
+S16_139305 / site: G 긍정핵심문장 오류3	에러없음
+S16_139305 / site: G 부정핵심문장 오류3	에러없음
+S17_145386 / site: G 긍정핵심문장 오류3	에러없음
+S17_145386 / site: G 부정핵심문장 오류3	에러없음
+S17_149203 / site: G 긍정핵심문장 오류3	에러없음
+S18_137512 site:G 부정리뷰 없음
+S18_22847 site:G 긍정리뷰 없음
+S21_121495 / site: G 긍정핵심문장 오류3	에러없음
+S21_138543 / site: G 긍정핵심문장 오류3	에러없음
+S21_138543 / site: G 부정핵심문장 오류3	에러없음
+S21_144154 / site: G 긍정핵심문장 오류3	에러없음
+S21_144154 / site: G 부정핵심문장 오류3	에러없음
+S22_104346 / site: G 긍정핵심문장 오류3	에러없음
+S22_104346 / site: G 부정핵심문장 오류3	에러없음
+S22_132374 / site: G 긍정핵심문장 오류3	에러없음
+S22_132374 / site: G 부정핵심문장 오류3	에러없음
+S22_134503 / site: G 긍정핵심문장 오류3	에러없음
+S22_134503 / site: G 부정핵심문장 오류3	에러없음
+S22_136142 / site: G 긍정핵심문장 오류3	에러없음
+S22_136142 / site: G 부정핵심문장 오류3	에러없음
+S22_154538 site:G 긍정리뷰 없음
+S22_154538 site:G 부정리뷰 없음
+S22_19662 / site: G 긍정핵심문장 오류3	에러없음
+S22_19662 / site: G 부정핵심문장 오류3	에러없음
+S22_26396 / site: G 긍정핵심문장 오류3	에러없음
+S22_26396 / site: G 부정핵심문장 오류3	에러없음
+S22_36894 / site: G 긍정핵심문장 오류3	에러없음
+S22_36894 / site: G 부정핵심문장 오류3	에러없음
+S22_93237 / site: G 긍정핵심문장 오류3	에러없음
+S22_93237 / site: G 부정핵심문장 오류3	에러없음
+S23_134094 / site: G 긍정핵심문장 오류3	에러없음
+S23_134094 / site: G 부정핵심문장 오류3	에러없음
+S23_139774 / site: G 긍정핵심문장 오류3	에러없음
+S23_139774 / site: G 부정핵심문장 오류3	에러없음
+S23_140356 / site: G 긍정핵심문장 오류3	에러없음
+S23_140356 / site: G 부정핵심문장 오류3	에러없음
+S23_147863 / site: G 긍정핵심문장 오류3	에러없음
+S23_147863 / site: G 부정핵심문장 오류3	에러없음
+S23_153781 site:G 부정리뷰 없음
+S23_17876 / site: G 긍정핵심문장 오류3	에러없음
+S25_5716 / site: G 긍정핵심문장 오류3	에러없음
+S25_8528 / site: G 긍정핵심문장 오류3	에러없음
+S31_147852 / site: G 긍정핵심문장 오류3	에러없음
+S31_147852 / site: G 부정핵심문장 오류3	에러없음
+S31_150150 / site: G 긍정핵심문장 오류3	에러없음
+S31_150150 / site: G 부정핵심문장 오류3	에러없음
+S31_151091 / site: G 긍정핵심문장 오류3	에러없음
+S31_151091 / site: G 부정핵심문장 오류3	에러없음
+S31_152883 / site: G 긍정핵심문장 오류3	에러없음
+S31_152883 / site: G 부정핵심문장 오류3	에러없음
+S31_152986 / site: G 긍정핵심문장 오류3	에러없음
+S31_152986 / site: G 부정핵심문장 오류3	에러없음
+S31_153441 / site: G 긍정핵심문장 오류3	에러없음
+S31_153479 site:G 부정리뷰 없음
+S32_146619 / site: G 긍정핵심문장 오류3	에러없음
+S32_146619 / site: G 부정핵심문장 오류3	에러없음
+S32_16981 / site: G 긍정핵심문장 오류3	에러없음
+S32_16981 / site: G 부정핵심문장 오류3	에러없음
+S34_133772 / site: G 긍정핵심문장 오류3	에러없음
+S34_133772 / site: G 부정핵심문장 오류3	에러없음
+S34_146614 / site: G 긍정핵심문장 오류3	에러없음
+S34_146614 / site: G 부정핵심문장 오류3	에러없음
+S34_147139 / site: G 긍정핵심문장 오류3	에러없음
+S34_147139 / site: G 부정핵심문장 오류3	에러없음
+S34_148679 / site: G 긍정핵심문장 오류3	에러없음
+S34_148679 / site: G 부정핵심문장 오류3	에러없음
+S34_149039 / site: G 긍정핵심문장 오류3	에러없음
+S34_149039 / site: G 부정핵심문장 오류3	에러없음
+S34_153612 site:G 부정리뷰 없음
+S34_153674 site:G 부정리뷰 없음
+S37_112271 / site: G 긍정핵심문장 오류3	에러없음
+S37_112271 / site: G 부정핵심문장 오류3	에러없음
+S37_20003 / site: G 긍정핵심문장 오류3	에러없음
+S37_20003 / site: G 부정핵심문장 오류3	에러없음
+S37_21385 / site: G 긍정핵심문장 오류3	에러없음
+S37_21385 / site: G 부정핵심문장 오류3	에러없음
+S37_66001 / site: G 긍정핵심문장 오류3	에러없음
+S37_66001 / site: G 부정핵심문장 오류3	에러없음
+S40_150010 / site: G 긍정핵심문장 오류3	에러없음
+S40_150010 / site: G 부정핵심문장 오류3	에러없음
+S40_18637 / site: G 긍정핵심문장 오류3	에러없음
+S40_18637 / site: G 부정핵심문장 오류3	에러없음
+S40_18640 / site: G 긍정핵심문장 오류3	에러없음
+S40_18640 / site: G 부정핵심문장 오류3	에러없음
+S40_38508 / site: G 긍정핵심문장 오류3	에러없음
+S40_38508 / site: G 부정핵심문장 오류3	에러없음
+S42_10382 / site: G 긍정핵심문장 오류3	에러없음
+S42_114433 / site: G 긍정핵심문장 오류3	에러없음
+S42_114433 / site: G 부정핵심문장 오류3	에러없음
+S42_121729 / site: G 긍정핵심문장 오류3	에러없음
+S42_121729 / site: G 부정핵심문장 오류3	에러없음
+S42_134651 / site: G 긍정핵심문장 오류3	에러없음
+S42_134651 / site: G 부정핵심문장 오류3	에러없음
+S42_135584 / site: G 긍정핵심문장 오류3	에러없음
+S42_135584 / site: G 부정핵심문장 오류3	에러없음
+S42_139878 / site: G 긍정핵심문장 오류3	에러없음
+S42_139878 / site: G 부정핵심문장 오류3	에러없음
+S42_147199 / site: G 긍정핵심문장 오류3	에러없음
+S42_147199 / site: G 부정핵심문장 오류3	에러없음
+S42_147436 / site: G 긍정핵심문장 오류3	에러없음
+S42_147436 / site: G 부정핵심문장 오류3	에러없음
+S42_150024 / site: G 긍정핵심문장 오류3	에러없음
+S42_150024 / site: G 부정핵심문장 오류3	에러없음
+S42_151408 / site: G 긍정핵심문장 오류3	에러없음
+S42_151408 / site: G 부정핵심문장 오류3	에러없음
+S42_155475 site:G 부정리뷰 없음
+S42_22787 / site: G 긍정핵심문장 오류3	에러없음
+S42_22787 / site: G 부정핵심문장 오류3	에러없음
+S42_89964 / site: G 긍정핵심문장 오류3	에러없음
+S42_95572 / site: G 긍정핵심문장 오류3	에러없음
+S42_95572 / site: G 부정핵심문장 오류3	에러없음
+S45_108758 / site: G 긍정핵심문장 오류3	에러없음
+S45_112336 / site: G 긍정핵심문장 오류3	에러없음
+S45_112336 site:G 부정리뷰 없음
+S45_136456 / site: G 긍정핵심문장 오류3	에러없음
+S45_136456 / site: G 부정핵심문장 오류3	에러없음
+S45_152801 / site: G 긍정핵심문장 오류3	에러없음
+S45_152801 / site: G 부정핵심문장 오류3	에러없음
+S45_152803 site:G 부정리뷰 없음
+S45_3112 / site: G 긍정핵심문장 오류3	에러없음
+S45_3112 / site: G 부정핵심문장 오류3	에러없음
+S45_62049 / site: G 긍정핵심문장 오류3	에러없음
+S45_62049 / site: G 부정핵심문장 오류3	에러없음
+S45_86767 / site: G 긍정핵심문장 오류3	에러없음
+S45_86767 / site: G 부정핵심문장 오류3	에러없음
+S45_89222 / site: G 긍정핵심문장 오류3	에러없음
+S45_89222 / site: G 부정핵심문장 오류3	에러없음
+S45_90914 / site: G 긍정핵심문장 오류3	에러없음
+S45_90914 / site: G 부정핵심문장 오류3	에러없음
+S45_90947 / site: G 긍정핵심문장 오류3	에러없음
+S45_90947 / site: G 부정핵심문장 오류3	에러없음
+S45_97513 / site: G 긍정핵심문장 오류3	에러없음
+S45_97513 / site: G 부정핵심문장 오류3	에러없음
+S46_154684 site:G 부정리뷰 없음
+S46_52385 / site: G 긍정핵심문장 오류3	에러없음
+S46_52385 / site: G 부정핵심문장 오류3	에러없음
+S46_82452 / site: G 긍정핵심문장 오류3	에러없음
+S46_82452 / site: G 부정핵심문장 오류3	에러없음
+S47_104160 / site: G 긍정핵심문장 오류3	에러없음
+S47_104160 / site: G 부정핵심문장 오류3	에러없음
+S47_154954 site:G 부정리뷰 없음
+S47_53037 / site: G 긍정핵심문장 오류3	에러없음
+S47_53037 / site: G 부정핵심문장 오류3	에러없음
+S49_33695 / site: G 긍정핵심문장 오류3	에러없음
+S49_33695 / site: G 부정핵심문장 오류3	에러없음
+S49_45085 / site: G 긍정핵심문장 오류3	에러없음
+S49_45085 / site: G 부정핵심문장 오류3	에러없음
+S49_62001 / site: G 긍정핵심문장 오류3	에러없음
+S49_95451 / site: G 긍정핵심문장 오류3	에러없음
+S42_153601 / site: G 긍정핵심문장 오류3	에러없음
+S42_153601 / site: G 부정핵심문장 오류3	에러없음
+S42_24013 site:G 부정리뷰 없음
+S42_27555 / site: G 긍정핵심문장 오류3	에러없음
+S42_27555 / site: G 부정핵심문장 오류3	에러없음
+S42_33494 / site: G 긍정핵심문장 오류3	에러없음
+S42_33494 / site: G 부정핵심문장 오류3	에러없음
+S42_65289 / site: G 긍정핵심문장 오류3	에러없음
+S42_65289 / site: G 부정핵심문장 오류3	에러없음
+S42_73069 / site: G 긍정핵심문장 오류3	에러없음
+S42_73069 / site: G 부정핵심문장 오류3	에러없음
+S42_74121 / site: G 긍정핵심문장 오류3	에러없음
+S42_74121 / site: G 부정핵심문장 오류3	에러없음
+S42_86081 / site: G 긍정핵심문장 오류3	에러없음
+S42_86081 / site: G 부정핵심문장 오류3	에러없음
+S42_97732 / site: G 긍정핵심문장 오류3	에러없음
+S45_110291 / site: G 긍정핵심문장 오류3	에러없음
+S45_117446 / site: G 긍정핵심문장 오류3	에러없음
+S45_117446 / site: G 부정핵심문장 오류3	에러없음
+S45_118650 / site: G 긍정핵심문장 오류3	에러없음
+S45_127441 / site: G 긍정핵심문장 오류3	에러없음
+S45_65301 site:G 부정리뷰 없음
+S45_88026 / site: G 긍정핵심문장 오류3	에러없음
+S46_113997 / site: G 긍정핵심문장 오류3	에러없음
+S46_113997 / site: G 부정핵심문장 오류3	에러없음
+S46_120219 / site: G 긍정핵심문장 오류3	에러없음
+S46_120219 / site: G 부정핵심문장 오류3	에러없음
+S46_147866 / site: G 긍정핵심문장 오류3	에러없음
+S46_147866 / site: G 부정핵심문장 오류3	에러없음
+S46_149474 / site: G 긍정핵심문장 오류3	에러없음
+S46_149474 / site: G 부정핵심문장 오류3	에러없음
+S46_152381 / site: G 긍정핵심문장 오류3	에러없음
+S46_152381 / site: G 부정핵심문장 오류3	에러없음
+S46_152912 / site: G 긍정핵심문장 오류3	에러없음
+S46_152912 site:G 부정리뷰 없음
+S46_2843 / site: G 긍정핵심문장 오류3	에러없음
+S46_2843 / site: G 부정핵심문장 오류3	에러없음
+S46_41403 / site: G 긍정핵심문장 오류3	에러없음
+S46_41403 / site: G 부정핵심문장 오류3	에러없음
+S46_66989 / site: G 긍정핵심문장 오류3	에러없음
+S46_66989 / site: G 부정핵심문장 오류3	에러없음
+S46_85921 / site: G 긍정핵심문장 오류3	에러없음
+S46_85921 / site: G 부정핵심문장 오류3	에러없음
+S46_92381 / site: G 긍정핵심문장 오류3	에러없음
+S46_92381 / site: G 부정핵심문장 오류3	에러없음
+S46_97899 / site: G 긍정핵심문장 오류3	에러없음
+S46_97899 / site: G 부정핵심문장 오류3	에러없음
+S46_98881 / site: G 긍정핵심문장 오류3	에러없음
+S46_98881 / site: G 부정핵심문장 오류3	에러없음
+S47_100534 / site: G 긍정핵심문장 오류3	에러없음
+S47_100534 / site: G 부정핵심문장 오류3	에러없음
+S47_148738 / site: G 긍정핵심문장 오류3	에러없음
+S47_148738 / site: G 부정핵심문장 오류3	에러없음
+S47_155150 site:G 긍정리뷰 없음
+S47_20695 / site: G 긍정핵심문장 오류3	에러없음
+S47_20695 / site: G 부정핵심문장 오류3	에러없음
+S47_27327 / site: G 긍정핵심문장 오류3	에러없음
+S47_27327 / site: G 부정핵심문장 오류3	에러없음
+S47_46617 / site: G 긍정핵심문장 오류3	에러없음
+S47_46617 / site: G 부정핵심문장 오류3	에러없음
+S49_9128 / site: G 긍정핵심문장 오류3	에러없음
+S49_9128 / site: G 부정핵심문장 오류3	에러없음
+S02_128034 / site: G 긍정핵심문장 오류3	에러없음
+S02_128034 / site: G 부정핵심문장 오류3	에러없음
+S02_151938 / site: G 긍정핵심문장 오류3	에러없음
+S02_151938 / site: G 부정핵심문장 오류3	에러없음
+S03_76162 / site: G 긍정핵심문장 오류3	에러없음
+S03_76162 / site: G 부정핵심문장 오류3	에러없음
+S05_117386 / site: G 긍정핵심문장 오류3	에러없음
+S05_117386 / site: G 부정핵심문장 오류3	에러없음
+S05_117886 / site: G 긍정핵심문장 오류3	에러없음
+S05_117886 / site: G 부정핵심문장 오류3	에러없음
+S05_131287 / site: G 긍정핵심문장 오류3	에러없음
+S05_1836 / site: G 긍정핵심문장 오류3	에러없음
+S05_1836 / site: G 부정핵심문장 오류3	에러없음
+S05_42948 / site: G 긍정핵심문장 오류3	에러없음
+S05_42948 / site: G 부정핵심문장 오류3	에러없음
+S05_6015 / site: G 긍정핵심문장 오류3	에러없음
+S05_6015 / site: G 부정핵심문장 오류3	에러없음
+S05_60784 / site: G 긍정핵심문장 오류3	에러없음
+S05_60784 / site: G 부정핵심문장 오류3	에러없음
+S05_71933 / site: G 긍정핵심문장 오류3	에러없음
+S05_71933 / site: G 부정핵심문장 오류3	에러없음
+S05_72117 / site: G 긍정핵심문장 오류3	에러없음
+S05_72117 / site: G 부정핵심문장 오류3	에러없음
+S05_96648 / site: G 긍정핵심문장 오류3	에러없음
+S05_96648 / site: G 부정핵심문장 오류3	에러없음
+S06_110506 / site: G 긍정핵심문장 오류3	에러없음
+S06_110506 / site: G 부정핵심문장 오류3	에러없음
+S06_144347 / site: G 긍정핵심문장 오류3	에러없음
+S06_144347 / site: G 부정핵심문장 오류3	에러없음
+S06_153766 site:G 부정리뷰 없음
+S06_154306 site:G 부정리뷰 없음
+S06_7122 / site: G 긍정핵심문장 오류3	에러없음
+S06_7122 / site: G 부정핵심문장 오류3	에러없음
+S06_73251 / site: G 긍정핵심문장 오류3	에러없음
+S06_73251 / site: G 부정핵심문장 오류3	에러없음
+S09_118817 / site: G 긍정핵심문장 오류3	에러없음
+S09_118817 / site: G 부정핵심문장 오류3	에러없음
+S09_124765 / site: G 긍정핵심문장 오류3	에러없음
+S09_124765 / site: G 부정핵심문장 오류3	에러없음
+S09_126207 / site: G 긍정핵심문장 오류3	에러없음
+S09_126207 / site: G 부정핵심문장 오류3	에러없음
+S09_149072 / site: G 긍정핵심문장 오류3	에러없음
+S09_149072 / site: G 부정핵심문장 오류3	에러없음
+S09_151798 / site: G 긍정핵심문장 오류3	에러없음
+S09_151798 / site: G 부정핵심문장 오류3	에러없음
+S13_10042 / site: G 긍정핵심문장 오류3	에러없음
+S13_10042 / site: G 부정핵심문장 오류3	에러없음
+S13_111454 / site: G 긍정핵심문장 오류3	에러없음
+S13_111454 / site: G 부정핵심문장 오류3	에러없음
+S13_148411 site:G 긍정리뷰 없음
+S13_148411 site:G 부정리뷰 없음
+S13_151674 / site: G 긍정핵심문장 오류3	에러없음
+S13_151674 / site: G 부정핵심문장 오류3	에러없음
+S13_1831 / site: G 긍정핵심문장 오류3	에러없음
+S13_1831 / site: G 부정핵심문장 오류3	에러없음
+S13_18723 / site: G 긍정핵심문장 오류3	에러없음
+S13_18723 / site: G 부정핵심문장 오류3	에러없음
+S13_33645 / site: G 긍정핵심문장 오류3	에러없음
+S13_33645 / site: G 부정핵심문장 오류3	에러없음
+S13_9969 / site: G 긍정핵심문장 오류3	에러없음
+S13_9969 / site: G 부정핵심문장 오류3	에러없음
+S16_104494 / site: G 긍정핵심문장 오류3	에러없음
+S16_104494 / site: G 부정핵심문장 오류3	에러없음
+S16_127456 / site: G 긍정핵심문장 오류3	에러없음
+S16_127456 / site: G 부정핵심문장 오류3	에러없음
+S16_138567 / site: G 긍정핵심문장 오류3	에러없음
+S16_138567 / site: G 부정핵심문장 오류3	에러없음
+S16_138727 / site: G 긍정핵심문장 오류3	에러없음
+S16_138727 / site: G 부정핵심문장 오류3	에러없음
+S16_154456 site:G 긍정리뷰 없음
+S16_154456 site:G 부정리뷰 없음
+S16_16978 / site: G 긍정핵심문장 오류3	에러없음
+S16_16978 / site: G 부정핵심문장 오류3	에러없음
+S16_97624 / site: G 긍정핵심문장 오류3	에러없음
+S16_97624 / site: G 부정핵심문장 오류3	에러없음
+S17_118115 / site: G 긍정핵심문장 오류3	에러없음
+S18_112572 site:G 긍정리뷰 없음
+S21_134820 / site: G 긍정핵심문장 오류3	에러없음
+S21_146395 / site: G 긍정핵심문장 오류3	에러없음
+S21_146395 / site: G 부정핵심문장 오류3	에러없음
+S21_151733 / site: G 긍정핵심문장 오류3	에러없음
+S22_118652 / site: G 긍정핵심문장 오류3	에러없음
+S22_118652 / site: G 부정핵심문장 오류3	에러없음
+S22_12236 / site: G 긍정핵심문장 오류3	에러없음
+S22_12236 / site: G 부정핵심문장 오류3	에러없음
+S22_133413 / site: G 긍정핵심문장 오류3	에러없음
+S22_133413 / site: G 부정핵심문장 오류3	에러없음
+S22_146238 / site: G 긍정핵심문장 오류3	에러없음
+S22_146238 / site: G 부정핵심문장 오류3	에러없음
+S22_146739 / site: G 긍정핵심문장 오류3	에러없음
+S22_146739 / site: G 부정핵심문장 오류3	에러없음
+S22_154311 / site: G 긍정핵심문장 오류3	에러없음
+S22_154311 / site: G 부정핵심문장 오류3	에러없음
+S22_154327 / site: G 긍정핵심문장 오류3	에러없음
+S22_17441 / site: G 긍정핵심문장 오류3	에러없음
+S22_17441 / site: G 부정핵심문장 오류3	에러없음
+S22_7582 / site: G 긍정핵심문장 오류3	에러없음
+S22_7582 / site: G 부정핵심문장 오류3	에러없음
+S22_7706 / site: G 긍정핵심문장 오류3	에러없음
+S22_7706 / site: G 부정핵심문장 오류3	에러없음
+S22_80325 / site: G 긍정핵심문장 오류3	에러없음
+S22_80325 / site: G 부정핵심문장 오류3	에러없음
+S22_86140 / site: G 긍정핵심문장 오류3	에러없음
+S22_86140 / site: G 부정핵심문장 오류3	에러없음
+S22_90730 / site: G 긍정핵심문장 오류3	에러없음
+S22_90730 / site: G 부정핵심문장 오류3	에러없음
+S23_114272 / site: G 긍정핵심문장 오류3	에러없음
+S23_114272 / site: G 부정핵심문장 오류3	에러없음
+S23_133668 / site: G 긍정핵심문장 오류3	에러없음
+S23_133668 / site: G 부정핵심문장 오류3	에러없음
+S23_137597 / site: G 긍정핵심문장 오류3	에러없음
+S23_137597 / site: G 부정핵심문장 오류3	에러없음
+S23_148179 / site: G 긍정핵심문장 오류3	에러없음
+S23_148179 / site: G 부정핵심문장 오류3	에러없음
+S23_152171 / site: G 긍정핵심문장 오류3	에러없음
+S23_152171 / site: G 부정핵심문장 오류3	에러없음
+S23_152599 / site: G 긍정핵심문장 오류3	에러없음
+S23_152599 / site: G 부정핵심문장 오류3	에러없음
+S23_154963 / site: G 긍정핵심문장 오류3	에러없음
+S23_155001 site:G 부정리뷰 없음
+S23_155394 site:G 긍정리뷰 없음
+S23_155394 site:G 부정리뷰 없음
+S25_152457 / site: G 긍정핵심문장 오류3	에러없음
+S25_152457 site:G 부정리뷰 없음
+S25_76406 / site: G 긍정핵심문장 오류3	에러없음
+S25_76406 / site: G 부정핵심문장 오류3	에러없음
+S25_7994 / site: G 긍정핵심문장 오류3	에러없음
+S31_136340 / site: G 긍정핵심문장 오류3	에러없음
+S31_136340 / site: G 부정핵심문장 오류3	에러없음
+S31_139508 / site: G 긍정핵심문장 오류3	에러없음
+S31_139508 / site: G 부정핵심문장 오류3	에러없음
+S31_139838 / site: G 긍정핵심문장 오류3	에러없음
+S31_139838 / site: G 부정핵심문장 오류3	에러없음
+S31_146431 / site: G 긍정핵심문장 오류3	에러없음
+S31_146431 / site: G 부정핵심문장 오류3	에러없음
+S31_150316 / site: G 긍정핵심문장 오류3	에러없음
+S31_150316 / site: G 부정핵심문장 오류3	에러없음
+S31_152278 site:G 부정리뷰 없음
+S31_153779 site:G 부정리뷰 없음
+S34_139205 / site: G 긍정핵심문장 오류3	에러없음
+S34_139205 / site: G 부정핵심문장 오류3	에러없음
+S34_148879 / site: G 긍정핵심문장 오류3	에러없음
+S34_148879 / site: G 부정핵심문장 오류3	에러없음
+S34_151226 / site: G 긍정핵심문장 오류3	에러없음
+S34_151226 / site: G 부정핵심문장 오류3	에러없음
+S34_152050 site:G 긍정리뷰 없음
+S34_152050 site:G 부정리뷰 없음
+S34_153823 site:G 부정리뷰 없음
+S34_154326 / site: G 긍정핵심문장 오류3	에러없음
+S34_154531 / site: G 긍정핵심문장 오류3	에러없음
+S34_154531 / site: G 부정핵심문장 오류3	에러없음
+S34_154883 site:G 부정리뷰 없음
+S37_104177 / site: G 긍정핵심문장 오류3	에러없음
+S37_104177 / site: G 부정핵심문장 오류3	에러없음
+S37_12609 / site: G 긍정핵심문장 오류3	에러없음
+S37_12609 / site: G 부정핵심문장 오류3	에러없음
+S37_144204 / site: G 긍정핵심문장 오류3	에러없음
+S37_144204 / site: G 부정핵심문장 오류3	에러없음
+S37_150108 / site: G 긍정핵심문장 오류3	에러없음
+S37_150108 / site: G 부정핵심문장 오류3	에러없음
+S37_152828 / site: G 긍정핵심문장 오류3	에러없음
+S37_152828 / site: G 부정핵심문장 오류3	에러없음
+S37_97694 / site: G 긍정핵심문장 오류3	에러없음
+S37_97694 / site: G 부정핵심문장 오류3	에러없음
+S40_122884 / site: G 긍정핵심문장 오류3	에러없음
+S40_122884 / site: G 부정핵심문장 오류3	에러없음
+S40_129807 / site: G 긍정핵심문장 오류3	에러없음
+S40_129807 / site: G 부정핵심문장 오류3	에러없음
+S40_136606 / site: G 긍정핵심문장 오류3	에러없음
+S40_136606 / site: G 부정핵심문장 오류3	에러없음
+S40_140355 / site: G 긍정핵심문장 오류3	에러없음
+S40_140355 / site: G 부정핵심문장 오류3	에러없음
+S40_145391 / site: G 긍정핵심문장 오류3	에러없음
+S40_145391 / site: G 부정핵심문장 오류3	에러없음
+S40_152972 site:G 부정리뷰 없음
+S40_153298 site:G 긍정리뷰 없음
+S40_153298 site:G 부정리뷰 없음
+S40_155143 site:G 부정리뷰 없음
+S40_18242 / site: G 긍정핵심문장 오류3	에러없음
+S40_18242 / site: G 부정핵심문장 오류3	에러없음
+S40_25512 / site: G 긍정핵심문장 오류3	에러없음
+S40_25512 / site: G 부정핵심문장 오류3	에러없음
+S42_112216 / site: G 긍정핵심문장 오류3	에러없음
+S42_129748 / site: G 긍정핵심문장 오류3	에러없음
+S42_129748 / site: G 부정핵심문장 오류3	에러없음
+S42_135152 / site: G 긍정핵심문장 오류3	에러없음
+S42_135152 / site: G 부정핵심문장 오류3	에러없음
+S42_139475 / site: G 긍정핵심문장 오류3	에러없음
+S42_139475 / site: G 부정핵심문장 오류3	에러없음
+S42_147922 / site: G 긍정핵심문장 오류3	에러없음
+S42_147922 / site: G 부정핵심문장 오류3	에러없음
+S42_149149 / site: G 긍정핵심문장 오류3	에러없음
+S42_149149 / site: G 부정핵심문장 오류3	에러없음
+S42_21798 / site: G 긍정핵심문장 오류3	에러없음
+S42_21798 / site: G 부정핵심문장 오류3	에러없음
+S42_607 / site: G 긍정핵심문장 오류3	에러없음
+S42_607 / site: G 부정핵심문장 오류3	에러없음
+S45_103772 / site: G 긍정핵심문장 오류3	에러없음
+S45_103772 / site: G 부정핵심문장 오류3	에러없음
+S45_125188 / site: G 긍정핵심문장 오류3	에러없음
+S45_125188 / site: G 부정핵심문장 오류3	에러없음
+S45_127854 / site: G 긍정핵심문장 오류3	에러없음
+S45_127854 / site: G 부정핵심문장 오류3	에러없음
+S45_139568 / site: G 긍정핵심문장 오류3	에러없음
+S45_139568 / site: G 부정핵심문장 오류3	에러없음
+S45_153518 site:G 부정리뷰 없음
+S45_155139 / site: G 긍정핵심문장 오류3	에러없음
+S45_82501 / site: G 긍정핵심문장 오류3	에러없음
+S45_82501 / site: G 부정핵심문장 오류3	에러없음
+S45_93793 site:G 긍정리뷰 없음
+S45_93793 site:G 부정리뷰 없음
+S46_109920 / site: G 긍정핵심문장 오류3	에러없음
+S46_109920 / site: G 부정핵심문장 오류3	에러없음
+S46_117519 / site: G 긍정핵심문장 오류3	에러없음
+S46_117519 / site: G 부정핵심문장 오류3	에러없음
+S46_128809 / site: G 긍정핵심문장 오류3	에러없음
+S46_128809 / site: G 부정핵심문장 오류3	에러없음
+S46_12953 / site: G 긍정핵심문장 오류3	에러없음
+S46_12953 / site: G 부정핵심문장 오류3	에러없음
+S46_130544 / site: G 긍정핵심문장 오류3	에러없음
+S46_130544 / site: G 부정핵심문장 오류3	에러없음
+S46_2088 / site: G 긍정핵심문장 오류3	에러없음
+S46_2088 / site: G 부정핵심문장 오류3	에러없음
+S47_109956 / site: G 긍정핵심문장 오류3	에러없음
+S47_109956 / site: G 부정핵심문장 오류3	에러없음
+S47_111775 / site: G 긍정핵심문장 오류3	에러없음
+S47_111775 / site: G 부정핵심문장 오류3	에러없음
+S47_124144 / site: G 긍정핵심문장 오류3	에러없음
+S47_124144 / site: G 부정핵심문장 오류3	에러없음
+S47_132171 / site: G 긍정핵심문장 오류3	에러없음
+S47_132171 / site: G 부정핵심문장 오류3	에러없음
+S47_1473 / site: G 긍정핵심문장 오류3	에러없음
+S47_1473 / site: G 부정핵심문장 오류3	에러없음
+S47_150275 / site: G 긍정핵심문장 오류3	에러없음
+S47_150275 / site: G 부정핵심문장 오류3	에러없음
+S47_52629 / site: G 긍정핵심문장 오류3	에러없음
+S47_52629 / site: G 부정핵심문장 오류3	에러없음
+S47_56973 / site: G 긍정핵심문장 오류3	에러없음
+S47_56973 / site: G 부정핵심문장 오류3	에러없음
+S47_90318 / site: G 긍정핵심문장 오류3	에러없음
+S47_90318 / site: G 부정핵심문장 오류3	에러없음
+S47_97235 / site: G 긍정핵심문장 오류3	에러없음
+S47_97235 / site: G 부정핵심문장 오류3	에러없음
+S49_153877 site:G 부정리뷰 없음
+S49_6590 / site: G 긍정핵심문장 오류3	에러없음
+S49_6590 / site: G 부정핵심문장 오류3	에러없음
+S49_75686 / site: G 긍정핵심문장 오류3	에러없음
+S49_75686 / site: G 부정핵심문장 오류3	에러없음
+S02_125434 / site: G 긍정핵심문장 오류3	에러없음
+S02_125434 / site: G 부정핵심문장 오류3	에러없음
+S02_67457 / site: G 긍정핵심문장 오류3	에러없음
+S02_67457 / site: G 부정핵심문장 오류3	에러없음
+S02_99955 / site: G 긍정핵심문장 오류3	에러없음
+S02_99955 / site: G 부정핵심문장 오류3	에러없음
+S03_132047 / site: G 긍정핵심문장 오류3	에러없음
+S03_145069 / site: G 긍정핵심문장 오류3	에러없음
+S03_145069 / site: G 부정핵심문장 오류3	에러없음
+S03_66941 / site: G 긍정핵심문장 오류3	에러없음
+S03_66941 / site: G 부정핵심문장 오류3	에러없음
+S05_154382 site:G 부정리뷰 없음
+S05_155352 site:G 부정리뷰 없음
+S05_38232 / site: G 긍정핵심문장 오류3	에러없음
+S05_38232 / site: G 부정핵심문장 오류3	에러없음
+S05_60002 / site: G 긍정핵심문장 오류3	에러없음
+S05_60002 / site: G 부정핵심문장 오류3	에러없음
+S06_128740 / site: G 긍정핵심문장 오류3	에러없음
+S06_128740 / site: G 부정핵심문장 오류3	에러없음
+S06_128832 / site: G 긍정핵심문장 오류3	에러없음
+S06_128832 / site: G 부정핵심문장 오류3	에러없음
+S06_153767 / site: G 긍정핵심문장 오류3	에러없음
+S06_55701 / site: G 긍정핵심문장 오류3	에러없음
+S06_55701 / site: G 부정핵심문장 오류3	에러없음
+S06_80313 / site: G 긍정핵심문장 오류3	에러없음
+S09_106938 / site: G 긍정핵심문장 오류3	에러없음
+S09_106938 / site: G 부정핵심문장 오류3	에러없음
+S09_108442 / site: G 긍정핵심문장 오류3	에러없음
+S09_108442 / site: G 부정핵심문장 오류3	에러없음
+S09_152492 / site: G 긍정핵심문장 오류3	에러없음
+S09_152492 / site: G 부정핵심문장 오류3	에러없음
+S09_153386 / site: G 긍정핵심문장 오류3	에러없음
+S09_154151 site:G 부정리뷰 없음
+S09_154568 site:G 부정리뷰 없음
+S09_155191 site:G 부정리뷰 없음
+S09_80265 / site: G 긍정핵심문장 오류3	에러없음
+S09_80265 / site: G 부정핵심문장 오류3	에러없음
+S10_139460 / site: G 긍정핵심문장 오류3	에러없음
+S13_10048 site:G 부정리뷰 없음
+S13_111402 / site: G 긍정핵심문장 오류3	에러없음
+S13_111402 / site: G 부정핵심문장 오류3	에러없음
+S13_136035 site:G 부정리뷰 없음
+S13_153367 / site: G 긍정핵심문장 오류3	에러없음
+S13_23134 site:G 부정리뷰 없음
+S13_50049 / site: G 긍정핵심문장 오류3	에러없음
+S13_50049 / site: G 부정핵심문장 오류3	에러없음
+S13_54125 / site: G 긍정핵심문장 오류3	에러없음
+S13_54125 / site: G 부정핵심문장 오류3	에러없음
+S13_82932 / site: G 긍정핵심문장 오류3	에러없음
+S13_82932 / site: G 부정핵심문장 오류3	에러없음
+S16_104492 / site: G 긍정핵심문장 오류3	에러없음
+S16_131689 / site: G 긍정핵심문장 오류3	에러없음
+S16_131689 / site: G 부정핵심문장 오류3	에러없음
+S16_135772 / site: G 긍정핵심문장 오류3	에러없음
+S16_135772 / site: G 부정핵심문장 오류3	에러없음
+S16_144472 / site: G 긍정핵심문장 오류3	에러없음
+S16_144472 / site: G 부정핵심문장 오류3	에러없음
+S16_152856 site:G 긍정리뷰 없음
+S16_3097 site:G 부정리뷰 없음
+S16_89581 / site: G 긍정핵심문장 오류3	에러없음
+S16_89581 / site: G 부정핵심문장 오류3	에러없음
+S17_104165 / site: G 긍정핵심문장 오류3	에러없음
+S17_104165 / site: G 부정핵심문장 오류3	에러없음
+S17_104446 / site: G 긍정핵심문장 오류3	에러없음
+S17_104446 / site: G 부정핵심문장 오류3	에러없음
+S17_108194 / site: G 긍정핵심문장 오류3	에러없음
+S17_108194 / site: G 부정핵심문장 오류3	에러없음
+S17_119303 / site: G 긍정핵심문장 오류3	에러없음
+S17_119303 / site: G 부정핵심문장 오류3	에러없음
+S17_123522 / site: G 긍정핵심문장 오류3	에러없음
+S17_123522 / site: G 부정핵심문장 오류3	에러없음
+S17_137871 / site: G 긍정핵심문장 오류3	에러없음
+S17_91567 / site: G 긍정핵심문장 오류3	에러없음
+S17_91567 / site: G 부정핵심문장 오류3	에러없음
+S21_106213 / site: G 긍정핵심문장 오류3	에러없음
+S21_106213 / site: G 부정핵심문장 오류3	에러없음
+S21_118124 / site: G 긍정핵심문장 오류3	에러없음
+S21_118124 / site: G 부정핵심문장 오류3	에러없음
+S21_76701 / site: G 긍정핵심문장 오류3	에러없음
+S21_76701 / site: G 부정핵심문장 오류3	에러없음
+S22_106810 / site: G 긍정핵심문장 오류3	에러없음
+S22_106810 / site: G 부정핵심문장 오류3	에러없음
+S22_115789 / site: G 긍정핵심문장 오류3	에러없음
+S22_115789 / site: G 부정핵심문장 오류3	에러없음
+S22_134967 / site: G 긍정핵심문장 오류3	에러없음
+S22_134967 / site: G 부정핵심문장 오류3	에러없음
+S22_141356 / site: G 긍정핵심문장 오류3	에러없음
+S22_141356 / site: G 부정핵심문장 오류3	에러없음
+S22_154308 / site: G 긍정핵심문장 오류3	에러없음
+S22_24947 / site: G 긍정핵심문장 오류3	에러없음
+S22_24947 / site: G 부정핵심문장 오류3	에러없음
+S22_98754 / site: G 긍정핵심문장 오류3	에러없음
+S22_98754 / site: G 부정핵심문장 오류3	에러없음
+S23_117609 / site: G 긍정핵심문장 오류3	에러없음
+S23_117609 / site: G 부정핵심문장 오류3	에러없음
+S23_137691 / site: G 긍정핵심문장 오류3	에러없음
+S23_137691 / site: G 부정핵심문장 오류3	에러없음
+S23_142143 / site: G 긍정핵심문장 오류3	에러없음
+S23_142143 / site: G 부정핵심문장 오류3	에러없음
+S23_145163 / site: G 긍정핵심문장 오류3	에러없음
+S23_145163 / site: G 부정핵심문장 오류3	에러없음
+S23_148120 / site: G 긍정핵심문장 오류3	에러없음
+S23_148120 / site: G 부정핵심문장 오류3	에러없음
+S23_151498 / site: G 긍정핵심문장 오류3	에러없음
+S23_151498 / site: G 부정핵심문장 오류3	에러없음
+S23_152521 site:G 부정리뷰 없음
+S23_152644 / site: G 긍정핵심문장 오류3	에러없음
+S23_152644 / site: G 부정핵심문장 오류3	에러없음
+S23_152820 site:G 부정리뷰 없음
+S23_153805 / site: G 긍정핵심문장 오류3	에러없음
+S23_153805 / site: G 부정핵심문장 오류3	에러없음
+S23_154629 site:G 부정리뷰 없음
+S25_116491 / site: G 긍정핵심문장 오류3	에러없음
+S25_116491 / site: G 부정핵심문장 오류3	에러없음
+S25_13159 / site: G 긍정핵심문장 오류3	에러없음
+S25_3237 / site: G 긍정핵심문장 오류3	에러없음
+S25_3237 / site: G 부정핵심문장 오류3	에러없음
+S25_82765 / site: G 긍정핵심문장 오류3	에러없음
+S25_82765 / site: G 부정핵심문장 오류3	에러없음
+S31_138715 / site: G 긍정핵심문장 오류3	에러없음
+S31_138715 / site: G 부정핵심문장 오류3	에러없음
+S31_140087 / site: G 긍정핵심문장 오류3	에러없음
+S31_140087 / site: G 부정핵심문장 오류3	에러없음
+S31_142698 / site: G 긍정핵심문장 오류3	에러없음
+S31_142698 / site: G 부정핵심문장 오류3	에러없음
+S31_150149 / site: G 긍정핵심문장 오류3	에러없음
+S31_150149 / site: G 부정핵심문장 오류3	에러없음
+S31_152207 / site: G 긍정핵심문장 오류3	에러없음
+S31_152207 / site: G 부정핵심문장 오류3	에러없음
+S31_152219 site:G 부정리뷰 없음
+S31_152656 / site: G 긍정핵심문장 오류3	에러없음
+S31_152656 / site: G 부정핵심문장 오류3	에러없음
+S31_153021 site:G 부정리뷰 없음
+S31_154709 site:G 부정리뷰 없음
+S31_155149 / site: G 긍정핵심문장 오류3	에러없음
+S31_155202 site:G 부정리뷰 없음
+S32_105549 / site: G 긍정핵심문장 오류3	에러없음
+S32_105549 / site: G 부정핵심문장 오류3	에러없음
+S32_136434 / site: G 긍정핵심문장 오류3	에러없음
+S32_136434 / site: G 부정핵심문장 오류3	에러없음
+S32_55153 / site: G 긍정핵심문장 오류3	에러없음
+S34_142504 / site: G 긍정핵심문장 오류3	에러없음
+S34_142504 / site: G 부정핵심문장 오류3	에러없음
+S34_142672 / site: G 긍정핵심문장 오류3	에러없음
+S34_142672 / site: G 부정핵심문장 오류3	에러없음
+S34_147802 / site: G 긍정핵심문장 오류3	에러없음
+S34_147802 / site: G 부정핵심문장 오류3	에러없음
+S34_153511 site:G 부정리뷰 없음
+S34_154026 site:G 부정리뷰 없음
+S34_154156 site:G 부정리뷰 없음
+S37_130697 / site: G 긍정핵심문장 오류3	에러없음
+S37_130697 / site: G 부정핵심문장 오류3	에러없음
+S37_133521 / site: G 긍정핵심문장 오류3	에러없음
+S37_133521 / site: G 부정핵심문장 오류3	에러없음
+S37_1679 / site: G 긍정핵심문장 오류3	에러없음
+S37_1679 / site: G 부정핵심문장 오류3	에러없음
+S37_1721 / site: G 긍정핵심문장 오류3	에러없음
+S37_1721 / site: G 부정핵심문장 오류3	에러없음
+S37_55477 / site: G 긍정핵심문장 오류3	에러없음
+S37_55477 / site: G 부정핵심문장 오류3	에러없음
+S37_6291 / site: G 긍정핵심문장 오류3	에러없음
+S37_6291 / site: G 부정핵심문장 오류3	에러없음
+S37_80600 / site: G 긍정핵심문장 오류3	에러없음
+S37_80600 / site: G 부정핵심문장 오류3	에러없음
+S37_81675 / site: G 긍정핵심문장 오류3	에러없음
+S37_81675 / site: G 부정핵심문장 오류3	에러없음
+S37_88499 / site: G 긍정핵심문장 오류3	에러없음
+S37_88499 / site: G 부정핵심문장 오류3	에러없음
+S40_108772 / site: G 긍정핵심문장 오류3	에러없음
+S40_108772 / site: G 부정핵심문장 오류3	에러없음
+S40_120081 / site: G 긍정핵심문장 오류3	에러없음
+S40_120081 / site: G 부정핵심문장 오류3	에러없음
+S40_1403 / site: G 긍정핵심문장 오류3	에러없음
+S40_1403 / site: G 부정핵심문장 오류3	에러없음
+S40_149760 / site: G 긍정핵심문장 오류3	에러없음
+S40_149760 / site: G 부정핵심문장 오류3	에러없음
+S40_151069 / site: G 긍정핵심문장 오류3	에러없음
+S40_151069 / site: G 부정핵심문장 오류3	에러없음
+S40_152909 / site: G 긍정핵심문장 오류3	에러없음
+S40_152909 / site: G 부정핵심문장 오류3	에러없음
+S40_154811 site:G 부정리뷰 없음
+S40_33473 / site: G 긍정핵심문장 오류3	에러없음
+S40_33473 / site: G 부정핵심문장 오류3	에러없음
+S42_105393 / site: G 긍정핵심문장 오류3	에러없음
+S42_105393 / site: G 부정핵심문장 오류3	에러없음
+S42_110800 / site: G 긍정핵심문장 오류3	에러없음
+S42_117460 / site: G 긍정핵심문장 오류3	에러없음
+S42_125971 / site: G 긍정핵심문장 오류3	에러없음
+S42_125971 / site: G 부정핵심문장 오류3	에러없음
+S42_133409 / site: G 긍정핵심문장 오류3	에러없음
+S42_133409 / site: G 부정핵심문장 오류3	에러없음
+S42_147763 / site: G 긍정핵심문장 오류3	에러없음
+S42_147763 / site: G 부정핵심문장 오류3	에러없음
+S42_149148 / site: G 긍정핵심문장 오류3	에러없음
+S42_149148 / site: G 부정핵심문장 오류3	에러없음
+S42_153635 site:G 부정리뷰 없음
+S42_153882 site:G 부정리뷰 없음
+S42_154247 / site: G 긍정핵심문장 오류3	에러없음
+S42_154247 / site: G 부정핵심문장 오류3	에러없음
+S42_154680 / site: G 긍정핵심문장 오류3	에러없음
+S42_154680 / site: G 부정핵심문장 오류3	에러없음
+S42_154737 site:G 부정리뷰 없음
+S42_1950 / site: G 긍정핵심문장 오류3	에러없음
+S42_1950 / site: G 부정핵심문장 오류3	에러없음
+S42_3020 / site: G 긍정핵심문장 오류3	에러없음
+S42_3020 / site: G 부정핵심문장 오류3	에러없음
+S42_86777 / site: G 긍정핵심문장 오류3	에러없음
+S42_86777 / site: G 부정핵심문장 오류3	에러없음
+S45_127342 / site: G 긍정핵심문장 오류3	에러없음
+S45_127342 / site: G 부정핵심문장 오류3	에러없음
+S45_94237 / site: G 긍정핵심문장 오류3	에러없음
+S45_94237 / site: G 부정핵심문장 오류3	에러없음
+S46_152970 / site: G 긍정핵심문장 오류3	에러없음
+S46_154686 site:G 부정리뷰 없음
+S46_34537 / site: G 긍정핵심문장 오류3	에러없음
+S46_34537 / site: G 부정핵심문장 오류3	에러없음
+S46_9113 / site: G 긍정핵심문장 오류3	에러없음
+S46_9113 / site: G 부정핵심문장 오류3	에러없음
+S47_111662 / site: G 긍정핵심문장 오류3	에러없음
+S47_111662 / site: G 부정핵심문장 오류3	에러없음
+S47_152918 site:G 부정리뷰 없음
+S49_56281 / site: G 긍정핵심문장 오류3	에러없음
+S49_56281 / site: G 부정핵심문장 오류3	에러없음
+S49_71161 / site: G 긍정핵심문장 오류3	에러없음
+S49_71161 / site: G 부정핵심문장 오류3	에러없음
+S02_113951 / site: G 긍정핵심문장 오류3	에러없음
+S02_113951 / site: G 부정핵심문장 오류3	에러없음
+S02_128826 / site: G 긍정핵심문장 오류3	에러없음
+S02_128826 / site: G 부정핵심문장 오류3	에러없음
+S02_21811 / site: G 긍정핵심문장 오류3	에러없음
+S02_21811 / site: G 부정핵심문장 오류3	에러없음
+S02_72369 / site: G 긍정핵심문장 오류3	에러없음
+S02_72369 / site: G 부정핵심문장 오류3	에러없음
+S02_95083 / site: G 긍정핵심문장 오류3	에러없음
+S02_95083 / site: G 부정핵심문장 오류3	에러없음
+S02_99458 / site: G 긍정핵심문장 오류3	에러없음
+S02_99458 / site: G 부정핵심문장 오류3	에러없음
+S02_99638 / site: G 긍정핵심문장 오류3	에러없음
+S02_99638 / site: G 부정핵심문장 오류3	에러없음
+S03_17744 / site: G 긍정핵심문장 오류3	에러없음
+S03_17744 / site: G 부정핵심문장 오류3	에러없음
+S03_84112 / site: G 긍정핵심문장 오류3	에러없음
+S03_84112 / site: G 부정핵심문장 오류3	에러없음
+S05_107264 / site: G 긍정핵심문장 오류3	에러없음
+S05_107264 / site: G 부정핵심문장 오류3	에러없음
+S05_109564 / site: G 긍정핵심문장 오류3	에러없음
+S05_109564 / site: G 부정핵심문장 오류3	에러없음
+S05_110548 / site: G 긍정핵심문장 오류3	에러없음
+S05_110548 / site: G 부정핵심문장 오류3	에러없음
+S05_125820 / site: G 긍정핵심문장 오류3	에러없음
+S05_125820 / site: G 부정핵심문장 오류3	에러없음
+S05_130549 / site: G 긍정핵심문장 오류3	에러없음
+S05_130549 / site: G 부정핵심문장 오류3	에러없음
+S05_130981 / site: G 긍정핵심문장 오류3	에러없음
+S05_130981 / site: G 부정핵심문장 오류3	에러없음
+S05_140509 / site: G 긍정핵심문장 오류3	에러없음
+S05_140509 / site: G 부정핵심문장 오류3	에러없음
+S05_145795 / site: G 긍정핵심문장 오류3	에러없음
+S05_145795 / site: G 부정핵심문장 오류3	에러없음
+S05_153992 site:G 부정리뷰 없음
+S05_154210 site:G 부정리뷰 없음
+S05_154305 / site: G 긍정핵심문장 오류3	에러없음
+S05_25037 / site: G 긍정핵심문장 오류3	에러없음
+S05_25037 / site: G 부정핵심문장 오류3	에러없음
+S05_3122 / site: G 긍정핵심문장 오류3	에러없음
+S05_3122 / site: G 부정핵심문장 오류3	에러없음
+S05_60795 / site: G 긍정핵심문장 오류3	에러없음
+S05_60795 / site: G 부정핵심문장 오류3	에러없음
+S05_95086 / site: G 긍정핵심문장 오류3	에러없음
+S05_95086 / site: G 부정핵심문장 오류3	에러없음
+S06_21043 / site: G 긍정핵심문장 오류3	에러없음
+S06_21043 / site: G 부정핵심문장 오류3	에러없음
+S06_53517 / site: G 긍정핵심문장 오류3	에러없음
+S06_53517 / site: G 부정핵심문장 오류3	에러없음
+S06_99221 / site: G 긍정핵심문장 오류3	에러없음
+S06_99221 / site: G 부정핵심문장 오류3	에러없음
+S09_118004 / site: G 긍정핵심문장 오류3	에러없음
+S09_118004 / site: G 부정핵심문장 오류3	에러없음
+S09_120739 / site: G 긍정핵심문장 오류3	에러없음
+S09_120739 / site: G 부정핵심문장 오류3	에러없음
+S09_129058 / site: G 긍정핵심문장 오류3	에러없음
+S09_129058 / site: G 부정핵심문장 오류3	에러없음
+S09_129966 / site: G 긍정핵심문장 오류3	에러없음
+S09_129966 / site: G 부정핵심문장 오류3	에러없음
+S09_139131 / site: G 긍정핵심문장 오류3	에러없음
+S09_139131 / site: G 부정핵심문장 오류3	에러없음
+S09_153396 / site: G 긍정핵심문장 오류3	에러없음
+S09_41592 / site: G 긍정핵심문장 오류3	에러없음
+S09_41592 / site: G 부정핵심문장 오류3	에러없음
+S09_42267 / site: G 긍정핵심문장 오류3	에러없음
+S09_42267 / site: G 부정핵심문장 오류3	에러없음
+S09_91684 / site: G 긍정핵심문장 오류3	에러없음
+S09_91684 / site: G 부정핵심문장 오류3	에러없음
+S10_116857 / site: G 긍정핵심문장 오류3	에러없음
+S10_125141 / site: G 긍정핵심문장 오류3	에러없음
+S10_125141 / site: G 부정핵심문장 오류3	에러없음
+S10_131893 site:G 부정리뷰 없음
+S13_10019 / site: G 긍정핵심문장 오류3	에러없음
+S13_10019 / site: G 부정핵심문장 오류3	에러없음
+S13_107608 site:G 부정리뷰 없음
+S13_18721 / site: G 긍정핵심문장 오류3	에러없음
+S13_18721 / site: G 부정핵심문장 오류3	에러없음
+S13_27764 / site: G 긍정핵심문장 오류3	에러없음
+S13_27764 / site: G 부정핵심문장 오류3	에러없음
+S13_28080 / site: G 긍정핵심문장 오류3	에러없음
+S13_28080 / site: G 부정핵심문장 오류3	에러없음
+S02_4313 / site: G 긍정핵심문장 오류3	에러없음
+S02_4313 / site: G 부정핵심문장 오류3	에러없음
+S02_56977 / site: G 긍정핵심문장 오류3	에러없음
+S02_56977 / site: G 부정핵심문장 오류3	에러없음
+S02_81732 / site: G 긍정핵심문장 오류3	에러없음
+S02_81732 / site: G 부정핵심문장 오류3	에러없음
+S05_111170 / site: G 긍정핵심문장 오류3	에러없음
+S05_111170 / site: G 부정핵심문장 오류3	에러없음
+S05_130486 / site: G 긍정핵심문장 오류3	에러없음
+S05_130486 / site: G 부정핵심문장 오류3	에러없음
+S05_130640 / site: G 긍정핵심문장 오류3	에러없음
+S05_130640 / site: G 부정핵심문장 오류3	에러없음
+S05_152973 / site: G 긍정핵심문장 오류3	에러없음
+S05_152973 / site: G 부정핵심문장 오류3	에러없음
+S05_153565 / site: G 긍정핵심문장 오류3	에러없음
+S05_155336 site:G 부정리뷰 없음
+S05_49097 / site: G 긍정핵심문장 오류3	에러없음
+S05_49097 / site: G 부정핵심문장 오류3	에러없음
+S06_152759 site:G 부정리뷰 없음
+S06_152951 / site: G 긍정핵심문장 오류3	에러없음
+S06_16899 / site: G 긍정핵심문장 오류3	에러없음
+S06_16899 / site: G 부정핵심문장 오류3	에러없음
+S06_19043 / site: G 긍정핵심문장 오류3	에러없음
+S06_19043 / site: G 부정핵심문장 오류3	에러없음
+S06_21274 / site: G 긍정핵심문장 오류3	에러없음
+S06_21274 / site: G 부정핵심문장 오류3	에러없음
+S09_102123 / site: G 긍정핵심문장 오류3	에러없음
+S09_102123 / site: G 부정핵심문장 오류3	에러없음
+S09_111282 / site: G 긍정핵심문장 오류3	에러없음
+S09_111282 / site: G 부정핵심문장 오류3	에러없음
+S09_153609 / site: G 긍정핵심문장 오류3	에러없음
+S09_153609 / site: G 부정핵심문장 오류3	에러없음
+S09_38055 / site: G 긍정핵심문장 오류3	에러없음
+S09_38055 / site: G 부정핵심문장 오류3	에러없음
+S09_83952 / site: G 긍정핵심문장 오류3	에러없음
+S09_83952 / site: G 부정핵심문장 오류3	에러없음
+S10_12194 / site: G 긍정핵심문장 오류3	에러없음
+S10_131598 / site: G 긍정핵심문장 오류3	에러없음
+S13_10025 / site: G 긍정핵심문장 오류3	에러없음
+S13_10025 / site: G 부정핵심문장 오류3	에러없음
+S13_110557 / site: G 긍정핵심문장 오류3	에러없음
+S13_110557 / site: G 부정핵심문장 오류3	에러없음
+S13_111281 / site: G 긍정핵심문장 오류3	에러없음
+S13_111281 / site: G 부정핵심문장 오류3	에러없음
+S13_1450 / site: G 긍정핵심문장 오류3	에러없음
+S13_1450 / site: G 부정핵심문장 오류3	에러없음
+S13_153645 / site: G 긍정핵심문장 오류3	에러없음
+S13_153645 / site: G 부정핵심문장 오류3	에러없음
+S13_153976 site:G 부정리뷰 없음
+S13_1901 / site: G 긍정핵심문장 오류3	에러없음
+S13_1901 / site: G 부정핵심문장 오류3	에러없음
+S13_89454 site:G 긍정리뷰 없음
+S16_145065 / site: G 긍정핵심문장 오류3	에러없음
+S16_145065 / site: G 부정핵심문장 오류3	에러없음
+S16_145387 / site: G 긍정핵심문장 오류3	에러없음
+S16_145387 / site: G 부정핵심문장 오류3	에러없음
+S16_152908 / site: G 긍정핵심문장 오류3	에러없음
+S16_152908 / site: G 부정핵심문장 오류3	에러없음
+S16_22448 / site: G 긍정핵심문장 오류3	에러없음
+S16_22448 / site: G 부정핵심문장 오류3	에러없음
+S16_35847 / site: G 긍정핵심문장 오류3	에러없음
+S16_35847 / site: G 부정핵심문장 오류3	에러없음
+S17_104924 / site: G 긍정핵심문장 오류3	에러없음
+S17_104924 / site: G 부정핵심문장 오류3	에러없음
+S17_108985 / site: G 긍정핵심문장 오류3	에러없음
+S17_108985 / site: G 부정핵심문장 오류3	에러없음
+S17_120910 / site: G 긍정핵심문장 오류3	에러없음
+S17_120910 / site: G 부정핵심문장 오류3	에러없음
+S18_77234 / site: G 긍정핵심문장 오류3	에러없음
+S18_77234 / site: G 부정핵심문장 오류3	에러없음
+S21_107217 / site: G 긍정핵심문장 오류3	에러없음
+S21_107217 / site: G 부정핵심문장 오류3	에러없음
+S21_111661 / site: G 긍정핵심문장 오류3	에러없음
+S21_111661 / site: G 부정핵심문장 오류3	에러없음
+S21_119305 / site: G 긍정핵심문장 오류3	에러없음
+S21_119305 / site: G 부정핵심문장 오류3	에러없음
+S21_134662 / site: G 긍정핵심문장 오류3	에러없음
+S21_134662 / site: G 부정핵심문장 오류3	에러없음
+S21_17481 site:G 부정리뷰 없음
+S22_106870 / site: G 긍정핵심문장 오류3	에러없음
+S22_106870 / site: G 부정핵심문장 오류3	에러없음
+S22_108293 / site: G 긍정핵심문장 오류3	에러없음
+S22_108293 / site: G 부정핵심문장 오류3	에러없음
+S22_117614 / site: G 긍정핵심문장 오류3	에러없음
+S22_117614 / site: G 부정핵심문장 오류3	에러없음
+S22_123903 / site: G 긍정핵심문장 오류3	에러없음
+S22_123903 / site: G 부정핵심문장 오류3	에러없음
+S22_132373 / site: G 긍정핵심문장 오류3	에러없음
+S22_132373 / site: G 부정핵심문장 오류3	에러없음
+S22_146957 / site: G 긍정핵심문장 오류3	에러없음
+S22_146957 / site: G 부정핵심문장 오류3	에러없음
+S22_150877 / site: G 긍정핵심문장 오류3	에러없음
+S22_150877 / site: G 부정핵심문장 오류3	에러없음
+S22_51477 / site: G 긍정핵심문장 오류3	에러없음
+S22_51477 / site: G 부정핵심문장 오류3	에러없음
+S22_76045 / site: G 긍정핵심문장 오류3	에러없음
+S22_76045 / site: G 부정핵심문장 오류3	에러없음
+S23_142883 / site: G 긍정핵심문장 오류3	에러없음
+S23_142883 / site: G 부정핵심문장 오류3	에러없음
+S23_150318 / site: G 긍정핵심문장 오류3	에러없음
+S23_150318 / site: G 부정핵심문장 오류3	에러없음
+S23_51533 / site: G 긍정핵심문장 오류3	에러없음
+S23_51533 / site: G 부정핵심문장 오류3	에러없음
+S23_83701 / site: G 긍정핵심문장 오류3	에러없음
+S23_83701 / site: G 부정핵심문장 오류3	에러없음
+S25_33632 / site: G 긍정핵심문장 오류3	에러없음
+S25_3457 / site: G 긍정핵심문장 오류3	에러없음
+S25_3457 / site: G 부정핵심문장 오류3	에러없음
+S25_4108 / site: G 긍정핵심문장 오류3	에러없음
+S25_4108 / site: G 부정핵심문장 오류3	에러없음
+S31_141693 / site: G 긍정핵심문장 오류3	에러없음
+S31_141693 / site: G 부정핵심문장 오류3	에러없음
+S31_145810 / site: G 긍정핵심문장 오류3	에러없음
+S31_145810 / site: G 부정핵심문장 오류3	에러없음
+S31_150313 / site: G 긍정핵심문장 오류3	에러없음
+S31_150313 / site: G 부정핵심문장 오류3	에러없음
+S31_152586 site:G 긍정리뷰 없음
+S31_152884 site:G 부정리뷰 없음
+S31_154092 / site: G 긍정핵심문장 오류3	에러없음
+S31_154092 / site: G 부정핵심문장 오류3	에러없음
+S31_154438 site:G 부정리뷰 없음
+S31_154847 site:G 부정리뷰 없음
+S31_155084 site:G 부정리뷰 없음
+S32_144473 / site: G 긍정핵심문장 오류3	에러없음
+S32_144473 / site: G 부정핵심문장 오류3	에러없음
+S32_149785 / site: G 긍정핵심문장 오류3	에러없음
+S32_149785 / site: G 부정핵심문장 오류3	에러없음
+S32_55109 / site: G 긍정핵심문장 오류3	에러없음
+S32_55109 / site: G 부정핵심문장 오류3	에러없음
+S34_147861 / site: G 긍정핵심문장 오류3	에러없음
+S34_147861 / site: G 부정핵심문장 오류3	에러없음
+S34_152522 / site: G 긍정핵심문장 오류3	에러없음
+S34_152522 / site: G 부정핵심문장 오류3	에러없음
+S34_153542 site:G 부정리뷰 없음
+S34_154040 site:G 긍정리뷰 없음
+S34_154888 / site: G 긍정핵심문장 오류3	에러없음
+S34_83793 / site: G 긍정핵심문장 오류3	에러없음
+S34_83793 / site: G 부정핵심문장 오류3	에러없음
+S37_112669 / site: G 긍정핵심문장 오류3	에러없음
+S37_112669 / site: G 부정핵심문장 오류3	에러없음
+S37_150135 / site: G 긍정핵심문장 오류3	에러없음
+S37_150135 / site: G 부정핵심문장 오류3	에러없음
+S37_73674 / site: G 긍정핵심문장 오류3	에러없음
+S37_73674 / site: G 부정핵심문장 오류3	에러없음
+S40_1415 / site: G 긍정핵심문장 오류3	에러없음
+S40_1415 / site: G 부정핵심문장 오류3	에러없음
+S40_21887 / site: G 긍정핵심문장 오류3	에러없음
+S40_21887 / site: G 부정핵심문장 오류3	에러없음
+S40_79602 / site: G 긍정핵심문장 오류3	에러없음
+S40_79602 / site: G 부정핵심문장 오류3	에러없음
+S42_119171 / site: G 긍정핵심문장 오류3	에러없음
+S42_119171 / site: G 부정핵심문장 오류3	에러없음
+S42_140679 / site: G 긍정핵심문장 오류3	에러없음
+S42_140679 / site: G 부정핵심문장 오류3	에러없음
+S42_140691 / site: G 긍정핵심문장 오류3	에러없음
+S42_140691 / site: G 부정핵심문장 오류3	에러없음
+S42_145914 / site: G 긍정핵심문장 오류3	에러없음
+S42_145914 / site: G 부정핵심문장 오류3	에러없음
+S42_147120 / site: G 긍정핵심문장 오류3	에러없음
+S42_147120 / site: G 부정핵심문장 오류3	에러없음
+S42_151304 / site: G 긍정핵심문장 오류3	에러없음
+S42_151304 / site: G 부정핵심문장 오류3	에러없음
+S42_152459 / site: G 긍정핵심문장 오류3	에러없음
+S42_152459 / site: G 부정핵심문장 오류3	에러없음
+S42_153530 site:G 부정리뷰 없음
+S42_154692 / site: G 긍정핵심문장 오류3	에러없음
+S42_154692 / site: G 부정핵심문장 오류3	에러없음
+S42_76330 / site: G 긍정핵심문장 오류3	에러없음
+S42_76330 / site: G 부정핵심문장 오류3	에러없음
+S42_81039 / site: G 긍정핵심문장 오류3	에러없음
+S42_81039 / site: G 부정핵심문장 오류3	에러없음
+S42_89789 / site: G 긍정핵심문장 오류3	에러없음
+S42_89789 / site: G 부정핵심문장 오류3	에러없음
+S45_110664 / site: G 긍정핵심문장 오류3	에러없음
+S45_110664 / site: G 부정핵심문장 오류3	에러없음
+S45_115552 / site: G 긍정핵심문장 오류3	에러없음
+S45_115552 / site: G 부정핵심문장 오류3	에러없음
+S45_123291 / site: G 긍정핵심문장 오류3	에러없음
+S45_123291 / site: G 부정핵심문장 오류3	에러없음
+S45_123893 / site: G 긍정핵심문장 오류3	에러없음
+S45_123893 / site: G 부정핵심문장 오류3	에러없음
+S45_135769 / site: G 긍정핵심문장 오류3	에러없음
+S45_135769 / site: G 부정핵심문장 오류3	에러없음
+S45_145709 / site: G 긍정핵심문장 오류3	에러없음
+S45_145709 / site: G 부정핵심문장 오류3	에러없음
+S45_24563 / site: G 긍정핵심문장 오류3	에러없음
+S45_24563 / site: G 부정핵심문장 오류3	에러없음
+S45_85308 / site: G 긍정핵심문장 오류3	에러없음
+S45_85308 site:G 부정리뷰 없음
+S45_93635 site:G 부정리뷰 없음
+S45_97503 / site: G 긍정핵심문장 오류3	에러없음
+S45_97503 / site: G 부정핵심문장 오류3	에러없음
+S46_121300 / site: G 긍정핵심문장 오류3	에러없음
+S46_121300 / site: G 부정핵심문장 오류3	에러없음
+S46_122711 / site: G 긍정핵심문장 오류3	에러없음
+S46_122711 / site: G 부정핵심문장 오류3	에러없음
+S46_1493 / site: G 긍정핵심문장 오류3	에러없음
+S46_1493 / site: G 부정핵심문장 오류3	에러없음
+S46_154685 site:G 긍정리뷰 없음
+S46_154685 site:G 부정리뷰 없음
+S46_18922 / site: G 긍정핵심문장 오류3	에러없음
+S46_18922 / site: G 부정핵심문장 오류3	에러없음
+S46_36384 / site: G 긍정핵심문장 오류3	에러없음
+S46_36384 / site: G 부정핵심문장 오류3	에러없음
+S46_42771 / site: G 긍정핵심문장 오류3	에러없음
+S46_42771 / site: G 부정핵심문장 오류3	에러없음
+S46_87143 / site: G 긍정핵심문장 오류3	에러없음
+S46_87143 / site: G 부정핵심문장 오류3	에러없음
+S46_8778 / site: G 긍정핵심문장 오류3	에러없음
+S46_8778 / site: G 부정핵심문장 오류3	에러없음
+S47_111311 / site: G 긍정핵심문장 오류3	에러없음
+S47_111311 / site: G 부정핵심문장 오류3	에러없음
+S47_145723 / site: G 긍정핵심문장 오류3	에러없음
+S47_145723 / site: G 부정핵심문장 오류3	에러없음
+S47_26210 / site: G 긍정핵심문장 오류3	에러없음
+S47_26210 / site: G 부정핵심문장 오류3	에러없음
+S47_4608 / site: G 긍정핵심문장 오류3	에러없음
+S47_4608 / site: G 부정핵심문장 오류3	에러없음
+S47_92156 / site: G 긍정핵심문장 오류3	에러없음
+S47_92156 / site: G 부정핵심문장 오류3	에러없음
+S49_78312 / site: G 긍정핵심문장 오류3	에러없음
+S49_78312 / site: G 부정핵심문장 오류3	에러없음
+S03_152257 / site: G 긍정핵심문장 오류3	에러없음
+S03_152257 / site: G 부정핵심문장 오류3	에러없음
+S03_3959 / site: G 긍정핵심문장 오류3	에러없음
+S03_3959 / site: G 부정핵심문장 오류3	에러없음
+S03_40833 / site: G 긍정핵심문장 오류3	에러없음
+S03_40833 / site: G 부정핵심문장 오류3	에러없음
+S03_61889 / site: G 긍정핵심문장 오류3	에러없음
+S03_61889 / site: G 부정핵심문장 오류3	에러없음
+S03_82441 / site: G 긍정핵심문장 오류3	에러없음
+S03_82441 / site: G 부정핵심문장 오류3	에러없음
+S03_82543 / site: G 긍정핵심문장 오류3	에러없음
+S03_82543 / site: G 부정핵심문장 오류3	에러없음
+S05_14295 / site: G 긍정핵심문장 오류3	에러없음
+S05_14295 / site: G 부정핵심문장 오류3	에러없음
+S05_154448 site:G 긍정리뷰 없음
+S05_20632 / site: G 긍정핵심문장 오류3	에러없음
+S05_20632 / site: G 부정핵심문장 오류3	에러없음
+S05_22 / site: G 긍정핵심문장 오류3	에러없음
+S05_22 / site: G 부정핵심문장 오류3	에러없음
+S05_2941 / site: G 긍정핵심문장 오류3	에러없음
+S05_2941 / site: G 부정핵심문장 오류3	에러없음
+S05_40815 / site: G 긍정핵심문장 오류3	에러없음
+S05_40815 / site: G 부정핵심문장 오류3	에러없음
+S05_7516 / site: G 긍정핵심문장 오류3	에러없음
+S05_7516 / site: G 부정핵심문장 오류3	에러없음
+S05_90 / site: G 긍정핵심문장 오류3	에러없음
+S05_90 / site: G 부정핵심문장 오류3	에러없음
+S05_91694 / site: G 긍정핵심문장 오류3	에러없음
+S05_91694 / site: G 부정핵심문장 오류3	에러없음
+S05_95456 / site: G 긍정핵심문장 오류3	에러없음
+S05_95456 / site: G 부정핵심문장 오류3	에러없음
+S06_129308 / site: G 긍정핵심문장 오류3	에러없음
+S06_144782 / site: G 긍정핵심문장 오류3	에러없음
+S06_144782 / site: G 부정핵심문장 오류3	에러없음
+S06_153423 site:G 부정리뷰 없음
+S06_157 / site: G 긍정핵심문장 오류3	에러없음
+S06_157 / site: G 부정핵심문장 오류3	에러없음
+S09_113193 / site: G 긍정핵심문장 오류3	에러없음
+S09_113193 / site: G 부정핵심문장 오류3	에러없음
+S09_117857 / site: G 긍정핵심문장 오류3	에러없음
+S09_117857 / site: G 부정핵심문장 오류3	에러없음
+S09_125153 / site: G 긍정핵심문장 오류3	에러없음
+S09_125153 / site: G 부정핵심문장 오류3	에러없음
+S09_139620 / site: G 긍정핵심문장 오류3	에러없음
+S09_139620 / site: G 부정핵심문장 오류3	에러없음
+S09_143724 / site: G 긍정핵심문장 오류3	에러없음
+S09_143724 / site: G 부정핵심문장 오류3	에러없음
+S09_146144 / site: G 긍정핵심문장 오류3	에러없음
+S09_146144 / site: G 부정핵심문장 오류3	에러없음
+S09_148004 / site: G 긍정핵심문장 오류3	에러없음
+S09_152163 / site: G 긍정핵심문장 오류3	에러없음
+S09_152163 / site: G 부정핵심문장 오류3	에러없음
+S09_153389 site:G 부정리뷰 없음
+S09_153400 site:G 부정리뷰 없음
+S09_95039 / site: G 긍정핵심문장 오류3	에러없음
+S09_95039 / site: G 부정핵심문장 오류3	에러없음
+S10_11199 / site: G 긍정핵심문장 오류3	에러없음
+S10_11199 / site: G 부정핵심문장 오류3	에러없음
+S13_109327 site:G 긍정리뷰 없음
+S13_110317 / site: G 긍정핵심문장 오류3	에러없음
+S13_11831 / site: G 긍정핵심문장 오류3	에러없음
+S13_1258 / site: G 긍정핵심문장 오류3	에러없음
+S13_1258 / site: G 부정핵심문장 오류3	에러없음
+S13_152919 / site: G 긍정핵심문장 오류3	에러없음
+S13_152919 / site: G 부정핵심문장 오류3	에러없음
+S13_19008 / site: G 긍정핵심문장 오류3	에러없음
+S13_19008 / site: G 부정핵심문장 오류3	에러없음
+S13_35337 / site: G 긍정핵심문장 오류3	에러없음
+S13_35337 / site: G 부정핵심문장 오류3	에러없음
+S13_45741 / site: G 긍정핵심문장 오류3	에러없음
+S13_45741 / site: G 부정핵심문장 오류3	에러없음
+S13_5259 / site: G 긍정핵심문장 오류3	에러없음
+S13_5259 / site: G 부정핵심문장 오류3	에러없음
+S16_140451 site:G 긍정리뷰 없음
+S16_142235 / site: G 긍정핵심문장 오류3	에러없음
+S16_142235 / site: G 부정핵심문장 오류3	에러없음
+S16_144556 site:G 긍정리뷰 없음
+S16_152823 site:G 부정리뷰 없음
+S16_20573 / site: G 긍정핵심문장 오류3	에러없음
+S16_20573 / site: G 부정핵심문장 오류3	에러없음
+S16_75343 site:G 긍정리뷰 없음
+S16_75343 site:G 부정리뷰 없음
+S17_105129 / site: G 긍정핵심문장 오류3	에러없음
+S17_105129 / site: G 부정핵심문장 오류3	에러없음
+S17_109414 / site: G 긍정핵심문장 오류3	에러없음
+S17_109414 / site: G 부정핵심문장 오류3	에러없음
+S17_121808 / site: G 긍정핵심문장 오류3	에러없음
+S17_14561 / site: G 긍정핵심문장 오류3	에러없음
+S17_14561 / site: G 부정핵심문장 오류3	에러없음
+S17_146766 / site: G 긍정핵심문장 오류3	에러없음
+S17_146766 / site: G 부정핵심문장 오류3	에러없음
+S18_102445 / site: G 긍정핵심문장 오류3	에러없음
+S18_102445 / site: G 부정핵심문장 오류3	에러없음
+S21_107900 / site: G 긍정핵심문장 오류3	에러없음
+S21_107900 / site: G 부정핵심문장 오류3	에러없음
+S21_146107 / site: G 긍정핵심문장 오류3	에러없음
+S22_107592 / site: G 긍정핵심문장 오류3	에러없음
+S22_107592 / site: G 부정핵심문장 오류3	에러없음
+S22_141732 / site: G 긍정핵심문장 오류3	에러없음
+S22_141732 / site: G 부정핵심문장 오류3	에러없음
+S22_145414 / site: G 긍정핵심문장 오류3	에러없음
+S22_145414 / site: G 부정핵심문장 오류3	에러없음
+S22_147122 / site: G 긍정핵심문장 오류3	에러없음
+S22_147122 / site: G 부정핵심문장 오류3	에러없음
+S22_148145 / site: G 긍정핵심문장 오류3	에러없음
+S22_148145 / site: G 부정핵심문장 오류3	에러없음
+S22_22784 / site: G 긍정핵심문장 오류3	에러없음
+S22_22784 / site: G 부정핵심문장 오류3	에러없음
+S22_26422 / site: G 긍정핵심문장 오류3	에러없음
+S22_26422 / site: G 부정핵심문장 오류3	에러없음
+S23_126914 / site: G 긍정핵심문장 오류3	에러없음
+S23_126914 / site: G 부정핵심문장 오류3	에러없음
+S23_134764 / site: G 긍정핵심문장 오류3	에러없음
+S23_134764 / site: G 부정핵심문장 오류3	에러없음
+S23_142861 / site: G 긍정핵심문장 오류3	에러없음
+S23_142861 / site: G 부정핵심문장 오류3	에러없음
+S23_146728 / site: G 긍정핵심문장 오류3	에러없음
+S23_146728 / site: G 부정핵심문장 오류3	에러없음
+S25_128403 / site: G 긍정핵심문장 오류3	에러없음
+S25_128403 / site: G 부정핵심문장 오류3	에러없음
+S25_78519 / site: G 긍정핵심문장 오류3	에러없음
+S25_78519 / site: G 부정핵심문장 오류3	에러없음
+S31_152523 site:G 부정리뷰 없음
+S31_152975 site:G 부정리뷰 없음
+S31_154153 / site: G 긍정핵심문장 오류3	에러없음
+S31_154628 / site: G 긍정핵심문장 오류3	에러없음
+S31_154628 / site: G 부정핵심문장 오류3	에러없음
+S31_155002 site:G 긍정리뷰 없음
+S31_155002 site:G 부정리뷰 없음
+S32_101727 / site: G 긍정핵심문장 오류3	에러없음
+S32_101727 / site: G 부정핵심문장 오류3	에러없음
+S32_114572 / site: G 긍정핵심문장 오류3	에러없음
+S34_103222 / site: G 긍정핵심문장 오류3	에러없음
+S34_103222 / site: G 부정핵심문장 오류3	에러없음
+S34_146051 / site: G 긍정핵심문장 오류3	에러없음
+S34_146051 / site: G 부정핵심문장 오류3	에러없음
+S34_149187 / site: G 긍정핵심문장 오류3	에러없음
+S34_149187 / site: G 부정핵심문장 오류3	에러없음
+S34_151092 / site: G 긍정핵심문장 오류3	에러없음
+S34_151092 / site: G 부정핵심문장 오류3	에러없음
+S34_153307 site:G 부정리뷰 없음
+S34_154806 / site: G 긍정핵심문장 오류3	에러없음
+S34_154806 / site: G 부정핵심문장 오류3	에러없음
+S34_155003 site:G 긍정리뷰 없음
+S34_155003 site:G 부정리뷰 없음
+S34_155189 site:G 부정리뷰 없음
+S37_101281 / site: G 긍정핵심문장 오류3	에러없음
+S37_101281 / site: G 부정핵심문장 오류3	에러없음
+S37_132014 / site: G 긍정핵심문장 오류3	에러없음
+S37_132014 / site: G 부정핵심문장 오류3	에러없음
+S37_136932 / site: G 긍정핵심문장 오류3	에러없음
+S37_136932 / site: G 부정핵심문장 오류3	에러없음
+S37_143833 / site: G 긍정핵심문장 오류3	에러없음
+S37_143833 / site: G 부정핵심문장 오류3	에러없음
+S40_122114 / site: G 긍정핵심문장 오류3	에러없음
+S40_122114 / site: G 부정핵심문장 오류3	에러없음
+S40_139866 / site: G 긍정핵심문장 오류3	에러없음
+S40_139866 / site: G 부정핵심문장 오류3	에러없음
+S40_78363 / site: G 긍정핵심문장 오류3	에러없음
+S40_78363 / site: G 부정핵심문장 오류3	에러없음
+S40_99693 / site: G 긍정핵심문장 오류3	에러없음
+S40_99693 / site: G 부정핵심문장 오류3	에러없음
+S40_99779 / site: G 긍정핵심문장 오류3	에러없음
+S40_99779 / site: G 부정핵심문장 오류3	에러없음
+S42_1260 / site: G 긍정핵심문장 오류3	에러없음
+S42_1260 / site: G 부정핵심문장 오류3	에러없음
+S42_129370 / site: G 긍정핵심문장 오류3	에러없음
+S42_129370 / site: G 부정핵심문장 오류3	에러없음
+S42_130989 / site: G 긍정핵심문장 오류3	에러없음
+S42_130989 / site: G 부정핵심문장 오류3	에러없음
+S42_26275 / site: G 긍정핵심문장 오류3	에러없음
+S42_26275 / site: G 부정핵심문장 오류3	에러없음
+S42_38145 / site: G 긍정핵심문장 오류3	에러없음
+S42_38145 / site: G 부정핵심문장 오류3	에러없음
+S42_74950 / site: G 긍정핵심문장 오류3	에러없음
+S42_74950 / site: G 부정핵심문장 오류3	에러없음
+S42_78683 / site: G 긍정핵심문장 오류3	에러없음
+S42_78683 / site: G 부정핵심문장 오류3	에러없음
+S45_109302 / site: G 긍정핵심문장 오류3	에러없음
+S45_109302 / site: G 부정핵심문장 오류3	에러없음
+S45_109356 / site: G 긍정핵심문장 오류3	에러없음
+S45_109356 / site: G 부정핵심문장 오류3	에러없음
+S45_120085 / site: G 긍정핵심문장 오류3	에러없음
+S45_120085 site:G 부정리뷰 없음
+S45_127409 / site: G 긍정핵심문장 오류3	에러없음
+S45_140191 / site: G 긍정핵심문장 오류3	에러없음
+S45_152107 site:G 부정리뷰 없음
+S45_15279 / site: G 긍정핵심문장 오류3	에러없음
+S45_15279 / site: G 부정핵심문장 오류3	에러없음
+S45_5919 / site: G 긍정핵심문장 오류3	에러없음
+S45_5919 / site: G 부정핵심문장 오류3	에러없음
+S45_78228 / site: G 긍정핵심문장 오류3	에러없음
+S45_78228 / site: G 부정핵심문장 오류3	에러없음
+S46_110065 / site: G 긍정핵심문장 오류3	에러없음
+S46_110065 / site: G 부정핵심문장 오류3	에러없음
+S46_120222 / site: G 긍정핵심문장 오류3	에러없음
+S46_120222 / site: G 부정핵심문장 오류3	에러없음
+S46_27569 / site: G 긍정핵심문장 오류3	에러없음
+S47_107939 / site: G 긍정핵심문장 오류3	에러없음
+S47_107939 / site: G 부정핵심문장 오류3	에러없음
+S47_26213 / site: G 긍정핵심문장 오류3	에러없음
+S47_26213 / site: G 부정핵심문장 오류3	에러없음
+S47_2851 / site: G 긍정핵심문장 오류3	에러없음
+S47_2851 / site: G 부정핵심문장 오류3	에러없음
+S47_35994 / site: G 긍정핵심문장 오류3	에러없음
+S47_35994 / site: G 부정핵심문장 오류3	에러없음
+S47_66417 / site: G 긍정핵심문장 오류3	에러없음
+S47_66417 / site: G 부정핵심문장 오류3	에러없음
+S47_79770 / site: G 긍정핵심문장 오류3	에러없음
+S47_79770 / site: G 부정핵심문장 오류3	에러없음
+S47_89745 / site: G 긍정핵심문장 오류3	에러없음
+S47_89745 / site: G 부정핵심문장 오류3	에러없음
+S47_90266 / site: G 긍정핵심문장 오류3	에러없음
+S47_90266 / site: G 부정핵심문장 오류3	에러없음
+S49_122994 / site: G 긍정핵심문장 오류3	에러없음
+S49_122994 / site: G 부정핵심문장 오류3	에러없음
+S49_34096 / site: G 긍정핵심문장 오류3	에러없음
+S49_34096 / site: G 부정핵심문장 오류3	에러없음
+S49_5188 / site: G 긍정핵심문장 오류3	에러없음
+S49_5188 / site: G 부정핵심문장 오류3	에러없음
+S49_75105 / site: G 긍정핵심문장 오류3	에러없음
+S49_75105 / site: G 부정핵심문장 오류3	에러없음
+S02_102462 / site: G 긍정핵심문장 오류3	에러없음
+S02_115761 / site: G 긍정핵심문장 오류3	에러없음
+S02_115761 / site: G 부정핵심문장 오류3	에러없음
+S02_148972 / site: G 긍정핵심문장 오류3	에러없음
+S02_148972 / site: G 부정핵심문장 오류3	에러없음
+S03_136111 / site: G 긍정핵심문장 오류3	에러없음
+S03_136111 / site: G 부정핵심문장 오류3	에러없음
+S03_27404 / site: G 긍정핵심문장 오류3	에러없음
+S03_27404 / site: G 부정핵심문장 오류3	에러없음
+S05_112417 / site: G 긍정핵심문장 오류3	에러없음
+S05_112417 / site: G 부정핵심문장 오류3	에러없음
+S05_121796 / site: G 긍정핵심문장 오류3	에러없음
+S05_121796 / site: G 부정핵심문장 오류3	에러없음
+S05_129241 / site: G 긍정핵심문장 오류3	에러없음
+S05_129241 / site: G 부정핵심문장 오류3	에러없음
+S05_130838 / site: G 긍정핵심문장 오류3	에러없음
+S05_130838 / site: G 부정핵심문장 오류3	에러없음
+S05_152092 / site: G 긍정핵심문장 오류3	에러없음
+S05_1820 site:G 부정리뷰 없음
+S05_56725 / site: G 긍정핵심문장 오류3	에러없음
+S05_56725 / site: G 부정핵심문장 오류3	에러없음
+S05_72978 / site: G 긍정핵심문장 오류3	에러없음
+S05_72978 / site: G 부정핵심문장 오류3	에러없음
+S05_88412 / site: G 긍정핵심문장 오류3	에러없음
+S05_88412 / site: G 부정핵심문장 오류3	에러없음
+S05_94040 / site: G 긍정핵심문장 오류3	에러없음
+S05_94040 / site: G 부정핵심문장 오류3	에러없음
+S05_97321 / site: G 긍정핵심문장 오류3	에러없음
+S06_152054 / site: G 긍정핵심문장 오류3	에러없음
+S06_153755 / site: G 긍정핵심문장 오류3	에러없음
+S06_2785 / site: G 긍정핵심문장 오류3	에러없음
+S06_2785 / site: G 부정핵심문장 오류3	에러없음
+S06_70173 / site: G 긍정핵심문장 오류3	에러없음
+S06_70173 / site: G 부정핵심문장 오류3	에러없음
+S06_97907 / site: G 긍정핵심문장 오류3	에러없음
+S06_97907 / site: G 부정핵심문장 오류3	에러없음
+S09_117994 / site: G 긍정핵심문장 오류3	에러없음
+S09_117994 / site: G 부정핵심문장 오류3	에러없음
+S09_133267 / site: G 긍정핵심문장 오류3	에러없음
+S09_133267 / site: G 부정핵심문장 오류3	에러없음
+S09_134710 / site: G 긍정핵심문장 오류3	에러없음
+S09_134710 / site: G 부정핵심문장 오류3	에러없음
+S09_138824 / site: G 긍정핵심문장 오류3	에러없음
+S09_138824 / site: G 부정핵심문장 오류3	에러없음
+S09_152312 site:G 부정리뷰 없음
+S09_152475 site:G 부정리뷰 없음
+S09_153398 site:G 긍정리뷰 없음
+S09_153398 site:G 부정리뷰 없음
+S09_153479 site:G 긍정리뷰 없음
+S09_153479 site:G 부정리뷰 없음
+S09_154860 / site: G 긍정핵심문장 오류3	에러없음
+S09_154860 / site: G 부정핵심문장 오류3	에러없음
+S10_125385 / site: G 긍정핵심문장 오류3	에러없음
+S10_133443 / site: G 긍정핵심문장 오류3	에러없음
+S10_145057 / site: G 긍정핵심문장 오류3	에러없음
+S10_145057 / site: G 부정핵심문장 오류3	에러없음
+S10_86097 / site: G 긍정핵심문장 오류3	에러없음
+S10_86097 / site: G 부정핵심문장 오류3	에러없음
+S13_102155 site:G 부정리뷰 없음
+S13_102413 / site: G 긍정핵심문장 오류3	에러없음
+S13_102413 / site: G 부정핵심문장 오류3	에러없음
+S13_106787 / site: G 긍정핵심문장 오류3	에러없음
+S13_106787 / site: G 부정핵심문장 오류3	에러없음
+S13_2856 / site: G 긍정핵심문장 오류3	에러없음
+S13_2856 / site: G 부정핵심문장 오류3	에러없음
+S13_76071 site:G 긍정리뷰 없음
+S13_98022 / site: G 긍정핵심문장 오류3	에러없음
+S13_98022 / site: G 부정핵심문장 오류3	에러없음
+S13_98253 / site: G 긍정핵심문장 오류3	에러없음
+S13_98253 / site: G 부정핵심문장 오류3	에러없음
+S16_136221 site:G 긍정리뷰 없음
+S16_136221 site:G 부정리뷰 없음
+S16_16977 / site: G 긍정핵심문장 오류3	에러없음
+S16_16977 / site: G 부정핵심문장 오류3	에러없음
+S16_38175 / site: G 긍정핵심문장 오류3	에러없음
+S16_38175 / site: G 부정핵심문장 오류3	에러없음
+S18_122330 site:G 긍정리뷰 없음
+S21_146779 / site: G 긍정핵심문장 오류3	에러없음
+S21_146779 / site: G 부정핵심문장 오류3	에러없음
+S21_91385 / site: G 긍정핵심문장 오류3	에러없음
+S21_91385 / site: G 부정핵심문장 오류3	에러없음
+S22_104620 / site: G 긍정핵심문장 오류3	에러없음
+S22_104620 / site: G 부정핵심문장 오류3	에러없음
+S22_118858 / site: G 긍정핵심문장 오류3	에러없음
+S22_118858 / site: G 부정핵심문장 오류3	에러없음
+S22_120271 / site: G 긍정핵심문장 오류3	에러없음
+S22_120271 / site: G 부정핵심문장 오류3	에러없음
+S22_120489 / site: G 긍정핵심문장 오류3	에러없음
+S22_120489 / site: G 부정핵심문장 오류3	에러없음
+S22_133186 / site: G 긍정핵심문장 오류3	에러없음
+S22_133186 / site: G 부정핵심문장 오류3	에러없음
+S22_146323 / site: G 긍정핵심문장 오류3	에러없음
+S22_146323 / site: G 부정핵심문장 오류3	에러없음
+S22_149794 / site: G 긍정핵심문장 오류3	에러없음
+S22_149794 / site: G 부정핵심문장 오류3	에러없음
+S22_152543 / site: G 긍정핵심문장 오류3	에러없음
+S22_152543 / site: G 부정핵심문장 오류3	에러없음
+S22_26431 / site: G 긍정핵심문장 오류3	에러없음
+S22_26431 / site: G 부정핵심문장 오류3	에러없음
+S23_117775 / site: G 긍정핵심문장 오류3	에러없음
+S23_117775 / site: G 부정핵심문장 오류3	에러없음
+S23_122746 / site: G 긍정핵심문장 오류3	에러없음
+S23_122746 / site: G 부정핵심문장 오류3	에러없음
+S23_141411 / site: G 긍정핵심문장 오류3	에러없음
+S23_141411 / site: G 부정핵심문장 오류3	에러없음
+S23_150873 / site: G 긍정핵심문장 오류3	에러없음
+S23_150873 / site: G 부정핵심문장 오류3	에러없음
+S23_150874 / site: G 긍정핵심문장 오류3	에러없음
+S23_150874 / site: G 부정핵심문장 오류3	에러없음
+S25_2361 / site: G 긍정핵심문장 오류3	에러없음
+S25_2361 / site: G 부정핵심문장 오류3	에러없음
+S25_74074 / site: G 긍정핵심문장 오류3	에러없음
+S25_82032 / site: G 긍정핵심문장 오류3	에러없음
+S31_139206 / site: G 긍정핵심문장 오류3	에러없음
+S31_139562 / site: G 긍정핵심문장 오류3	에러없음
+S31_139562 / site: G 부정핵심문장 오류3	에러없음
+S31_152412 site:G 부정리뷰 없음
+S31_152913 site:G 부정리뷰 없음
+S32_121652 / site: G 긍정핵심문장 오류3	에러없음
+S32_121652 / site: G 부정핵심문장 오류3	에러없음
+S32_122187 / site: G 긍정핵심문장 오류3	에러없음
+S32_122187 / site: G 부정핵심문장 오류3	에러없음
+S32_127488 / site: G 긍정핵심문장 오류3	에러없음
+S32_127488 / site: G 부정핵심문장 오류3	에러없음
+S32_143759 / site: G 긍정핵심문장 오류3	에러없음
+S32_143759 / site: G 부정핵심문장 오류3	에러없음
+S32_74068 / site: G 긍정핵심문장 오류3	에러없음
+S32_74068 / site: G 부정핵심문장 오류3	에러없음
+S34_134638 / site: G 긍정핵심문장 오류3	에러없음
+S34_134638 / site: G 부정핵심문장 오류3	에러없음
+S34_145751 / site: G 긍정핵심문장 오류3	에러없음
+S34_145751 / site: G 부정핵심문장 오류3	에러없음
+S34_147865 / site: G 긍정핵심문장 오류3	에러없음
+S34_147865 / site: G 부정핵심문장 오류3	에러없음
+S34_152694 site:G 부정리뷰 없음
+S34_153310 site:G 부정리뷰 없음
+S34_153333 site:G 부정리뷰 없음
+S34_153941 site:G 부정리뷰 없음
+S34_154211 / site: G 긍정핵심문장 오류3	에러없음
+S34_154843 site:G 긍정리뷰 없음
+S34_154920 site:G 부정리뷰 없음
+S37_144474 / site: G 긍정핵심문장 오류3	에러없음
+S37_144474 / site: G 부정핵심문장 오류3	에러없음
+S37_154606 / site: G 긍정핵심문장 오류3	에러없음
+S37_154606 / site: G 부정핵심문장 오류3	에러없음
+S37_23464 / site: G 긍정핵심문장 오류3	에러없음
+S37_23464 / site: G 부정핵심문장 오류3	에러없음
+S37_26968 / site: G 긍정핵심문장 오류3	에러없음
+S37_26968 / site: G 부정핵심문장 오류3	에러없음
+S37_72940 / site: G 긍정핵심문장 오류3	에러없음
+S37_72940 / site: G 부정핵심문장 오류3	에러없음
+S40_119285 / site: G 긍정핵심문장 오류3	에러없음
+S40_119285 / site: G 부정핵심문장 오류3	에러없음
+S40_34582 / site: G 긍정핵심문장 오류3	에러없음
+S40_34582 / site: G 부정핵심문장 오류3	에러없음
+S40_65073 / site: G 긍정핵심문장 오류3	에러없음
+S40_65073 / site: G 부정핵심문장 오류3	에러없음
+S40_98046 / site: G 긍정핵심문장 오류3	에러없음
+S40_98046 / site: G 부정핵심문장 오류3	에러없음
+S42_109394 / site: G 긍정핵심문장 오류3	에러없음
+S42_109394 / site: G 부정핵심문장 오류3	에러없음
+S42_140506 / site: G 긍정핵심문장 오류3	에러없음
+S42_140506 / site: G 부정핵심문장 오류3	에러없음
+S42_143628 / site: G 긍정핵심문장 오류3	에러없음
+S42_143628 / site: G 부정핵심문장 오류3	에러없음
+S42_153241 site:G 긍정리뷰 없음

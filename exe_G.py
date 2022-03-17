@@ -1,9 +1,4 @@
 #-*- coding: utf-8 -*-
-#from numpy.lib.function_base import select
-import db, time, traceback, glowpick_split, emp_class
-from keys.key import *
-from multi_process.multi import *
-from datetime import datetime
 
 def glowpick_review_analysis():
     site='G'
@@ -12,9 +7,13 @@ def glowpick_review_analysis():
     from_date = db.last_isrt_dttm()
     print(f'to_date: {to_date} / from_date: {from_date}')
     data, isrt_dttm = db.TB_GLOWPICK_DATA(from_date,to_date)
+    print(f'마지막분석일로부터 추가된 리뷰수:{len(data)}')
+    print('exe_G.글로우픽_TB_GLOWPICK_DATA()_완료')
     
     #2. 리뷰 split후 labeling
     split_review = glowpick_split.kss_split(data)
+    print(f'스플릿된 리뷰개수: {len(split_review)}')
+    print('exe_G.글로우픽_kss_split()_완료')
     #split_review =["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW","DOC_PART_NO"]
     
     classy_num_cores=2 # multiprocessing의 process 개수
@@ -22,21 +21,40 @@ def glowpick_review_analysis():
     #3. anal00(property+empathy result) insert
     # '''gpu 사용'''
     if len(split_review)!=0:
-        #anal00=cos_model_pt_multi(split_review, classy_num_cores) # PT파일 사용
-        #anal00=emp_class.cos_model_pt(split_review) # 감정api_pt사용
-        anal00=emp_class.cos_model_pt(split_review) # single_process
+        csf_analy=emp_class.classify_analy(site)
+        # 2. anal00(property+empathy result) analysis
+        how='pt'
+        #how='api'
+        start_classify=time.time()
+        anal00=csf_analy.empPropertyClassify(split_review,how)
+        print('exe_G.글로우픽.cos_model_pt()_완료')
         with open("./etc/last_isrt_dttm_G.txt","a",encoding='utf8') as f:
-                f.write(f'\n{to_date}\t{isrt_dttm}\t분석완료')
+            f.write(f'\n{to_date}\t{isrt_dttm}\t분석완료')
         now=datetime.now().strftime('%y%m%d_%H%M%S')
-        anal00.to_csv(f'{today_path}/{now}_{site}_anal00_result.csv', index=None)
+        anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
+        
+        #분석날짜\t분석모델\t분석제품수\t총 리뷰수\t분석시간\tsite_gubun\t스플릿된 리뷰수\t분석 리뷰수
+        time_list = [{now}, "classify_{how}", '-', {len(data)},{time.time()-start_classify}, {site},{len(split_review)},'-']
+        db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
+
+        # anal00 insert
         db.TB_anal00_G_insert(anal00)
-
+        print('exe_G.글로우픽.anal00_insert_완료')
+    
     #4. keyword/keysentence 분석 및 insert
-    part_id_list=db.anal00_part_id_list(site)
-
     key_num_cores=3
-    anal03=total_multi(part_id_list,key_num_cores, site)
-    anal02=emo_multi(part_id_list,key_num_cores, site)
+    glowpick_multi=multi_key(site, key_num_cores)
+
+    # anal03, anal02=keys_multi()
+    print('exe_G.글로우픽.total_multi_시작')
+    anal03=glowpick_multi.total_multi()
+    anal03.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal03_result.csv", index=None) #save
+    
+    print('exe_G.글로우픽.total_multi_완료')
+    print('exe_G.글로우픽.emo_multi시작')
+    anal02=glowpick_multi.emo_multi()
+    anal02.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal02_result.csv", index=None) #save
+    print('exe_G.글로우픽.emo_multi완료')
     
     db.TB_anal03_insert(anal03)
     db.TB_anal02_insert(anal02)
@@ -47,53 +65,78 @@ def glowpick_review_analysis():
     
     glowpick_finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f'{glowpick_finish_time} 글로우픽 완료')
-    #분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간
-    time_list = [datetime.now().strftime('%y%m%d'), "glowpick_analy_total", '-', '-', all_time]
-    db.time_txt(time_list, f'{today_path}/time_check')
-
-    
 
 def naver_key():
     ''' 네이버 키워드/센텐스 분석 '''
     print('네이버 키워드/센텐스 분석 실행')
+    print('exe_G.naver_key.1')
     site='N'
-    key_part_id_list=db.anal00_part_id_list(site)
+    #key_part_id_list=db.anal00_part_id_list(site)
 
     key_num_cores=3
+    naver_multi=multi_key(site, key_num_cores)
     naver_key_start=time.time()
-    anal03=total_multi(key_part_id_list,key_num_cores, site)
-    anal02=emo_multi(key_part_id_list,key_num_cores, site)
+    print('exe_G.naver_key.2')
+    #anal03, anal02=keys_multi(site, key_num_cores, df_naver)
+    anal03=naver_multi.total_multi()
+    anal03.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal03_result.csv", index=None) #save
+    print('exe_G.naver_key.3')
+    
+    anal02=naver_multi.emo_multi()
+    anal02.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal02_result.csv", index=None) #save
+    print('exe_G.naver_key.4')
+    
+    print(f'anal03타입: {type(anal03)}')
+    print(f'anal02타입: {type(anal02)}')
+
     naver_key_finTime = time.time()-naver_key_start
     time_list = [datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "naver_keys", '-', '-', naver_key_finTime]
-    db.time_txt(time_list, f'{today_path}/time_check')
+    db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
     
     db.TB_anal03_insert(anal03)
     db.TB_anal02_insert(anal02)
 
     naver_finish_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f'{naver_finish_time} 네이버 키워드/센텐스 완료')
-
-
  
 if __name__=='__main__':
+    print('exe_G.1')
+    #from keys.key import *
+    print('exe_G.2')
+    from multiProc.multi_keys import *
+    print('exe_G.4')
+    from datetime import datetime
+    print('exe_G.5')
+    import db, time, traceback, glowpick_split, emp_class
+    print('exe_G.6')
+    from cmn import cmn
+    print('exe_G.분석시작')
+    
+    cmnVariables=cmn()
     error_list=[]
     time_list=[]
-    today_path=db.today_path()      # 백업을 위한 폴더 생성 
-
+    
     try:
         start_time=time.time()
+        #join_review_G=db.TB_REVIEW_join_G()
+        print('exe_G.glowpick_review_analysis()시작')
         glowpick_review_analysis() #글로우픽 리뷰분석
+        print('exe_G.glowpick_review_analysis()끝')
+        
         all_time = time.time() - start_time
         # 분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
         time_list=[datetime.now().strftime('%y%m%d'),"glowpick_all","-","-",all_time]
-        db.time_txt(time_list,f'{today_path}/time_check')
+        db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
 
         naver_key_start=time.time()
+        #join_review_N=db.TB_REVIEW_join_N()
+        print('exe_G.naver_key()시작')
         naver_key()
+        print('exe_G.naver_key()끝')
         naver_key_all=time.time()-naver_key_start
         # 분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
         time_list=[datetime.now().strftime('%y%m%d'),"naver_key_all","-","-",naver_key_all]
-        db.time_txt(time_list,f'{today_path}/time_check')
+        db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
         #db.success_sendEmail()
 
     except Exception:
@@ -102,6 +145,6 @@ if __name__=='__main__':
         now=datetime.now().strftime('%Y%m%d %H:%M%S')
         e=f'{now}\n{err}'
         error_list.append(e)
-        db.save_txt(error_list,f'{today_path}/errorList')
+        db.save_txt(error_list,f'{cmnVariables.today_path}/errorList')
         #db.fail_sendEmail(e)
         #analysis()
