@@ -1,8 +1,6 @@
-# coding: utf-8
+#-*- coding: utf-8 -*-
 from classify import *
-import requests
-import urllib3
-import time
+import requests, urllib3, time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # 01:스킨케어, 02:클렌저, 03:선케어, 04:헤어바디, 05:베이스, 06:포인트

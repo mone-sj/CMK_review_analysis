@@ -1,8 +1,7 @@
 # -*- coding:utf-8 -*-
 from krwordrank.sentence import keysentence
-import kss
+import kss, pandas as pd
 from krwordrank.sentence import make_vocab_score, MaxScoreTokenizer
-import pandas as pd
 
 # 3-1 키센텐스 추출하기
 def keysentence_list(texts, vocab_score, tokenizer):

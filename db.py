@@ -1,12 +1,12 @@
 #-*- coding: utf-8 -*-
-import pymssql
+import pymssql, os, smtplib
 import pandas as pd
-import os, smtplib
 from datetime import datetime
 from email.mime.text import MIMEText
 from email import encoders
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
+import time
 
 server = 'ASC-AI.iptime.org'
 database = 'cosmeca'
@@ -29,30 +29,20 @@ def conn_cp949():
         print("Error: ", e)
     return conn
 
-# select per date
-# def last_isrt_dttm():
-#     with open('./etc/last_isrt_dttm_G.txt','r',encoding='utf8') as f:
-#         lines=f.readlines()
-#         last_line=len(lines)-1
-#         isrt_date=lines[last_line].split('\t')[1]
-#     return isrt_date
-
 # GLOWPICK select per date(cp949)
 def TB_GLOWPICK_DATA(from_date,to_date):
     print('GLOWPICK_DATA_LOADing')
+    isrt_dttm=from_date # 초기화
+    df=pd.DataFrame()   # 초기화
     try:
         conn = conn_cp949()
         cursor = conn.cursor()
-        #sql="exec dbo.P_MNG_CRW004 @section = 'QA', @from_date=%s, @to_date=%s,@site_gubun=%s"
         sql="select * from dbo.TB_REVIEW A (NOLOCK) where convert(char(19),ISRT_DTTM,20) between %s and %s and SITE_GUBUN='G' order by ISRT_DTTM desc"
         cursor.execute(sql,(from_date, to_date))
         row=cursor.fetchall()
         col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
         ori_df=pd.DataFrame(row, columns=col_name)
-        if len(ori_df)==0:
-            isrt_dttm=from_date
-        else:
-            isrt_dttm=ori_df.iloc[0,16]
+        isrt_dttm=ori_df.iloc[0,16]
         isrt_dttm=isrt_dttm.strftime('%Y-%m-%d %H:%M:%S')
         df = ori_df[['SITE_GUBUN',"PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]]
     except Exception as e:
@@ -61,7 +51,7 @@ def TB_GLOWPICK_DATA(from_date,to_date):
         conn.close()
     return df, isrt_dttm
 
-# 매일 카테고리별 1~5위까지의 part_sub_id/part_id 리스트
+# 분석 실행날로부터 최근 카테고리별 1~5위까지의 part_sub_id/part_id 리스트
 def TB_CRAW_top5_pid():
     print('top5_part_id_loading')
     try:
@@ -93,7 +83,6 @@ def TB_CRAW_top5_pid():
     df['cate_num'] = cate_count
     df['num'] = ''
 
-
     cate = df[['PART_SUB_ID', 'cate_num', 'num']]
     matching_cate = cate.copy()
     
@@ -113,7 +102,6 @@ def TB_CRAW_top5_pid():
         matching_cate.iloc[index,2]=num
     match_cate=matching_cate[['num','PART_SUB_ID']]
     match_cate['DATE']=crawHist_isrtDate
-    #match_cate_dict=dict([(i,a) for i, a in zip(matching_cate['PART_SUB_ID'],matching_cate['num'])])
 
     part_col=['PART_SUB_ID', 'PART_ID']
     top5_concat=pd.DataFrame(columns=part_col)
@@ -122,11 +110,12 @@ def TB_CRAW_top5_pid():
         conn=pymssql.connect(server, username, password, database, charset="cp949")
         cursor=conn.cursor()
         for i, df_row  in match_cate.iterrows():
-            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date='20220310')"
+            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date=%s)"
             cursor.execute(sql,(tuple(df_row)))
             row=cursor.fetchall()
             top5=pd.DataFrame(row, columns=part_col)
             top5_concat=pd.concat([top5_concat,top5])
+        top5_concat.to_csv(f'{crawHist_isrtDate}기준_top5.csv',index=False)
         part_id_list=top5_concat['PART_ID'].values.tolist()
         print(f'part_id 개수: {len(part_id_list)}')
     except Exception as e:
@@ -142,10 +131,11 @@ def TB_review_addTop5Review(part_id_list):
     try:
         conn=conn_cp949()
         df_concat=pd.DataFrame()
+        start_time=time.time()
         for part_id in part_id_list:
+            print(f'TB_review_addTop5Review함수_{part_id}')
             cursor=conn.cursor()
             sql="select * from TB_REVIEW C (nolock) where C.REVIEW_DOC_NO NOT IN (select A.REVIEW_DOC_NO from TB_REVIEW A join TB_REVIEW_ANAL_00_N B on A.PART_ID=B.PART_ID and A.REVIEW_DOC_NO=B.REVIEW_DOC_NO) and part_id=%s order by ISRT_DTTM desc"
-            #sql="exec dbo.P_MNG_CRW004 @section = 'QC', @part_id=%s, @site_gubun='N'"
             cursor.execute(sql,(part_id))
             row=cursor.fetchall()
             col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
@@ -154,6 +144,8 @@ def TB_review_addTop5Review(part_id_list):
         df=df_concat[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
         df= df.dropna(axis=0)
         print(f'분석리뷰수: {len(df)}')
+        print(f'리뷰 가져오는 시간: {time.time()-start_time}')
+        df.to_csv('220317_naver_top5_review.csv',index=False)
     except Exception as e:
         print("Error: ",e)
     finally:
@@ -176,7 +168,6 @@ def TB_model_id():
     finally:
         conn.close()
     return df_dict
-
 
 # stopwords list 반환(utf8)
 def TB_stopwords():
@@ -210,23 +201,24 @@ def TB_property_id():
     return df_dict
 
 
-######### 키워드/센텐스
+######### 키워드/센텐스 결과를 위한 리뷰 select
+# 조인
 def TB_REVIEW_join_G():
     '''select TB_REVIEW per part_id for TB_REVIEW & TB_REVIEW_ANAL00_G join'''
     print('----------REVIEW_JOIN_G')
     try:
         conn = pymssql.connect(server, username, password, database, charset="cp949")
         cursor=conn.cursor()
-        sql="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where SITE_GUBUN='G'"
+        sql="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO from TB_REVIEW (nolock) where SITE_GUBUN='G'"
         cursor.execute(sql)
         row_a=cursor.fetchall()
-        col_nameA=["SITE_GUBUN","PART_GROUP_ID", "PART_SUB_ID", "PART_ID","REVIEW_DOC_NO","REVIEW"]
+        col_nameA=["SITE_GUBUN","PART_GROUP_ID", "PART_SUB_ID", "PART_ID","REVIEW_DOC_NO"]
         df_A=pd.DataFrame(row_a,columns=col_nameA)
 
-        sql2="select REVIEW_DOC_NO, PART_ID, DOC_PART_NO, RLT_VALUE_03 from TB_REVIEW_ANAL_00_G (nolock) "
+        sql2="select REVIEW_DOC_NO, PART_ID, DOC_PART_NO, REVIEW, RLT_VALUE_03 from TB_REVIEW_ANAL_00_G (nolock) "
         cursor.execute(sql2)
         row_b=cursor.fetchall()
-        col_nameB=['REVIEW_DOC_NO', 'PART_ID', 'DOC_PART_NO','RLT_VALUE_03']
+        col_nameB=['REVIEW_DOC_NO', 'PART_ID', 'DOC_PART_NO','REVIEW','RLT_VALUE_03']
         df_B=pd.DataFrame(row_b,columns=col_nameB)
 
     except Exception as e:
@@ -236,8 +228,6 @@ def TB_REVIEW_join_G():
 
     df=pd.merge(df_A,df_B,on=['REVIEW_DOC_NO','PART_ID'])
     df=df[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']]
-    print('review+review00 concat:')
-    print(df)
     return df
 
 def TB_REVIEW_join_N():
@@ -270,26 +260,22 @@ def anal00_part_id_list(site):
     '''
     키워드/센텐스 프로세스 실행을 위한 ANAL00의 part_sub_id/part_id 리스트 반환
     '''
-    if site=='N': # 네이버
+    try:
         conn=conn_cp949()
         cursor=conn.cursor()
-        sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_N B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='N'"
+        if site=='N': # 네이버
+            sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_N B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='N'"
+        elif site=='G': # 글로우픽
+            sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_G B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='G'"
         cursor.execute(sql)
         row=cursor.fetchall()
         col_name=["PART_SUB_ID", "PART_ID"]
         df=pd.DataFrame(row, columns=col_name)
-        df['SITE']='N'
-        part_list=df.values.tolist()
-    elif site=='G': # 글로우픽
-        conn=conn_cp949()
-        cursor=conn.cursor()
-        sql="select distinct A.PART_SUB_ID, A.PART_ID from TB_REVIEW A (nolock) join TB_REVIEW_ANAL_00_G B on A.REVIEW_DOC_NO=B.REVIEW_DOC_NO and A.PART_ID=B.PART_ID and A.SITE_GUBUN='G'"
-        cursor.execute(sql)
-        row=cursor.fetchall()
-        col_name=["PART_SUB_ID", "PART_ID"]
-        df=pd.DataFrame(row, columns=col_name)
-        df['SITE']='G'
-        part_list=df.values.tolist()
+    except Exception as e:
+        print("Error: ",e)
+    finally:
+        conn.close()
+    part_list=df.values.tolist()
     return part_list
 
 ## 키워드/센텐스 결과를 위한 리뷰 select
@@ -309,87 +295,6 @@ def anal00_G() :
         conn.close()
     return anal00
 
-def TB_join_G(df):
-    '''
-    ANAL_00_G, REVIEW 테이블통합 리뷰  
-    '''
-    print('db_data_loading(TB_join_G) for keyword/sentence')
-    try:
-        anal00_part_id = df[['PART_ID']]
-        part_id = anal00_part_id.drop_duplicates(ignore_index=True)
-        review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO"]
-        print(f'총 {len(part_id)}개')
-        df_review_concat=pd.DataFrame(columns=review_col_name)
-        
-        conn=conn_cp949()
-        cursor = conn.cursor()
-
-        for idx,row in part_id.iterrows():
-            part_id_list = part_id.iloc[idx,0]
-            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO from TB_REVIEW (nolock) where PART_ID=%s"
-            cursor.execute(sql1, part_id_list)
-            tb_review=cursor.fetchall()
-            df_review=pd.DataFrame(tb_review, columns=review_col_name)
-            df_review_concat=pd.concat([df_review_concat,df_review])
-            print(f'{len(part_id)} 중 {idx+1}번째 concat 완료')
-    except Exception as e:
-        print("Error: ",e)
-    finally:
-        conn.close()
-    result=pd.merge(df,df_review_concat,how='outer',on=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO'])
-    result_df=result[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','DOC_PART_NO','REVIEW','RLT_VALUE_03']]
-    result_df=result_df.dropna(axis=0)
-    # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
-    return result_df 
-
-# 네이버 ANAL00
-def anal00_N() :
-    try:
-        conn = conn_cp949()
-        cursor=conn.cursor()
-        sql = "select distinct SITE_GUBUN,PART_ID,REVIEW_DOC_NO, RLT_VALUE_03 from TB_REVIEW_ANAL_00_N (nolock) "
-        cursor.execute(sql)
-        row=cursor.fetchall()
-        col_name=['SITE_GUBUN','PART_ID','REVIEW_DOC_NO','RLT_VALUE_03']
-        anal00 = pd.DataFrame(row,columns=col_name)
-    except Exception as e:
-        print("Error: ",e)
-    finally:
-        conn.close()
-    return anal00
-
-def TB_join_N(df):
-    '''
-    ANAL_00_N, REVIEW 테이블통합 리뷰
-    '''
-    print('db_data_loading(join_N) for keyword/sentence')
-    try:
-        anal00_par_id=df[['PART_ID']]
-        part_id = anal00_par_id.drop_duplicates(ignore_index=True)
-        print(len(part_id))
-        review_col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","REVIEW"]
-        df_review_concat=pd.DataFrame(columns=review_col_name)
-   
-        conn=conn_cp949()
-        cursor = conn.cursor()
-
-        for idx,row in part_id.iterrows():
-            part_id_list = part_id.iloc[idx,0]
-            sql1="select SITE_GUBUN, PART_GROUP_ID, PART_SUB_ID, PART_ID, REVIEW_DOC_NO, REVIEW from TB_REVIEW (nolock) where PART_ID=%s"
-            cursor.execute(sql1, part_id_list)
-            tb_review=cursor.fetchall()
-            df_review=pd.DataFrame(tb_review, columns=review_col_name)
-            df_review_concat=pd.concat([df_review_concat,df_review])
-            print(f'{len(part_id)} 중 {idx+1}번째 concat 완료')
-    except Exception as e:
-        print("Error: ",e)
-    finally:
-        conn.close()
-    result=pd.merge(df_review_concat,df,how='outer',on=['PART_ID','REVIEW_DOC_NO'])
-    result=result.dropna(axis=0)
-    # df_columns=site_gubun, part_group_id, part_sub_id, part_id, review_doc_no, review, rlt_value_03
-    return result
-
 '''DB insert'''
 def TB_anal00_N_insert(df):
     try:
@@ -399,7 +304,7 @@ def TB_anal00_N_insert(df):
             sql="exec dbo.P_MNG_ANA000 @section='SA', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @review=%s, @rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
             cursor.execute(sql, tuple(row))
             conn.commit()
-        print("anal00_insert완료")
+        print("anal00_N_insert완료")
     except Exception as e:
         print("Error: ", e)
     finally:
@@ -413,7 +318,7 @@ def TB_anal00_G_insert(df):
             sql="exec dbo.P_MNG_ANA000 @section='SG', @site_gubun=%s, @review_doc_no=%s, @part_id=%s, @doc_part_no=%s, @review=%s,@rlt_value_01=%s, @rlt_value_02=%s,@rlt_value_03=%s"
             cursor.execute(sql, tuple(row))
             conn.commit()
-        print("anal00_insert완료")
+        print("anal00_G_insert완료")
     except Exception as e:
         print("Error: ", e)
     finally:
@@ -424,18 +329,15 @@ def TB_anal02_insert(df):
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
-            
             if row[4]=='0': #키워드
                 sql="exec dbo.P_MNG_ANA002 @section='SA', @site_gubun=%s, @part_group_id=%s,@part_sub_id=%s, @part_id=%s, @keyword_gubun=%s, @keyword_positive=%s,@rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
                 cursor.execute(sql,tuple(row))
-                print("anal02_recode inserted")
-                conn.commit()
-
+                
             elif row[4]=='1': #핵심문장
                 sql="exec dbo.P_MNG_ANA002 @section='SA', @site_gubun=%s, @part_group_id=%s,@part_sub_id=%s, @part_id=%s, @keyword_gubun=%s, @keyword_positive=%s, @rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s"
                 cursor.execute(sql, tuple(row))
-                print("anal02_recode inserted")
-                conn.commit()
+            print("anal02_recode inserted")
+            conn.commit()
         print("anal02_insert_완료")
     except Exception as e:
         print("Error: ", e)
@@ -451,20 +353,16 @@ def TB_anal03_insert(df):
             if row[4]=='0': # 키워드
                 sql="exec dbo.P_MNG_ANA003 @section='SA',@site_gubun=%s,@part_group_id=%s,@part_sub_id=%s,@part_id=%s,@keyword_gubun=%s, @rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s, @rlt_value_06=%s, @rlt_value_07=%s, @rlt_value_08=%s, @rlt_value_09=%s, @rlt_value_10=%s"
                 cursor.execute(sql,tuple(row))
-                print("anal03_record inserted")
-                conn.commit()
-
             elif row[4]=='1': #핵심문장
                 sql="exec dbo.P_MNG_ANA003 @section='SA',@site_gubun=%s,@part_group_id=%s,@part_sub_id=%s,@part_id=%s, @keyword_gubun=%s, @rlt_value_01=%s, @rlt_value_02=%s, @rlt_value_03=%s, @rlt_value_04=%s, @rlt_value_05=%s"
                 cursor.execute(sql, tuple(row))
-                print("anal03_record inserted")
-                conn.commit()
+            print("anal03_record inserted")
+            conn.commit()
         print("anal03_insert_완료")
     except Exception as e:
         print("Error: ",e)
     finally:
         conn.close()
-
 
 def TB_anal00_N_delete():
     '''review테이블에 삭제된 리뷰 ANAL00_N 테이블에서도 삭제'''
@@ -502,7 +400,7 @@ def TB_anal01_count_G():
         sql="exec dbo.P_MNG_ANA001 @section='SG'"
         cursor.execute(sql)
         conn.commit()
-        print("anal01_count 완료")
+        print("anal01_count_G 완료")
     except Exception as e:
         print("Error: ", e)
     finally:
@@ -516,12 +414,12 @@ def TB_anal04_count_G():
         sql="exec dbo.P_MNG_ANA004 @section='SG'"
         cursor.execute(sql)
         conn.commit()
-        print("anal04_count 완료")
+        print("anal04_count_G 완료")
     except Exception as e:
         print("Error: ", e)
     finally:
         conn.close()
-        
+
 def TB_anal01_count_N():
     '''ANAL01 테이블 insert&update (NAVER count 실행)'''
     try:
@@ -530,7 +428,7 @@ def TB_anal01_count_N():
         sql="exec dbo.P_MNG_ANA001 @section='SN'"
         cursor.execute(sql)
         conn.commit()
-        print("anal01_count 완료")
+        print("anal01_count_N 완료")
     except Exception as e:
         print("Error: ", e)
     finally:
@@ -544,7 +442,7 @@ def TB_anal04_count_N():
         sql="exec dbo.P_MNG_ANA004 @section='SN'"
         cursor.execute(sql)
         conn.commit()
-        print("anal04_count 완료")
+        print("anal04_count_N 완료")
     except Exception as e:
         print("Error: ", e)
     finally:
@@ -576,9 +474,9 @@ def time_txt(content_list,file_path):
 ### send mail infomation
 sendEmail="asclhg@naver.com"
 recvEmail="seojeong@asc.kr"
-mail_pw="llhhgg0119@"
+mail_pw="sendEmail의 비밀번호"
 
-smtpName="smtp.naver.com"
+smtpName="smtp.naver.com" # 보내는 메일이 다른 계정이면 수정필요
 smtpPort=587
 session=None
 

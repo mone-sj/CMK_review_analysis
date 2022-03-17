@@ -1,38 +1,29 @@
-### 수정필요
-print('multi_classify.1')
-"""
+#-*- coding: utf-8 -*-
+### 수정필요 / TEST 진행 필요
 from multiprocessing import Pool
-import pandas as pd, numpy as np, db
-from emp_class import *
-from datetime import datetime
+import pandas as pd, numpy as np, os, sys
+sys.path.insert(1, os.path.abspath('.'))
+import emp_class
+print('multi_classify.1')
 
-today_path=db.today_path()
+class multi_classify(emp_class.classify_analy):
+    def __init__(self, site, num_cores):
+        super().__init__(site)
+        self.site=site
+        self.num_cores=num_cores
 
-###### 감정/분류 분석 multi
-## multiprocessing
-def multi_processing(df, func, num_cores):
-    '''분석 속도개선을 위한 multiprocessing'''
-    df_split = np.array_split(df, num_cores)
-    pool = Pool(num_cores)
-    df = pd.concat(pool.map(func, df_split), ignore_index=True)
-    pool.close()
-    pool.join()
-    return df
+    ###### 분류 분석 multi
+    ## multiprocessing
+    def multi_processing(self, df, func):
+        '''분석 속도개선을 위한 multiprocessing'''
+        df_split = np.array_split(df, self.num_cores) #part_id리스트를 process개수 만큼 자름
+        pool = Pool(self.num_cores)
+        df = pd.concat(pool.map(func, df_split), ignore_index=True)
+        pool.close()
+        pool.join()
+        return df
 
-def cos_model_pt_multi(df, num_cores):
-    ''' 감정분석/분류분석 알고리즘을 multiprocessing으로 실행'''
-    check_site=df.iloc[0,0]
-    anal03=multi_processing(df,cos_model_pt,num_cores)
-    now=datetime.now().strftime('%y%m%d_%H%M%S')
-    anal03.to_csv(f'{today_path}/{now}_{check_site}_anal00_result.csv', index=None)
-    return anal03
-
-def cos_model_api_multi(df, num_cores):
-    ''' 감정분석/분류분석 알고리즘을 multiprocessing으로 실행'''
-    check_site=df.iloc[0,0]
-    anal02=multi_processing(df,cos_model_api,num_cores)
-    now=datetime.now().strftime('%y%m%d_%H%M%S')
-    anal02.to_csv(f'{today_path}/{now}_{check_site}_anal00_result.csv', index=None)
-    return anal02
-
-"""
+    def multi_class(self, df):
+        ''' 전체리뷰의 키워드/핵심문장 알고리즘을 multiprocessing으로 실행'''
+        anal00=self.multi_processing(df, self.empPropertyClassify)
+        return anal00

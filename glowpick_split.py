@@ -1,8 +1,5 @@
 #-*- coding: utf-8 -*-
-#from posixpath import split
-print('glowpick_split.1')
-import db, time, kss
-import pandas as pd
+import db, time, kss, pandas as pd
 from datetime import datetime
 
 today_path=db.today_path()

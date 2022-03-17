@@ -5,15 +5,14 @@
 # print(len(df_glowpick))
 # print(f'걸린시간: {time.time()-start}')
 
-#from keys.key import *
-from multiProc.multi_keys import *
+from keys.key import *
+#from multiProc.multi_keys import *
 
-
-site='N'
-key_num_cores=3
-test_multi=multi_key(site,key_num_cores)
-anal03=test_multi.total_multi()
-print(anal03)
+# site='N'
+# key_num_cores=3
+# test_multi=multi_key(site,key_num_cores)
+# anal03=test_multi.total_multi()
+# print(anal03)
 
 
 """
