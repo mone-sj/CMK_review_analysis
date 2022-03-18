@@ -158,8 +158,8 @@ class KeywordSent(cmn):
         time_list=[now,"total_key",id_cnt,review_count,time.time()-total_time_start,site_gubun]
         
         # save
-        db.time_txt(time_list,f'{self.today_path}/time_check')
-        db.save_txt(error_list,f'{self.today_path}/errorList')    
+        db.time_txt(time_list,f'{cmn.today_path}/time_check')
+        db.save_txt(error_list,f'{cmn.today_path}/errorList')    
         return data_anal03
 
     def emo(self, code_list):
@@ -406,6 +406,6 @@ class KeywordSent(cmn):
         time_list=[now, "emo_key",id_cnt,review_count,time.time()-emo_time_start,site_gubun]
 
         # save
-        db.time_txt(time_list,f'{self.today_path}/time_check')
-        db.save_txt(error_list,f'{self.today_path}/errorList')
+        db.time_txt(time_list,f'{cmn.today_path}/time_check')
+        db.save_txt(error_list,f'{cmn.today_path}/errorList')
         return data_anal02
