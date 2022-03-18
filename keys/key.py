@@ -21,7 +21,6 @@ class KeywordSent(cmn):
         '''
         전체 키워드/핵심문장 추출 
         '''
-        print('keys.key.total.6')
         time_list=[]                                                    # exe time check
         error_list=[]                                                   # error check list
         c_proc=mp.current_process()
@@ -30,7 +29,6 @@ class KeywordSent(cmn):
         data_anal03=pd.DataFrame(columns=anal03_col_name)
         id_cnt = len(code_list)
         print(f'{c_proc.name} : {id_cnt} 개 분석')
-        print('keys.key.total.7')
         
         df=self.review_join
         
@@ -39,13 +37,10 @@ class KeywordSent(cmn):
         review_count=0
 
         for index, code in enumerate(code_list): # code_list=[part_sub_id,part_id,site]
-            print('keys.key.total.10')
             sub_id = code[0]
             part_id = code[1]
-            print('keys.key.total.11')
             print(f'site_gubun: {site_gubun}')
             df_per_part_id = df[(df['PART_SUB_ID']==sub_id) & (df['PART_ID']==part_id)]
-            print('keys.key.total.11-2')
 
             site=df_per_part_id.iloc[0,0]
             part_group_id=df_per_part_id.iloc[0,1]
@@ -55,7 +50,6 @@ class KeywordSent(cmn):
             df_per_part_id = df_per_part_id.drop_duplicates(['REVIEW'],keep='first')
             review_content=df_per_part_id['REVIEW'].tolist()
             review_count+=len(df_per_part_id)
-            print('keys.key.total.12')
 
             print(f'총 {id_cnt}중 {index+1}번째 - {sub_id}_{part_id}_분석시작: {c_proc.name}')
     
@@ -156,14 +150,12 @@ class KeywordSent(cmn):
                 
                 del all_keyword_result_df
                 del all_keysentece_result_df
-                print('keys.key.total.13')
 
         # Time check
         now=datetime.now().strftime('%y%m%d_%H%M%S')
         
         # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 사이트
         time_list=[now,"total_key",id_cnt,review_count,time.time()-total_time_start,site_gubun]
-        print('keys.key.total.14')
         
         # save
         db.time_txt(time_list,f'{self.today_path}/time_check')
@@ -174,7 +166,6 @@ class KeywordSent(cmn):
         '''
         긍정/부정리뷰의 키워드/핵심문장 추출
         '''
-        print('keys.key.emo.6')
         time_list=[]                                                    # exe time check
         error_list=[]                                                   # error check list
         c_proc=mp.current_process()
@@ -183,32 +174,27 @@ class KeywordSent(cmn):
         data_anal02=pd.DataFrame(columns=col_name2)
         id_cnt = len(code_list)
         print(f'{c_proc.name}: {id_cnt} 개 분석')
-        print('keys.key.emo.7')
 
         df=self.review_join
+        # 글로우픽의 경우 레이블링이 되지 않은 리뷰 제외하고 emo 프로세스 실행
         if self.site=='G':
             df=df[df['DOC_PART_NO']!='0']
-            df.to_csv('220317_1632_글로우픽_docPartNo_0아닌거.csv',index=False)
 
         site_gubun = df.iloc[0,0]
         emo_time_start=time.time()
         review_count=0
 
         for index, code in enumerate(code_list): # code_list=[part_sub_id,part_id,site]
-            print('keys.key.emo.10')
             sub_id = code[0]
             part_id = code[1]
-            print('keys.key.total.11')
             print(f'site_gubun: {site_gubun}')
             df_per_part_id = df[(df['PART_SUB_ID']==sub_id) & (df['PART_ID']==part_id)]
-            print('keys.key.total.11-2')
 
             site=df_per_part_id.iloc[0,0]
             part_group_id=df_per_part_id.iloc[0,1]
             part_sub_id=df_per_part_id.iloc[0,2]
             part_id=df_per_part_id.iloc[0,3]
 
-            print('keys.key.total.12')
             print(f'총 {id_cnt}중 {index+1}번째 - {sub_id}_{part_id}_분석시작: {c_proc.name}')
 
             # 긍정 키워드
@@ -407,7 +393,6 @@ class KeywordSent(cmn):
                 data_anal02=pd.concat([data_anal02,neg_keyword_result_df,neg_keys_result_df],ignore_index=True)
                 del neg_keyword_result_df
                 del neg_keys_result_df
-                print('keys.key.total.12')
 
                 print(f'{part_sub_id}_{part_id}_부정리뷰 완료')
                 print(f'총 {id_cnt}중 {index+1}번째 - {sub_id}_{part_id}_분석완료: {c_proc.name}')
@@ -416,7 +401,6 @@ class KeywordSent(cmn):
                 error_list.append(f'{part_sub_id}_{part_id} site:{site} 부정리뷰 없음')
 
         now=datetime.now().strftime('%y%m%d_%H%M%S')
-        print('keys.key.total.13')
 
         # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 리뷰합치는 시간, 사이트
         time_list=[now, "emo_key",id_cnt,review_count,time.time()-emo_time_start,site_gubun]

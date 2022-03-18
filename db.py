@@ -14,6 +14,16 @@ username = 'cosmeca'
 password = 'asc1234pw!'
 today=datetime.now().strftime('%Y%m%d')
 
+
+def today_path():
+    '''backup folder create'''
+    folder_path=os.getcwd()+'/etc/result'
+    #folder_path=os.getcwd()+'\\etc\\result_data'
+    today_path=os.path.join(folder_path,today)
+    if not os.path.exists(today_path):
+        os.mkdir(today_path)
+    return today_path
+
 # DB 연결
 def conn_utf8():
     try:
@@ -54,6 +64,7 @@ def TB_GLOWPICK_DATA(from_date,to_date):
 # 분석 실행날로부터 최근 카테고리별 1~5위까지의 part_sub_id/part_id 리스트
 def TB_CRAW_top5_pid():
     print('top5_part_id_loading')
+    save_path=today_path()
     try:
         conn=pymssql.connect(server, username, password, database, charset="cp949")
         cursor=conn.cursor()
@@ -115,7 +126,7 @@ def TB_CRAW_top5_pid():
             row=cursor.fetchall()
             top5=pd.DataFrame(row, columns=part_col)
             top5_concat=pd.concat([top5_concat,top5])
-        top5_concat.to_csv(f'{crawHist_isrtDate}기준_top5.csv',index=False)
+        top5_concat.to_csv(f'{save_path}/{today}_{crawHist_isrtDate}std_top5_product.csv',index=False)
         part_id_list=top5_concat['PART_ID'].values.tolist()
         print(f'part_id 개수: {len(part_id_list)}')
     except Exception as e:
@@ -145,7 +156,7 @@ def TB_review_addTop5Review(part_id_list):
         df= df.dropna(axis=0)
         print(f'분석리뷰수: {len(df)}')
         print(f'리뷰 가져오는 시간: {time.time()-start_time}')
-        df.to_csv('220317_naver_top5_review.csv',index=False)
+        #df.to_csv(f'{save_path}/naver_top5_review.csv',index=False)
     except Exception as e:
         print("Error: ",e)
     finally:
@@ -564,11 +575,4 @@ def fail_sendEmail(err):
     print("successfully sent the mail")
 
 
-def today_path():
-    '''backup folder create'''
-    folder_path=os.getcwd()+'/etc/result'
-    #folder_path=os.getcwd()+'\\etc\\result_data'
-    today_path=os.path.join(folder_path,today)
-    if not os.path.exists(today_path):
-        os.mkdir(today_path)
-    return today_path
+
