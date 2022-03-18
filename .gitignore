@@ -16,6 +16,9 @@ classify/suncare_classify/best_model_suncare.pt
 # data 폴더
 etc/data/
 
+# 테스트 파일
+test*.py
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,python,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,python,visualstudiocode
 
