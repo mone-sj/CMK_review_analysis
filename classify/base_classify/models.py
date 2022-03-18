@@ -1,9 +1,8 @@
-import torch
+#-*- coding: utf-8 -*-
+
+import torch,  numpy as np, gluonnlp as nlp
 from torch import nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
-import numpy as np
-import gluonnlp as nlp
+from torch.utils.data import Dataset
 
 class BERTDataset(Dataset):
     def __init__(self, dataset, sent_idx, label_idx, bert_tokenizer, max_len,

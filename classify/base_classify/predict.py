@@ -1,14 +1,9 @@
-# coding: utf-8
+#-*- coding: utf-8 -*-
 
-import torch
-from tqdm import tqdm, tqdm_notebook
+import torch, argparse
 from kobert.utils import get_tokenizer
 from kobert.pytorch_kobert import get_pytorch_kobert_model
-from transformers import AdamW
-from transformers.optimization import get_cosine_schedule_with_warmup
 from .models import *
-import argparse
-import os
 
 p = argparse.ArgumentParser()
 

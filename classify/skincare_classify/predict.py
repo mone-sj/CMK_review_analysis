@@ -1,13 +1,9 @@
 #-*- coding:utf-8 -*-
 
-import torch
+import torch, argparse
 from torch._C import device
-from tqdm import tqdm, tqdm_notebook
 from kobert.utils import get_tokenizer
 from kobert.pytorch_kobert import get_pytorch_kobert_model
-from transformers import AdamW
-from transformers.optimization import get_cosine_schedule_with_warmup
-import argparse
 from .models import *
 
 p = argparse.ArgumentParser()
@@ -18,7 +14,6 @@ p.add_argument('--prefix', type=str, default='/')
 args = p.parse_args()
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-print(device)
 bertmodel, vocab = get_pytorch_kobert_model()
 
 

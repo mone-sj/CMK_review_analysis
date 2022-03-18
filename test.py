@@ -1,8 +1,9 @@
+
 import pandas as pd
 from db import *
 import emp_class
 from keys.key import *
-
+"""
 # 1. load data
 #df=db.TB_REVIEW_qa(from_date,to_date)
 df=pd.read_csv('./etc/data/1123_test_copy.csv')
@@ -24,3 +25,4 @@ anal03=total(df)
 anal03.to_csv('anal03.csv',encoding='utf-8-sig')
 
 ######################################################################
+"""
