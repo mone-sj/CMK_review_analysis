@@ -309,6 +309,7 @@ def anal00_G() :
 '''DB insert'''
 def TB_anal00_N_insert(df):
     try:
+        print('anal00_N insert')
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
@@ -323,6 +324,7 @@ def TB_anal00_N_insert(df):
 
 def TB_anal00_G_insert(df):
     try:
+        print('anal00_G insert')
         conn=conn_utf8()
         for i, row in df.iterrows():
             cursor=conn.cursor()
