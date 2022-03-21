@@ -13,7 +13,7 @@ p.add_argument('--model_file', type=str, default='best_model_skin.pt')
 p.add_argument('--prefix', type=str, default='/')
 args = p.parse_args()
 
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 bertmodel, vocab = get_pytorch_kobert_model()
 
 

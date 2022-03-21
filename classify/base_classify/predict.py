@@ -12,7 +12,7 @@ p.add_argument('--model_file', default='best_model_base_ver1.pt', type=str)
 p.add_argument('--prefix', default='/', type=str)
 args = p.parse_args()
 
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 bertmodel, vocab = get_pytorch_kobert_model()
 
 model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
