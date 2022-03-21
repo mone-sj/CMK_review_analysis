@@ -1275,3 +1275,58 @@ S38_21429651189 / site: N 긍정핵심문장 오류3	에러없음
 S38_21429651189 / site: N 부정핵심문장 오류3	에러없음
 S21_26840532526 / site: N 긍정핵심문장 오류3	에러없음
 S21_26840532526 / site: N 부정핵심문장 오류3	에러없음
+20220321 13:42:41
+Traceback (most recent call last):
+  File "exe_N.py", line 68, in <module>
+    naver_analysis() # 네이버 리뷰분석
+  File "exe_N.py", line 20, in naver_analysis
+    anal00=csf_analy.empPropertyClassify(df,how)
+  File "D:\workspace\cb_nlp\CMK_review_analysis\emp_class.py", line 65, in empPropertyClassify
+    result_empathy=response_empathy.json()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+20220321 13:51:48
+Traceback (most recent call last):
+  File "exe_N.py", line 70, in <module>
+    naver_analysis() # 네이버 리뷰분석
+  File "exe_N.py", line 22, in naver_analysis
+    anal00=csf_analy.empPropertyClassify(df,how)
+  File "D:\workspace\cb_nlp\CMK_review_analysis\emp_class.py", line 65, in empPropertyClassify
+    result_empathy=response_empathy.json()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+2846리뷰_glowpick_split 오류없음
+20220321 13:5744
+Traceback (most recent call last):
+  File "exe_G.py", line 103, in <module>
+    glowpick_review_analysis()
+  File "exe_G.py", line 28, in glowpick_review_analysis
+    anal00=csf_analy.empPropertyClassify(split_review,how)
+  File "D:\workspace\cb_nlp\CMK_review_analysis\emp_class.py", line 65, in empPropertyClassify
+    result_empathy=response_empathy.json()
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\site-packages\requests\models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Users\ASC\anaconda3\envs\py37\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
