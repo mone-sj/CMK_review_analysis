@@ -76,7 +76,7 @@ def TB_CRAW_top5_pid():
         df=df_ori.copy()
 
         # 최근 수집된 날짜 확인
-        sql2="select top 10 ISRT_DATE from TB_CRAW_HIST where site_gubun='N' order by ISRT_DATE desc"
+        sql2="select top 10 ISRT_DATE from TB_CRAW_HIST (nolock) where site_gubun='N' order by ISRT_DATE desc"
         cursor.execute(sql2)
         isrtDate=cursor.fetchone()
         crawHist_isrtDate=isrtDate[0]
@@ -121,7 +121,7 @@ def TB_CRAW_top5_pid():
         conn=pymssql.connect(server, username, password, database, charset="cp949")
         cursor=conn.cursor()
         for i, df_row  in match_cate.iterrows():
-            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date=%s)"
+            sql="select distinct part_sub_id, part_id from TB_CRAW_HIST A (nolock) where PART_ID IN (select PART_ID from TB_CRAW_HIST where site_gubun='N' and CRAW_DATA_ID='05' and RSLT_DATA_01 <= %s and PART_SUB_ID=%s and isrt_date=%s)"
             cursor.execute(sql,(tuple(df_row)))
             row=cursor.fetchall()
             top5=pd.DataFrame(row, columns=part_col)
@@ -199,7 +199,7 @@ def TB_property_id():
     try:
         conn=conn_cp949()
         cursor=conn.cursor()
-        sql="select CD_NM, SUB_CD from dbo.TB_CODE where GROUP_CD='PROPERTY_ID'"
+        sql="select CD_NM, SUB_CD from dbo.TB_CODE (nolock) where GROUP_CD='PROPERTY_ID'"
         cursor.execute(sql)
         row=cursor.fetchall()
         col_name=['cd_nm','sub_cd']
