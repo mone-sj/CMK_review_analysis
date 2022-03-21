@@ -18,6 +18,7 @@ def naver_analysis():
 
         start_classify=time.time()
         anal00=csf_analy.empPropertyClassify(df,how)
+        anal00=anal00[['SITE_GUBUN','REVIEW_DOC_NO','PART_ID','DOC_PART_NO','CLASSIFY','EMPATHY','EMPATHY_SCORE']]
 
         now=datetime.now().strftime('%y%m%d_%H%M%S')
         anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
