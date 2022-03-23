@@ -477,7 +477,7 @@ def time_txt(content_list,file_path):
     file_name=f'{file_path}.txt'
     if not os.path.exists(file_name):
         with open(file_name,'a',encoding='utf8') as f:
-            f.write('분석날짜\t분석모델\t분석제품수\t총 리뷰수\t분석시간\tsite_gubun\t스플릿된 리뷰수\t분석 리뷰수\n')
+            f.write('분석날짜\t분석모델\t분석제품수\t총 리뷰수\t분석시간\tsite_gubun\t스플릿된 리뷰수\t분석 리뷰수\t실행os/hostname\n')
             
     with open(file_name,'a',encoding='utf8') as f:
         for line in content_list:

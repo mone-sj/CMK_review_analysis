@@ -1,11 +1,27 @@
-# import db, time
+from multiProc.multi_keys import *
+from datetime import datetime
+import db, time, traceback, glowpick_split
+from cmn import cmn
+from keys import key
+
+cmnVariables=cmn()
+site='G'
+keys=key.KeywordSent(site)
+error_list=[]
+time_list=[]
+
+code_list=keys.anal00_partIdList
+anal02=keys.emo(code_list)
+anal02.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal02_result.csv", index=None) #save
+
+
 # start=time.time()
 # anal00_g = db.anal00_G()
 # df_glowpick=db.TB_join_G(anal00_g)
 # print(len(df_glowpick))
 # print(f'걸린시간: {time.time()-start}')
 
-from keys.key import *
+#from keys.key import *
 #from multiProc.multi_keys import *
 
 # site='N'

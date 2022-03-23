@@ -41,7 +41,7 @@ class KeywordSent(cmn):
             part_id = code[1]
             print(f'site_gubun: {site_gubun}')
             df_per_part_id = df[(df['PART_SUB_ID']==sub_id) & (df['PART_ID']==part_id)]
-
+            
             site=df_per_part_id.iloc[0,0]
             part_group_id=df_per_part_id.iloc[0,1]
             part_sub_id=df_per_part_id.iloc[0,2]
@@ -154,8 +154,8 @@ class KeywordSent(cmn):
         # Time check
         now=datetime.now().strftime('%y%m%d_%H%M%S')
         
-        # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 사이트
-        time_list=[now,"total_key",id_cnt,review_count,time.time()-total_time_start,site_gubun]
+        #분석날짜, 분석모델, 분석제품수, 총 리뷰수, 분석시간, site_gubun,스플릿된 리뷰수, 분석 리뷰수, 실행os/hostname
+        time_list=[now,"total_key",id_cnt,review_count,time.time()-total_time_start,site_gubun,"-","-",f"{cmn.osName}/{cmn.hostName}"]
         
         # save
         db.time_txt(time_list,f'{cmn.today_path}/time_check')
@@ -172,13 +172,17 @@ class KeywordSent(cmn):
         col_name2=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","KEYWORD_GUBUN","KEYWORD_POSITIVE","RLT_VALUE_01","RLT_VALUE_02","RLT_VALUE_03","RLT_VALUE_04","RLT_VALUE_05",
         "RLT_VALUE_06","RLT_VALUE_07","RLT_VALUE_08","RLT_VALUE_09","RLT_VALUE_10"]
         data_anal02=pd.DataFrame(columns=col_name2)
-        id_cnt = len(code_list)
-        print(f'{c_proc.name}: {id_cnt} 개 분석')
-
+        
         df=self.review_join
         # 글로우픽의 경우 레이블링이 되지 않은 리뷰 제외하고 emo 프로세스 실행
         if self.site=='G':
             df=df[df['DOC_PART_NO']!='0']
+            # DOC_PART_NO이 '0'인 리뷰만 있는 제품(PART_ID)이 있을 수 있으므로 해당 제품을 제외(code_list 재정의)
+            code_dropDupl=df.drop_duplicates(['PART_SUB_ID','PART_ID'])
+            code_list=code_dropDupl[['PART_SUB_ID','PART_ID']].values.tolist()
+        
+        id_cnt = len(code_list)
+        print(f'{c_proc.name}: {id_cnt} 개 분석')
 
         site_gubun = df.iloc[0,0]
         emo_time_start=time.time()
@@ -402,8 +406,8 @@ class KeywordSent(cmn):
 
         now=datetime.now().strftime('%y%m%d_%H%M%S')
 
-        # 분석날짜, 분류(total/emo), 분석제품수, 총 리뷰수, 분석시간, 리뷰합치는 시간, 사이트
-        time_list=[now, "emo_key",id_cnt,review_count,time.time()-emo_time_start,site_gubun]
+        #분석날짜, 분석모델, 분석제품수, 총 리뷰수, 분석시간, site_gubun,스플릿된 리뷰수, 분석 리뷰수, 실행os/hostname
+        time_list=[now, "emo_key",id_cnt,review_count,time.time()-emo_time_start,site_gubun,"-","-",f"{cmn.osName}/{cmn.hostName}"]
 
         # save
         db.time_txt(time_list,f'{cmn.today_path}/time_check')
