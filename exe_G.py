@@ -32,8 +32,8 @@ def glowpick_review_analysis():
         now=datetime.now().strftime('%y%m%d_%H%M%S')
         anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
         
-        #분석날짜 - 분석모델 - 분석제품수 - 총 리뷰수 - 분석시간 - site_gubun - 스플릿된 리뷰수 - 분석 리뷰수
-        time_list = [now, f"classify_{how}", '-', len(data),time.time()-start_classify, site,len(split_review),'-']
+        #분석날짜 - 분석모델 - 분석제품수 - 총 리뷰수 - 분석시간 - site_gubun - 스플릿된 리뷰수 - 분석 리뷰수 - 실행os/hostname
+        time_list = [now, f"classify_{how}", '-', len(data),time.time()-start_classify, site,len(split_review),'-',f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
 
         # anal00 insert
@@ -77,7 +77,7 @@ def naver_key():
     anal02.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_anal02_result.csv", index=None) #save
     
     naver_key_finTime = time.time()-naver_key_start
-    time_list = [datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "naver_keys", '-', '-', naver_key_finTime]
+    time_list = [datetime.now().strftime('%Y-%m-%d %H:%M:%S'), "naver_keys", '-', '-', naver_key_finTime,site,"-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
     db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
     
     db.TB_anal03_insert(anal03)
@@ -105,14 +105,14 @@ if __name__=='__main__':
         
         all_time = time.time() - start_time
         # 분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
-        time_list=[datetime.now().strftime('%y%m%d'),"glowpick_all","-","-",all_time]
+        time_list=[datetime.now().strftime('%y%m%d'),"glowpick_all","-","-",all_time,"-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
 
         # 2. 네이버 키워드/센텐스 분석
         naver_key_start=time.time()
         naver_key()
         naver_key_all=time.time()-naver_key_start
-        time_list=[datetime.now().strftime('%y%m%d'),"naver_key_all","-","-",naver_key_all]
+        time_list=[datetime.now().strftime('%y%m%d'),"naver_key_all","-","-",naver_key_all,"-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
         #db.success_sendEmail()
 

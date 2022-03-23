@@ -24,7 +24,7 @@ def naver_analysis():
         anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
 
         #분석날짜 - 분석모델 - 분석제품수 - 총 리뷰수 - 분석시간 - site_gubun - 스플릿된 리뷰수 - 분석 리뷰수
-        time_list = [now, f"classify_{crawHist_isrtDate}기준_top5_{how}", len(part_id_list), len(df),time.time()-start_classify, site,'',len(df)]
+        time_list = [now, f"classify_{crawHist_isrtDate}기준_top5_{how}", len(part_id_list), len(df),time.time()-start_classify, site,'',len(df),'-',f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
 
         # anal00 insert
@@ -69,7 +69,7 @@ if __name__=='__main__':
         all_time = time.time() - start_time
         
         # 분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
-        time_list=[datetime.now().strftime('%y%m%d'),"naver_total_analy","-","-",all_time]
+        time_list=[datetime.now().strftime('%y%m%d'),"naver_total_analy","-","-",all_time,"-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
         #db.success_sendEmail()
 
