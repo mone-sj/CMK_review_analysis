@@ -4,6 +4,7 @@ import torch, argparse
 from kobert.utils import get_tokenizer
 from kobert.pytorch_kobert import get_pytorch_kobert_model
 from .models import *
+from ..gpu_set import gpuNumber_set
 
 p = argparse.ArgumentParser()
 
@@ -13,7 +14,8 @@ p.add_argument('--prefix', default='/', type=str)
 args = p.parse_args()
 
 
-device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
+device = gpuNumber_set()
+print(f'cleanser: {torch.cuda.current_device()}')
 bertmodel, vocab = get_pytorch_kobert_model()
 
 

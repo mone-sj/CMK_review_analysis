@@ -9,11 +9,7 @@ acryl_empathy_url = "https://flightbase.acryl.ai/deployment/hd96927473d6603c5fcf
 # 코스메카 서버 감정분석 - 외부에서 요청할때
 #cmk_empathy_url = "https://192.168.1.28:30001/deployment/h713a8261480609773e335448cf89d226/"
 # 코스메카 서버 감정분석 - 서버 내부에서 요청할때
-<<<<<<< HEAD
-cmk_empathy_url = "https://localcost/deployment/h713a8261480609773e335448cf89d226/"
-=======
 cmk_empathy_url = "https://localhost/deployment/h713a8261480609773e335448cf89d226/"
->>>>>>> glowpick
 
 # 감정에 따른 감정스코어
 score_5=['황홀함','행복','기쁨','즐거움','홀가분함','자신감']
@@ -39,7 +35,7 @@ class classify_analy(cmn):
         data['EMPATHY_SCORE']=''    #columns:10 / 모델번호 없을때 columns:9
 
         for cnt in range(len(data)):
-            print(f'{cnt+1}번째 property+empathy 분석_{self.site}')
+            print(f'{len(data)} 중 {cnt+1}번째 property+empathy 분석_{self.site}')
             if self.site=='G' and data.iloc[cnt,6]==0:
                 pass
             else:
