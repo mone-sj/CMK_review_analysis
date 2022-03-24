@@ -16,6 +16,9 @@ classify/suncare_classify/best_model_suncare.pt
 # data 폴더
 etc/data/
 
+# /etc/result폴더
+etc/result/
+
 # 테스트 파일
 test*.py
 
