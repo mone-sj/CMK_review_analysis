@@ -193,8 +193,6 @@ class KeywordSent(cmn):
             part_id = code[1]
             print(f'site_gubun: {site_gubun}')
             df_per_part_id = df[(df['PART_SUB_ID']==sub_id) & (df['PART_ID']==part_id)]
-            print(part_id)
-            print(df_per_part_id)
             site=df_per_part_id.iloc[0,0]
             part_group_id=df_per_part_id.iloc[0,1]
             part_sub_id=df_per_part_id.iloc[0,2]
