@@ -162,7 +162,7 @@ class KeywordSent(cmn):
         db.save_txt(error_list,f'{cmn.today_path}/errorList')    
         return data_anal03
 
-    def emo(self, code_list):
+    def emo(self, df, code_list):
         '''
         긍정/부정리뷰의 키워드/핵심문장 추출
         '''
@@ -173,13 +173,13 @@ class KeywordSent(cmn):
         "RLT_VALUE_06","RLT_VALUE_07","RLT_VALUE_08","RLT_VALUE_09","RLT_VALUE_10"]
         data_anal02=pd.DataFrame(columns=col_name2)
         
-        df=self.review_join
-        # 글로우픽의 경우 레이블링이 되지 않은 리뷰 제외하고 emo 프로세스 실행
-        if self.site=='G':
-            df=df[df['DOC_PART_NO']!='0']
-            # DOC_PART_NO이 '0'인 리뷰만 있는 제품(PART_ID)이 있을 수 있으므로 해당 제품을 제외(code_list 재정의)
-            code_dropDupl=df.drop_duplicates(['PART_SUB_ID','PART_ID'])
-            code_list=code_dropDupl[['PART_SUB_ID','PART_ID']].values.tolist()
+        # df=self.review_join
+        # # 글로우픽의 경우 레이블링이 되지 않은 리뷰 제외하고 emo 프로세스 실행
+        # if self.site=='G':
+        #     df=df[df['DOC_PART_NO']!='0']
+        #     # DOC_PART_NO이 '0'인 리뷰만 있는 제품(PART_ID)이 있을 수 있으므로 해당 제품을 제외(code_list 재정의)
+        #     code_dropDupl=df.drop_duplicates(['PART_SUB_ID','PART_ID'])
+        #     code_list=code_dropDupl[['PART_SUB_ID','PART_ID']].values.tolist()
         
         id_cnt = len(code_list)
         print(f'{c_proc.name}: {id_cnt} 개 분석')
