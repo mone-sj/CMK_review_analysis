@@ -94,6 +94,9 @@ coverage.xml
 .pytest_cache/
 cover/
 
+#model_pt파일
+classify/model_pt/
+
 # Translations
 *.mo
 *.pot
