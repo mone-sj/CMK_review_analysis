@@ -143,15 +143,42 @@ def TB_review_addTop5Review(part_id_list):
         conn=conn_cp949()
         df_concat=pd.DataFrame()
         start_time=time.time()
+
         for part_id in part_id_list:
+            part_id=str(part_id[0])
             print(f'TB_review_addTop5Review함수_{part_id}')
             cursor=conn.cursor()
-            sql="select * from TB_REVIEW C (nolock) where C.REVIEW_DOC_NO NOT IN (select A.REVIEW_DOC_NO from TB_REVIEW A join TB_REVIEW_ANAL_00_N B on A.PART_ID=B.PART_ID and A.REVIEW_DOC_NO=B.REVIEW_DOC_NO) and part_id=%s order by ISRT_DTTM desc"
+            #sql="select * from TB_REVIEW C (nolock) where C.REVIEW_DOC_NO NOT IN (select A.REVIEW_DOC_NO from TB_REVIEW A join TB_REVIEW_ANAL_00_N B on A.PART_ID=B.PART_ID and A.REVIEW_DOC_NO=B.REVIEW_DOC_NO) and part_id=%s order by ISRT_DTTM desc"
+            sql="exec dbo.P_MNG_ANA000 @section = 'QB'"
             cursor.execute(sql,(part_id))
             row=cursor.fetchall()
             col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
             ori_df=pd.DataFrame(row,columns=col_name)
             df_concat=pd.concat([df_concat,ori_df],ignore_index=True)
+        df=df_concat[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
+        df= df.dropna(axis=0)
+        print(f'분석리뷰수: {len(df)}')
+        print(f'리뷰 가져오는 시간: {time.time()-start_time}')
+        #df.to_csv(f'{save_path}/naver_top5_review.csv',index=False)
+    except Exception as e:
+        print("Error: ",e)
+    finally:
+        conn.close()
+    return df
+
+def cate5_review():
+    try:
+        conn=conn_cp949()
+        df_concat=pd.DataFrame()
+        start_time=time.time()
+       
+        cursor=conn.cursor()
+        sql="select * from TB_REVIEW where part_id in (select distinct PART_ID from TB_CRAW_HIST where site_gubun='N' and ISRT_DATE>'20220324' and ISRT_DATE <= '20220331' and CRAW_DATA_ID='05' and convert(int, RSLT_DATA_01)<=5) and REVIEW_DOC_NO not in (select REVIEW_DOC_NO from TB_REVIEW_ANAL_00_N where site_gubun='N')"
+        cursor.execute(sql)
+        row=cursor.fetchall()
+        col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
+        ori_df=pd.DataFrame(row,columns=col_name)
+        df_concat=pd.concat([df_concat,ori_df],ignore_index=True)
         df=df_concat[['SITE_GUBUN','PART_GROUP_ID','PART_SUB_ID','PART_ID','REVIEW_DOC_NO','REVIEW']]
         df= df.dropna(axis=0)
         print(f'분석리뷰수: {len(df)}')
