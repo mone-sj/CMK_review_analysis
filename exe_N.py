@@ -11,7 +11,6 @@ def naver_analysis():
     part_id_list = df[['PART_SUB_ID','PART_ID']]
     part_id_list = part_id_list.drop_duplicates()
     part_id_list.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_0331_top5_id.csv", index=None)
-    print(len(part_id_list))
     classy_num_cores=2                         # multiprocessing의 process 개수
 
     # 2. anal00(property+empathy result) analysis and DB insert
