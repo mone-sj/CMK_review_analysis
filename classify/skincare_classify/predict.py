@@ -9,7 +9,7 @@ from ..gpu_set import gpuNumber_set
 
 p = argparse.ArgumentParser()
 
-p.add_argument('--model_load_path',type=str, default='./classify/model_pt/')
+p.add_argument('--model_load_path',type=str, default='./classify/skincare_classify/')
 p.add_argument('--model_file', type=str, default='best_model_skin.pt')
 p.add_argument('--prefix', type=str, default='/')
 args = p.parse_args()

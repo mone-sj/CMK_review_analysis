@@ -114,6 +114,10 @@ if __name__=='__main__':
         naver_key_all=time.time()-naver_key_start
         time_list=[datetime.now().strftime('%y%m%d'),"naver_key_all","-","-",naver_key_all,"-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
+
+        db.second_DB()
+        time_list=[datetime.now().strftime('%y%m%d'),"2차DB_insert","-","-","-","-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
+        db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
         #db.success_sendEmail()
 
     except Exception:

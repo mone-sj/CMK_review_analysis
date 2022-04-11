@@ -5,13 +5,9 @@ def naver_analysis():
     # 1. 카테고리별 순위 top 5 제품에 대한 리뷰 분석을 위한 리뷰 수집
     #part_id_list, crawHist_isrtDate=db.TB_CRAW_top5_pid() # 카테고리별 top 5에 대한 part_id
     #df=db.TB_review_addTop5Review(part_id_list)
+    from_date, to_date = db.cate5_date()
+    df,part_id_list = db.cate5_review(from_date,to_date)
     
-    df = db.cate5_review()
-    print(len(df))
-    part_id_list = df[['PART_SUB_ID','PART_ID']]
-    part_id_list = part_id_list.drop_duplicates()
-    part_id_list.to_csv(f"{cmnVariables.today_path}/{datetime.now().strftime('%y%m%d_%H%M%S')}_{site}_0331_top5_id.csv", index=None)
-    print(len(part_id_list))
     classy_num_cores=2                         # multiprocessing의 process 개수
 
     # 2. anal00(property+empathy result) analysis and DB insert
@@ -30,7 +26,7 @@ def naver_analysis():
         anal00.to_csv(f'{cmnVariables.today_path}/{now}_{site}_anal00_result.csv', index=None)
 
         #분석날짜 - 분석모델 - 분석제품수 - 총 리뷰수 - 분석시간 - site_gubun - 스플릿된 리뷰수 - 분석 리뷰수
-        time_list = [now, f"classify_0331_기준_top5_{how}", len(part_id_list), len(df),time.time()-start_classify, site,'',len(df),'-',f"{cmnVariables.osName}/{cmnVariables.hostName}"]
+        time_list = [now, f"classify_N_{from_date}~{to_date}기준_top5_{how}", len(part_id_list), len(anal00),time.time()-start_classify, site,'',len(df),'-',f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list, f'{cmnVariables.today_path}/time_check')
 
         # anal00 insert
@@ -74,9 +70,14 @@ if __name__=='__main__':
         naver_analysis() # 네이버 리뷰분석
         all_time = time.time() - start_time
         
-        # 분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
+        #분석날짜, 분류, 분석제품수, 총 리뷰수, 분석시간
         time_list=[datetime.now().strftime('%y%m%d'),"naver_total_analy","-","-",all_time,"-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
         db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
+        
+        db.second_DB()
+        time_list=[datetime.now().strftime('%y%m%d'),"2차DB_Insert","-","-","-","-","-","-",f"{cmnVariables.osName}/{cmnVariables.hostName}"]
+        db.time_txt(time_list,f'{cmnVariables.today_path}/time_check')
+
         #db.success_sendEmail()
 
     except Exception:

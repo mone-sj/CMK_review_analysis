@@ -8,7 +8,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 import time
 
+
 server = 'ASC-AI.iptime.org'
+server2 = 'ASC-AI.iptime.org:4553'
 database = 'cosmeca'
 username = 'cosmeca'
 password = 'asc1234pw!'
@@ -32,6 +34,13 @@ def conn_utf8():
         print("Error: ", e)
     return conn
 
+def conn2_utf8():
+    try:
+        conn = pymssql.connect(server2,username,password,database,charset="utf8")
+    except Exception as e:
+        print("Error : ",e)
+    return conn
+    
 def conn_cp949():
     try:
         conn = pymssql.connect(server, username, password, database, charset="cp949")
@@ -165,16 +174,33 @@ def TB_review_addTop5Review(part_id_list):
     finally:
         conn.close()
     return df
+def cate5_date():
+    try:
+        conn=conn_cp949()
+        cursor=conn.cursor()
+        sql = "select distinct isrt_date from TB_CRAW_HIST (nolock) order by ISRT_DATE desc"
+        cursor.execute(sql)
+        isrtDate=cursor.fetchmany(4)
+        print(isrtDate)
+        from_date = isrtDate[3][0]
+        print(from_date)
+        to_date=isrtDate[0][0]
 
-def cate5_review():
+    except Exception as e:
+        print("error: ",e)
+    finally:
+        conn.close()
+    return from_date, to_date
+        
+def cate5_review(from_d,to_d):
+    save_path=today_path()
     try:
         conn=conn_cp949()
         df_concat=pd.DataFrame()
         start_time=time.time()
-       
         cursor=conn.cursor()
-        sql="select * from TB_REVIEW where part_id in (select distinct PART_ID from TB_CRAW_HIST where site_gubun='N' and ISRT_DATE>'20220324' and ISRT_DATE <= '20220331' and CRAW_DATA_ID='05' and convert(int, RSLT_DATA_01)<=5) and REVIEW_DOC_NO not in (select REVIEW_DOC_NO from TB_REVIEW_ANAL_00_N where site_gubun='N')"
-        cursor.execute(sql)
+        sql="select * from TB_REVIEW where part_id in (select distinct PART_ID from TB_CRAW_HIST where site_gubun='N' and ISRT_DATE>%s and ISRT_DATE <= %s and CRAW_DATA_ID='05' and convert(int, RSLT_DATA_01)<=5) and REVIEW_DOC_NO not in (select REVIEW_DOC_NO from TB_REVIEW_ANAL_00_N where site_gubun='N')"
+        cursor.execute(sql,(from_d,to_d))
         row=cursor.fetchall()
         col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
         ori_df=pd.DataFrame(row,columns=col_name)
@@ -183,12 +209,14 @@ def cate5_review():
         df= df.dropna(axis=0)
         print(f'분석리뷰수: {len(df)}')
         print(f'리뷰 가져오는 시간: {time.time()-start_time}')
-        #df.to_csv(f'{save_path}/naver_top5_review.csv',index=False)
+        part_id_list = df[['PART_SUB_ID','PART_ID']]
+        part_id_list = part_id_list.drop_duplicates()
+        part_id_list.to_csv(f'{save_path}/{today}_{from_d}부터_{to_d}까지_top5_product.csv',index=False)
     except Exception as e:
         print("Error: ",e)
     finally:
         conn.close()
-    return df
+    return df , part_id_list
 
 # 딕셔너리(part_sub_id : model_id) 반환 (cp949)
 def TB_model_id():
@@ -487,6 +515,30 @@ def TB_anal04_count_N():
         print("Error: ", e)
     finally:
         conn.close()
+
+def second_DB():
+    '''2차 DB Insert'''
+    try:
+        conn = conn2_utf8()
+        cursor = conn.cursor()
+        sql_01="exec dbo.P_MNG_COSMECA003 @section = 'QA'"
+        cursor.execute(sql_01)
+        print("2차DB_anal00-04_insert")
+        sql_02 = "exec dbo.P_MNG_COSMECA003 @section = 'QR'"
+        cursor.execute(sql_02)
+        print("2차DB_Review_Batch_insert")
+        sql_03 = "exec dbo.P_MNG_COSMECA003 @section = 'QS'"
+        cursor.execute(sql_03)
+        print("2차DB_Review_mst_통합")
+        sql_04 = "exec dbo.P_MNG_COSMECA002 @section = 'QA'"
+        cursor.execute(sql_04)
+        print("2차DB_사이트별_제품리뷰_분석유무")
+        conn.commit()
+    except Exception as e:
+        print("Error: ", e)
+    finally:
+        conn.close()
+
 
 def last_isrt_dttm():
     with open('./etc/last_isrt_dttm_G.txt','r',encoding='utf8') as f:
