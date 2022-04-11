@@ -181,9 +181,7 @@ def cate5_date():
         sql = "select distinct isrt_date from TB_CRAW_HIST (nolock) order by ISRT_DATE desc"
         cursor.execute(sql)
         isrtDate=cursor.fetchmany(4)
-        print(isrtDate)
         from_date = isrtDate[3][0]
-        print(from_date)
         to_date=isrtDate[0][0]
 
     except Exception as e:
