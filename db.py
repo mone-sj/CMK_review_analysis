@@ -197,7 +197,7 @@ def cate5_review(from_d,to_d):
         df_concat=pd.DataFrame()
         start_time=time.time()
         cursor=conn.cursor()
-        sql="select * from TB_REVIEW where part_id in (select distinct PART_ID from TB_CRAW_HIST where site_gubun='N' and ISRT_DATE>%s and ISRT_DATE <= %s and CRAW_DATA_ID='05' and convert(int, RSLT_DATA_01)<=5) and REVIEW_DOC_NO not in (select REVIEW_DOC_NO from TB_REVIEW_ANAL_00_N where site_gubun='N')"
+        sql="select * from TB_REVIEW (nolock) where part_id in (select distinct PART_ID from TB_CRAW_HIST (nolock) where site_gubun='N' and ISRT_DATE>%s and ISRT_DATE <= %s and CRAW_DATA_ID='05' and convert(int, RSLT_DATA_01)<=5) and REVIEW_DOC_NO not in (select REVIEW_DOC_NO from TB_REVIEW_ANAL_00_N (nolock) where site_gubun='N')"
         cursor.execute(sql,(from_d,to_d))
         row=cursor.fetchall()
         col_name=["SITE_GUBUN","PART_GROUP_ID","PART_SUB_ID","PART_ID","REVIEW_DOC_NO","ISRT_DATE","REVIEW_USER","REVIEW_DTTM","REVIEW_GRADE","REVIEW_AGE","REVIEW_SEX","REVIEW_SKIN_TYPE","REVIEW","REMARK","ISRT_USER","UPDT_USER","ISRT_DTTM","UPDT_DTTM"]
